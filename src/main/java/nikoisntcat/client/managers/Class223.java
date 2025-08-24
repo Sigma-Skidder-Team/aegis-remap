@@ -32,7 +32,7 @@ public class Class223 extends MinecraftUtil {
         }
     }
 
-    public void onPacketSend(PacketSendEvent packetSendEvent) {
+    public void onSendPacket(PacketSendEvent packetSendEvent) {
         if (packetSendEvent.isCancelled()) {
             return;
         }
@@ -61,6 +61,7 @@ public class Class223 extends MinecraftUtil {
             method1277();
             return;
         }
+
         if (field1995) {
             field1995 = false;
             mc.player.getInventory().selectedSlot = field1994;
@@ -118,7 +119,7 @@ public class Class223 extends MinecraftUtil {
         field1998 = false;
     }
 
-    public void method1443() {
+    public void onTick() {
         this.method1434();
     }
 

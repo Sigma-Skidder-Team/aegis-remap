@@ -30,7 +30,7 @@ public class MotionManager extends MinecraftUtil {
         }
     }
 
-    public void onPacketSend(PacketSendEvent packetSendEvent) {
+    public void onSendPacket(PacketSendEvent packetSendEvent) {
         if (this.field2020) {
             packetSendEvent.cancel();
         }
@@ -49,7 +49,7 @@ public class MotionManager extends MinecraftUtil {
         this.field2014 = mc.player.isOnGround();
         this.field2012 = mc.player.speed;
         this.field2020 = true;
-        AegisClient.moduleManager.field2009.forEach(module -> {
+        AegisClient.moduleManager.modules.forEach(module -> {
             module.field1594 = false;
         });
     }
@@ -71,7 +71,7 @@ public class MotionManager extends MinecraftUtil {
         mc.player.prevYaw = this.field2015.x;
         mc.player.prevPitch = this.field2015.y;
         this.field2020 = false;
-        AegisClient.moduleManager.field2009.forEach(module -> {
+        AegisClient.moduleManager.modules.forEach(module -> {
             module.field1594 = true;
         });
     }

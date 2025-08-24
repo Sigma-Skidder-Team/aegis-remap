@@ -8,9 +8,9 @@ import java.util.function.Predicate;
 public class ModeSetting
 extends Setting {
     private String field2123;
-    private List field2124;
+    private List<String> field2124;
 
-    public List method1698() {
+    public List<String> method1698() {
         return this.field2124;
     }
 
@@ -18,18 +18,18 @@ extends Setting {
         this.field2123 = string;
     }
 
-    public String method1699() {
+    public String getValue() {
         return this.field2123;
     }
 
-    public ModeSetting(String string, String string2, List list) {
+    public ModeSetting(String string, String string2, List<String> list) {
         this(string, string2, list, null);
     }
 
-    public ModeSetting(String string, String string2, List list, Predicate predicate) {
+    public ModeSetting(String string, String string2, List<String> list, Predicate predicate) {
         this.name = string;
         this.field2124 = list;
         this.field2123 = string2;
-        this.field2125 = predicate;
+        this.pred = predicate;
     }
 }

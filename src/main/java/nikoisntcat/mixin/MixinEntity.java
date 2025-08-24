@@ -53,7 +53,7 @@ implements IEntity {
     public void updateVelocity(float speed, Vec3d movementInput, CallbackInfo ci) {
         if (!MinecraftClient.getInstance().isInSingleplayer() && MinecraftClient.getInstance().player != null && this.getId() == MinecraftClient.getInstance().player.getId()) {
             this.strafeEvent = new StrafeEvent(movementInput, speed, this.getYaw(), this.getVelocity());
-            AegisClient.eventManager.method2021(this.strafeEvent);
+            AegisClient.eventManager.onStrafe(this.strafeEvent);
             this.strafeEvent.method1419();
         }
     }

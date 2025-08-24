@@ -26,10 +26,10 @@ public class AltConfig extends Config {
         JsonObject jsonObject = new JsonObject();
         for (Alt alt : AegisClient.alts) {
             JsonObject jsonObject2 = new JsonObject();
-            jsonObject2.addProperty("AccessToken", alt.field2429);
-            jsonObject2.addProperty("Type", alt.field2428.getName());
-            jsonObject2.addProperty("UUID", alt.field2431.toString());
-            jsonObject.add(alt.field2430, jsonObject2);
+            jsonObject2.addProperty("AccessToken", alt.accessToken);
+            jsonObject2.addProperty("Type", alt.type.getName());
+            jsonObject2.addProperty("UUID", alt.uuid.toString());
+            jsonObject.add(alt.username, jsonObject2);
         }
         PrintWriter printWriter = new PrintWriter(new FileWriter(this.getFile()));
         printWriter.println(Config.gson.toJson(jsonObject));

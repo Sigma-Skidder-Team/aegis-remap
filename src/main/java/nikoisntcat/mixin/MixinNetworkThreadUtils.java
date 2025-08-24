@@ -12,7 +12,7 @@ import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value={NetworkThreadUtils.class})
+@Mixin({NetworkThreadUtils.class})
 public class MixinNetworkThreadUtils {
     @Overwrite
     public static <T extends PacketListener> void forceMainThread(Packet<T> packet, T listener, ThreadExecutor<?> engine) throws OffThreadException {
@@ -21,21 +21,21 @@ public class MixinNetworkThreadUtils {
                 if (listener.accepts(packet)) {
                     try {
                         PacketReceiveEvent packetReceiveEvent = new PacketReceiveEvent(packet);
-                        AegisClient.eventManager.method2011(packetReceiveEvent);
+                        AegisClient.eventManager.onReceivePacket(packetReceiveEvent);
                         if (packetReceiveEvent.isCancelled()) {
                             return;
                         }
+
                         packet.apply(listener);
-                    }
-                    catch (Exception var4) {
-                        CrashException crashException;
-                        if (var4 instanceof CrashException && (crashException = (CrashException)var4).getCause() instanceof OutOfMemoryError) {
-                            throw NetworkThreadUtils.createCrashException((Exception)var4, (Packet)packet, (PacketListener)listener);
+                    } catch (Exception var41) {
+                        if (var41 instanceof CrashException crashException && crashException.getCause() instanceof OutOfMemoryError) {
+                            throw NetworkThreadUtils.createCrashException(var41, packet, listener);
                         }
-                        listener.onPacketException(packet, var4);
+
+                        listener.onPacketException(packet, var41);
                     }
                 } else {
-                    LogUtils.getLogger().debug("Ignoring packet due to disconnection: {}", (Object)packet);
+                    LogUtils.getLogger().debug("Ignoring packet due to disconnection: {}", packet);
                 }
             });
             throw OffThreadException.INSTANCE;

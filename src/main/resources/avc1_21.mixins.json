@@ -3,8 +3,15 @@
   "package": "nikoisntcat.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinArmorItem",
+    "MixinClientConnection",
     "MixinEntity",
-    "MixinNetworkThreadUtils"
+    "MixinEntityGlow",
+    "MixinLivingEntity",
+    "MixinNetworkThreadUtils",
+    "MixinPlayerEntity",
+    "MixinPlayerInventory",
+    "MixinSwordItem"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -14,7 +21,20 @@
   },
   "client": [
     "MixinAbstractClientPlayerEntity",
+    "MixinChatScreen",
+    "MixinClientPlayerEntity",
+    "MixinClientPlayerInteractionManager",
     "MixinClientPlayNetworkHandler",
-    "MixinMinecraftClient"
+    "MixinGameRenderer",
+    "MixinInGameHud",
+    "MixinKeyboard",
+    "MixinKeyboardInput",
+    "MixinLivingEntityRenderer",
+    "MixinMain",
+    "MixinMinecraftClient",
+    "MixinMouse",
+    "MixinMultiplayerScreen",
+    "MixinSession",
+    "MixinWorldRenderer"
   ]
 }

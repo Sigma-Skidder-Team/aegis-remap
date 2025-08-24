@@ -15,7 +15,7 @@ public class MixinKeyboard {
     public void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo info) {
         if (AegisClient.eventManager != null && action == 1) {
             KeyEvent event = new KeyEvent(key, MinecraftClient.getInstance().currentScreen != null);
-            AegisClient.eventManager.method2022(event);
+            AegisClient.eventManager.onKey(event);
         }
     }
 }

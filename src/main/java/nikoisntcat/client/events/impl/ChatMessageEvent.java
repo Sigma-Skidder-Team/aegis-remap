@@ -2,11 +2,11 @@ package nikoisntcat.client.events.impl;
 
 import nikoisntcat.client.events.CancellableEvent;
 
-public class Class214
+public class ChatMessageEvent
 extends CancellableEvent {
     private String field1976;
 
-    public Class214(String string) {
+    public ChatMessageEvent(String string) {
         this.field1976 = string;
     }
 

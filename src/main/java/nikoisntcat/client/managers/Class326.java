@@ -23,7 +23,7 @@ public class Class326 {
         return this.field2465;
     }
 
-    public void onPacketSend(PacketSendEvent packetSendEvent) {
+    public void onSendPacket(PacketSendEvent packetSendEvent) {
         if (packetSendEvent.isCancelled() || !this.field2465) {
             return;
         }
@@ -59,7 +59,7 @@ public class Class326 {
         this.field2468.addAll(List.of(classArray));
     }
 
-    public void method2049() {
+    public void onTick() {
         if (MinecraftClient.getInstance().getNetworkHandler() == null) {
             this.field2465 = false;
             this.method2050();

@@ -3,11 +3,11 @@ package nikoisntcat.client.settings;
 import java.util.function.Predicate;
 
 public class Setting {
-    protected Predicate field2125;
+    protected Predicate pred;
     protected String name;
 
     public Predicate method1700() {
-        return this.field2125;
+        return this.pred;
     }
 
     public boolean method1701() {

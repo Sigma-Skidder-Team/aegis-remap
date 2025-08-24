@@ -29,7 +29,7 @@ public class ModuleConfig extends Config {
             this.method1978();
         }
         JsonObject jsonObject = new JsonObject();
-        for (Module module : AegisClient.moduleManager.field2009) {
+        for (Module module : AegisClient.moduleManager.modules) {
             JsonObject jsonObject2 = new JsonObject();
 
             jsonObject2.addProperty("state", Boolean.valueOf(module.isEnabled()));
@@ -42,7 +42,7 @@ public class ModuleConfig extends Config {
                         object = (Setting) object2;
                         if (object instanceof NumberSetting) {
                             object2 = (NumberSetting) object;
-                            jsonObject2.addProperty(((Setting) object2).getName(), (Number) ((NumberSetting) object2).method1707());
+                            jsonObject2.addProperty(((Setting) object2).getName(), (Number) ((NumberSetting) object2).getValue());
                         }
                         if (object instanceof BooleanSetting) {
                             object2 = (BooleanSetting) object;
@@ -50,15 +50,15 @@ public class ModuleConfig extends Config {
                         }
                         if (object instanceof ModeSetting) {
                             object2 = (ModeSetting) object;
-                            jsonObject2.addProperty(((Setting) object2).getName(), ((ModeSetting) object2).method1699());
+                            jsonObject2.addProperty(((Setting) object2).getName(), ((ModeSetting) object2).getValue());
                         }
                     }
                     if (!((object2 = field.get(module)) instanceof ColorSetting)) continue;
                     object = (ColorSetting) object2;
-                    jsonObject2.addProperty(((ColorSetting) object).field2327.getName(), (Number) ((ColorSetting) object).field2327.method1707());
-                    jsonObject2.addProperty(((ColorSetting) object).field2324.getName(), (Number) ((ColorSetting) object).field2324.method1707());
-                    jsonObject2.addProperty(((ColorSetting) object).field2328.getName(), (Number) ((ColorSetting) object).field2328.method1707());
-                    jsonObject2.addProperty(((ColorSetting) object).field2326.getName(), (Number) ((ColorSetting) object).field2326.method1707());
+                    jsonObject2.addProperty(((ColorSetting) object).field2327.getName(), (Number) ((ColorSetting) object).field2327.getValue());
+                    jsonObject2.addProperty(((ColorSetting) object).field2324.getName(), (Number) ((ColorSetting) object).field2324.getValue());
+                    jsonObject2.addProperty(((ColorSetting) object).field2328.getName(), (Number) ((ColorSetting) object).field2328.getValue());
+                    jsonObject2.addProperty(((ColorSetting) object).field2326.getName(), (Number) ((ColorSetting) object).field2326.getValue());
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -101,7 +101,7 @@ public class ModuleConfig extends Config {
                         }
                         if (object instanceof NumberSetting) {
                             class261 = (NumberSetting) object;
-                            ((NumberSetting) class261).method1706(jsonObject.get(class261.getName()).getAsDouble());
+                            ((NumberSetting) class261).setValue(jsonObject.get(class261.getName()).getAsDouble());
                         }
                         if (object instanceof ModeSetting) {
                             class261 = (ModeSetting) object;
@@ -111,16 +111,16 @@ public class ModuleConfig extends Config {
                     if (!(object2 instanceof ColorSetting)) continue;
                     object = (ColorSetting) object2;
                     if (jsonObject.has(((ColorSetting) object).field2327.getName())) {
-                        ((ColorSetting) object).field2327.method1706(jsonObject.get(((ColorSetting) object).field2327.getName()).getAsInt());
+                        ((ColorSetting) object).field2327.setValue(jsonObject.get(((ColorSetting) object).field2327.getName()).getAsInt());
                     }
                     if (jsonObject.has(((ColorSetting) object).field2324.getName())) {
-                        ((ColorSetting) object).field2324.method1706(jsonObject.get(((ColorSetting) object).field2324.getName()).getAsInt());
+                        ((ColorSetting) object).field2324.setValue(jsonObject.get(((ColorSetting) object).field2324.getName()).getAsInt());
                     }
                     if (jsonObject.has(((ColorSetting) object).field2328.getName())) {
-                        ((ColorSetting) object).field2328.method1706(jsonObject.get(((ColorSetting) object).field2328.getName()).getAsInt());
+                        ((ColorSetting) object).field2328.setValue(jsonObject.get(((ColorSetting) object).field2328.getName()).getAsInt());
                     }
                     if (!jsonObject.has(((ColorSetting) object).field2326.getName())) continue;
-                    ((ColorSetting) object).field2326.method1706(jsonObject.get(((ColorSetting) object).field2326.getName()).getAsInt());
+                    ((ColorSetting) object).field2326.setValue(jsonObject.get(((ColorSetting) object).field2326.getName()).getAsInt());
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();

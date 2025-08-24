@@ -22,6 +22,10 @@ public abstract class MixinMinecraftClient {
     @Nullable
     public HitResult crosshairTarget;
 
+    @Shadow
+    @Nullable
+    public ClientWorld world;
+
     @Inject(at={@At(value="HEAD")}, method={"setWorld"})
     private void setWorld(ClientWorld world, CallbackInfo ci) {
         AegisClient.eventManager.onSetWorld();
@@ -30,7 +34,7 @@ public abstract class MixinMinecraftClient {
     @Inject(method={"doItemUse"}, at={@At(value="FIELD", target="Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", shift=At.Shift.AFTER)})
     private void hookItemUseCooldown(CallbackInfo callbackInfo) {
         if (FastPlaceModule.instance.isEnabled() && this.crosshairTarget.getType() == HitResult.Type.BLOCK) {
-            this.itemUseCooldown = (int)FastPlaceModule.field1806.method1707();
+            this.itemUseCooldown = (int)FastPlaceModule.field1806.getValue();
         }
     }
 
@@ -51,11 +55,13 @@ public abstract class MixinMinecraftClient {
             info.cancel();
             return;
         }
+
         if (Class224.field2001) {
             Class224.method1277();
         }
-        if (AegisClient.eventManager != null) {
-            AegisClient.eventManager.method2010(info);
+
+        if (AegisClient.eventManager != null && world != null) {
+            AegisClient.eventManager.onTick(info);
         }
     }
 

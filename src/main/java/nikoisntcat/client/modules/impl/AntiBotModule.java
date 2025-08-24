@@ -19,6 +19,9 @@ public class AntiBotModule extends Module {
         super("AntiBot", 0, false, Category.WORLD);
     }
 
+    static {
+        instance = new AntiBotModule();
+    }
 
     public boolean method1380(LivingEntity entity) {
         if (!this.isEnabled()) {
@@ -32,7 +35,7 @@ public class AntiBotModule extends Module {
     }
 
     @Override
-    public void method1214() {
+    public void onSetWorld() {
         this.field1920.clear();
         this.field1919.clear();
     }

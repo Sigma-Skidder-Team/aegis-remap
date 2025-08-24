@@ -9,7 +9,7 @@ extends Event {
     private float field1989;
     private DrawContext field1990;
 
-    public DrawContext method1428() {
+    public DrawContext getDrawContext() {
         return this.field1990;
     }
 

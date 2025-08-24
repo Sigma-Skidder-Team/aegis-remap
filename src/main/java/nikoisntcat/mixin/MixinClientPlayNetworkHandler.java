@@ -11,7 +11,6 @@ import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BundleS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
-import net.minecraft.util.thread.ThreadExecutor;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.modules.impl.nrsModule;
@@ -34,11 +33,11 @@ public abstract class MixinClientPlayNetworkHandler
 
     @Inject(method = {"onPlayerPositionLook"}, at = {@At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/network/NetworkThreadUtils;forceMainThread(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/util/thread/ThreadExecutor;)V")}, cancellable = true)
     public void onPlayerPositionLook(PlayerPositionLookS2CPacket packet, CallbackInfo ci) {
-        nrsModule nrs = (nrsModule) AegisClient.moduleManager.field2010.get(nrsModule.class);
-        if (nrs.isEnabled()) {
+        //nrsModule nrs = (nrsModule) AegisClient.moduleManager.field2010.get(nrsModule.class);
+        //if (nrs.isEnabled()) {
             //nrs.method1298(packet, (class_1657) this.field_45588.field_1724, this.connection);
-            ci.cancel();
-        }
+           // ci.cancel();
+        //}
     }
 
     @Overwrite
@@ -46,7 +45,7 @@ public abstract class MixinClientPlayNetworkHandler
         NetworkThreadUtils.forceMainThread((Packet) packet, (PacketListener) (this), this.client);
         for (Packet packet2 : packet.getPackets()) {
             PacketReceiveEvent event = new PacketReceiveEvent(packet2);
-            AegisClient.eventManager.method2011(event);
+            AegisClient.eventManager.onReceivePacket(event);
             if (event.isCancelled()) continue;
             packet2.apply(this);
         }

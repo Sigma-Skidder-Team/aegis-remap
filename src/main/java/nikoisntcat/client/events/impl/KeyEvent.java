@@ -7,7 +7,7 @@ extends Event {
     private boolean field1991;
     private int field1992;
 
-    public int method1430() {
+    public int getKey() {
         return this.field1992;
     }
 

@@ -11,29 +11,29 @@ public class ColorSetting {
     public final NumberSetting field2328;
 
     public int method1907() {
-        return new Color((int)this.field2327.method1707(), (int)this.field2324.method1707(), (int)this.field2328.method1707(), (int)this.field2326.method1707()).getRGB();
+        return new Color((int)this.field2327.getValue(), (int)this.field2324.getValue(), (int)this.field2328.getValue(), (int)this.field2326.getValue()).getRGB();
     }
 
     public Color method1908() {
-        return new Color((int)this.field2327.method1707(), (int)this.field2324.method1707(), (int)this.field2328.method1707(), (int)this.field2326.method1707());
+        return new Color((int)this.field2327.getValue(), (int)this.field2324.getValue(), (int)this.field2328.getValue(), (int)this.field2326.getValue());
     }
 
     public void method1909(float f, float f2, float f3, float f4) {
-        this.field2327.method1706(f);
-        this.field2324.method1706(f2);
-        this.field2328.method1706(f3);
-        this.field2326.method1706(f4);
+        this.field2327.setValue(f);
+        this.field2324.setValue(f2);
+        this.field2328.setValue(f3);
+        this.field2326.setValue(f4);
     }
 
     public void method1910(float f) {
-        this.field2326.method1706(f);
+        this.field2326.setValue(f);
     }
 
     public void method1912(Color color) {
-        this.field2327.method1706(color.getRed());
-        this.field2324.method1706(color.getGreen());
-        this.field2328.method1706(color.getBlue());
-        this.field2326.method1706(color.getAlpha());
+        this.field2327.setValue(color.getRed());
+        this.field2324.setValue(color.getGreen());
+        this.field2328.setValue(color.getBlue());
+        this.field2326.setValue(color.getAlpha());
     }
 
     public ColorSetting(String string, boolean bl, Predicate predicate) {

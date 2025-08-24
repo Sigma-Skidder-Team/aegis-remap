@@ -88,7 +88,7 @@ public class MotionEvent extends CancellableEvent {
         return this.field1959;
     }
 
-    public void method1411(Class123 class123) {
+    public void setState(Class123 class123) {
         this.field1957 = class123;
     }
 

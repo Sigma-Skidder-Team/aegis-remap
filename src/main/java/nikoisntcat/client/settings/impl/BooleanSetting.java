@@ -11,7 +11,7 @@ extends Setting {
     public BooleanSetting(String string, boolean bl, Predicate predicate) {
         this.name = string;
         this.field2127 = bl;
-        this.field2125 = predicate;
+        this.pred = predicate;
     }
 
     public boolean method1703() {

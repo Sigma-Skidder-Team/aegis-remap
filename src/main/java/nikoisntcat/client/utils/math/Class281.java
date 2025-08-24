@@ -13,7 +13,7 @@ import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
-import nikoisntcat.client.modules.impl.Class195;
+import nikoisntcat.client.modules.impl.ClientSettingsModule;
 import org.joml.Matrix4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +27,16 @@ public class Class281 {
 
     private CompiledShader method1784(String path, CompiledShader.Type type) {
         StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Class281.class.getResourceAsStream(path))));){
-            stringBuilder.append(bufferedReader.lines().collect(Collectors.joining((String)Class281.method1802('\u0000'))));
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Class281.class.getResourceAsStream(path))))){
+            stringBuilder.append(bufferedReader.lines().collect(Collectors.joining("\n")));
         }
         catch (Exception exception) {
-            field2197.error((String)Class281.method1802('\u0001'), (Object)path, (Object)exception);
+            field2197.error("Failed to read shader file: {}", (Object)path, (Object)exception);
             return null;
         }
         System.out.println(stringBuilder.toString());
         try {
-            return CompiledShader.compile((Identifier)Identifier.of((String)((String)Class281.method1802('\u0002')), (String)path), (CompiledShader.Type)type, (String)stringBuilder.toString());
+            return CompiledShader.compile((Identifier)Identifier.of((String)(""), (String)path), (CompiledShader.Type)type, (String)stringBuilder.toString());
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -104,20 +104,20 @@ public class Class281 {
     }
 
     public void method1789() {
-        if (Class195.field1846.method1703()) {
+        if (ClientSettingsModule.field1846.method1703()) {
             return;
         }
         if (field2195) {
             return;
         }
         field2195 = true;
-        this.method1790((String)Class281.method1802('\u0003'), (String)Class281.method1802('\u0004'), (String)Class281.method1802('\u0005'), VertexFormats.POSITION_TEXTURE_COLOR);
-        this.method1790((String)Class281.method1802('\u0006'), (String)Class281.method1802('\u0007'), (String)Class281.method1802('\b'), VertexFormats.POSITION_TEXTURE);
-        this.method1790((String)Class281.method1802('\t'), (String)Class281.method1802('\u0007'), (String)Class281.method1802('\n'), VertexFormats.POSITION_TEXTURE);
-        this.method1790((String)Class281.method1802('\u000b'), (String)Class281.method1802('\u0007'), (String)Class281.method1802('\f'), VertexFormats.POSITION_TEXTURE);
-        this.method1790((String)Class281.method1802('\r'), (String)Class281.method1802('\u0007'), (String)Class281.method1802('\u000e'), VertexFormats.POSITION_TEXTURE);
-        this.method1790((String)Class281.method1802('\u000f'), (String)Class281.method1802('\u0007'), (String)Class281.method1802('\u0010'), VertexFormats.POSITION_TEXTURE);
-        field2197.info((String)Class281.method1802('\u0011'), (Object)this.field2198.size());
+        this.method1790("rounded", "/assets/aegis/shaders/rounded_rect.vsh", "/assets/aegis/shaders/rounded_rect.fsh", VertexFormats.POSITION_TEXTURE_COLOR);
+        this.method1790("blur", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/blur.fsh", VertexFormats.POSITION_TEXTURE);
+        this.method1790("composite", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/composite.fsh", VertexFormats.POSITION_TEXTURE);
+        this.method1790("blur_kawase_down", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/blur_kawase_down.fsh", VertexFormats.POSITION_TEXTURE);
+        this.method1790("blur_kawase_up", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/blur_kawase_up.fsh", VertexFormats.POSITION_TEXTURE);
+        this.method1790("pass", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/pass.fsh", VertexFormats.POSITION_TEXTURE);
+        field2197.info("ShaderManager initialized. Loaded {} shaders.", (Object)this.field2198.size());
     }
 
     private void method1790(String name, String vertexPath, String fragmentPath, VertexFormat vertexFormat) {
@@ -127,7 +127,7 @@ public class Class281 {
             this.field2196.put(shaderProgram, vertexFormat);
         }
         catch (Exception exception) {
-            field2197.error((String)Class281.method1802('\u0012'), (Object)name);
+            field2197.error("Failed to load shader: {}", (Object)name);
         }
     }
 
@@ -272,11 +272,7 @@ public class Class281 {
         if (RenderSystem.getShader() == null) {
             return;
         }
-        this.method1786((String)Class281.method1802('\u0013'), RenderSystem.getModelViewMatrix());
-        this.method1786((String)Class281.method1802('\u0014'), RenderSystem.getProjectionMatrix());
-    }
-
-    private static Object method1802(char c) {
-        return ((Object[])field2199)[c];
+        this.method1786("ModelViewMat", RenderSystem.getModelViewMatrix());
+        this.method1786("ProjMat", RenderSystem.getProjectionMatrix());
     }
 }

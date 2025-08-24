@@ -12,7 +12,7 @@ public class ConfigManager extends MinecraftUtil {
     public final File clientDir;
     public final File configDir;
 
-    public void method1393() {
+    public void save() {
         try {
             if (!this.clientDir.exists()) {
                 this.clientDir.mkdir();
