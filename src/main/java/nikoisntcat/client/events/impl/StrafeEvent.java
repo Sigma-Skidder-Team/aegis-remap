@@ -3,7 +3,7 @@ package nikoisntcat.client.events.impl;
 import net.minecraft.util.math.Vec3d;
 import nikoisntcat.client.events.CancellableEvent;
 
-public class Class211 extends CancellableEvent {
+public class StrafeEvent extends CancellableEvent {
     float field1970;
     float field1971;
     Vec3d field1972;
@@ -38,7 +38,7 @@ public class Class211 extends CancellableEvent {
         return this.field1973;
     }
 
-    public Class211(Vec3d vec, float f, float f2, Vec3d vec2) {
+    public StrafeEvent(Vec3d vec, float f, float f2, Vec3d vec2) {
         this.field1973 = vec;
         this.field1970 = f;
         this.field1971 = this.field1974 = f2;

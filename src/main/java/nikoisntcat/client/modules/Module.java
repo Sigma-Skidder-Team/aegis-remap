@@ -36,6 +36,10 @@ public abstract class Module extends MinecraftUtil {
         }
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
     protected Module(String string, int n, boolean bl, Category moduleCategory) {
         this.name = string;
         this.key = n;
@@ -99,7 +103,7 @@ public abstract class Module extends MinecraftUtil {
     public void method1208(Class216 class216) {
     }
 
-    public void method1221(Class211 class211) {
+    public void method1221(StrafeEvent strafeEvent) {
     }
 
     public void method1205(Class217 class217) {

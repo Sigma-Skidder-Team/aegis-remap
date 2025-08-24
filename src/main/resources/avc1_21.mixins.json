@@ -3,6 +3,7 @@
   "package": "nikoisntcat.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinEntity"
   ],
   "injectors": {
     "defaultRequire": 1
