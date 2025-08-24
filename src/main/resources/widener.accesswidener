@@ -1,0 +1,25 @@
+accessWidener	v2	intermediary
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	usingItem	Z
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	entityId	I
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	ticksSinceLastPositionPacketSent	I
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastZ	D
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastBaseY	D
+accessible	field	net/minecraft/entity/LivingEntity	jumpingCooldown	I
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	ticksLeftToDoubleTapSprint	I
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	ticksToNextAutoJump	I
+accessible	field	net/minecraft/client/render/GameRenderer	buffers	Lnet/minecraft/client/render/BufferBuilderStorage;
+accessible	field	net/minecraft/entity/Entity	onGround	Z
+accessible	field	net/minecraft/block/AbstractBlock$class_2251	toolRequired	Z
+accessible	field	net/minecraft/util/hit/BlockHitResult	missed	Z
+accessible	method	net/minecraft/client/world/ClientWorld	getPendingUpdateManager	()Lnet/minecraft/client/network/PendingUpdateManager;
+accessible	field	net/minecraft/client/render/WorldRenderer	bufferBuilders	Lnet/minecraft/client/render/BufferBuilderStorage;
+accessible	field	net/minecraft/client/texture/NativeImage	pointer	J
+accessible	method	net/minecraft/entity/player/PlayerEntity	getDamageAgainst	(Lnet/minecraft/entity/Entity;FLnet/minecraft/entity/damage/DamageSourc;)F
+accessible	field	net/minecraft/client/gui/DrawContext	vertexConsumers	Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;
+accessible	field	net/minecraft/entity/Entity	movementMultiplier	Lnet/minecraft/util/math/Vec3d;
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastYaw	F
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastPitch	F
+accessible	field	net/minecraft/client/render/WorldRenderer	blockBreakingInfos	Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastX	D
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	ATTACK	Lnet/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler;
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	type	Lnet/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler;
