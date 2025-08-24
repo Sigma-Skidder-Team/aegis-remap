@@ -3,7 +3,8 @@
   "package": "nikoisntcat.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MixinEntity"
+    "MixinEntity",
+    "MixinNetworkThreadUtils"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -12,6 +13,7 @@
     "requireAnnotations": true
   },
   "client": [
+    "MixinAbstractClientPlayerEntity",
     "MixinClientPlayNetworkHandler",
     "MixinMinecraftClient"
   ]

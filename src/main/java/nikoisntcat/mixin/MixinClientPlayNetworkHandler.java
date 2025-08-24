@@ -13,7 +13,7 @@ import net.minecraft.network.packet.s2c.play.BundleS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.util.thread.ThreadExecutor;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.events.impl.Class212;
+import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.modules.impl.nrsModule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -43,9 +43,9 @@ public abstract class MixinClientPlayNetworkHandler
 
     @Overwrite
     public void onBundle(BundleS2CPacket packet) {
-        NetworkThreadUtils.forceMainThread((Packet) packet, (PacketListener) (this), (ThreadExecutor) this.client);
+        NetworkThreadUtils.forceMainThread((Packet) packet, (PacketListener) (this), this.client);
         for (Packet packet2 : packet.getPackets()) {
-            Class212 event = new Class212(packet2);
+            PacketReceiveEvent event = new PacketReceiveEvent(packet2);
             AegisClient.eventManager.method2011(event);
             if (event.isCancelled()) continue;
             packet2.apply(this);

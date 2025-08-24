@@ -2,11 +2,11 @@ package nikoisntcat.client.events.impl;
 
 import nikoisntcat.client.events.CancellableEvent;
 
-public class Class216
+public class JumpEvent
 extends CancellableEvent {
     public float field1978;
 
-    public Class216(float f) {
+    public JumpEvent(float f) {
         this.field1978 = f;
     }
 }

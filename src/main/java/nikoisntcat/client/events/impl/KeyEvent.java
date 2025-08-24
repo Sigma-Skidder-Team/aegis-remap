@@ -2,7 +2,7 @@ package nikoisntcat.client.events.impl;
 
 import nikoisntcat.client.events.Event;
 
-public class Class221
+public class KeyEvent
 extends Event {
     private boolean field1991;
     private int field1992;
@@ -15,7 +15,7 @@ extends Event {
         return this.field1991;
     }
 
-    public Class221(int n, boolean bl) {
+    public KeyEvent(int n, boolean bl) {
         this.field1992 = n;
         this.field1991 = bl;
     }
