@@ -1,9 +1,10 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import nikoisntcat.client.modules.Category;
+import nikoisntcat.client.screens.clickgui.comp.CategoryComponent;
 
 import java.util.ArrayList;
 import java.util.List;

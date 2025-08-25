@@ -1,4 +1,4 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import java.awt.Color;
 import java.math.BigDecimal;
@@ -9,8 +9,8 @@ import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.math.Class250;
 import nikoisntcat.client.utils.math.Class288;
 
-public class Class246
-extends Class245 {
+public class NumberSettingComponent
+extends SettingComponent {
     private int field2092;
     private int field2093;
     private Class288 field2094 = new Class288(4.0f, 0.0f);
@@ -33,7 +33,7 @@ extends Class245 {
         return new BigDecimal(num).setScale(6, RoundingMode.HALF_UP).doubleValue();
     }
 
-    public Class246(Setting value) {
+    public NumberSettingComponent(Setting value) {
         super(value);
         this.field2095 = (NumberSetting)value;
     }
@@ -55,7 +55,7 @@ extends Class245 {
         if (this.field2096) {
             int n = (int)((this.field2095.getMax() - this.field2095.getMin()) / this.field2095.getMinPerc());
             double d = (mouseX - (double)this.field2097 - 5.0) / (double)(this.field2093 - 10);
-            this.field2095.setValue(Class246.method1676(Math.max(this.field2095.getMin(), Math.min((double)((int)(d * (double)n)) * this.field2095.getMinPerc() + this.field2095.getMin(), this.field2095.getMax()))));
+            this.field2095.setValue(NumberSettingComponent.method1676(Math.max(this.field2095.getMin(), Math.min((double)((int)(d * (double)n)) * this.field2095.getMinPerc() + this.field2095.getMin(), this.field2095.getMax()))));
         }
     }
 

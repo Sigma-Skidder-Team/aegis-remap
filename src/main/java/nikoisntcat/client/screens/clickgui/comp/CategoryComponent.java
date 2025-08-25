@@ -1,4 +1,4 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -6,6 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import nikoisntcat.client.managers.ModuleManager;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
+import nikoisntcat.client.utils.render.RenderUtil;
 import nikoisntcat.client.utils.math.Class250;
 import nikoisntcat.client.utils.math.Class288;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class CategoryComponent {
     public int field2329;
-    public List<Class291> field2330 = new ArrayList<>();
+    public List<ModuleComponent> field2330 = new ArrayList<>();
     private int field2331 = 0;
     private boolean field2332 = false;
     public int field2333;
@@ -36,7 +37,7 @@ public class CategoryComponent {
                 this.field2339 = true;
             }
         }
-        this.field2330.forEach(class291 -> class291.mouseClicked(d, d2, n));
+        this.field2330.forEach(moduleComponent -> moduleComponent.mouseClicked(d, d2, n));
     }
 
     public void mouseReleased(double d, double d2, int n) {
@@ -45,13 +46,13 @@ public class CategoryComponent {
         }
         this.field2332 = false;
         this.field2339 = false;
-        this.field2330.forEach(class291 -> class291.mouseReleased(d, d2, n));
+        this.field2330.forEach(moduleComponent -> moduleComponent.mouseReleased(d, d2, n));
     }
 
     public int method1919() {
         int n = this.field2334;
-        for (Class291 class291 : this.field2330) {
-            n = Math.max(n, class291.method1855());
+        for (ModuleComponent moduleComponent : this.field2330) {
+            n = Math.max(n, moduleComponent.method1855());
         }
         return n;
     }
@@ -66,9 +67,9 @@ public class CategoryComponent {
         int n = 120;
         for (Module module : ModuleManager.method1479(this.category)) {
             System.out.println(module.name);
-            Class291 class291 = new Class291(module);
-            this.field2330.add(class291);
-            class291.method1859();
+            ModuleComponent moduleComponent = new ModuleComponent(module);
+            this.field2330.add(moduleComponent);
+            moduleComponent.method1859();
             n = Math.max(n, MinecraftClient.getInstance().textRenderer.getWidth(module.name) + 20);
         }
         this.field2334 = n;
@@ -83,7 +84,7 @@ public class CategoryComponent {
     }
 
     public void mouseScrolled(double d, double d2, double d3, double d4) {
-        this.field2330.forEach(class291 -> class291.mouseScrolled(d, d2, d3, d4));
+        this.field2330.forEach(moduleComponent -> moduleComponent.mouseScrolled(d, d2, d3, d4));
     }
 
     public void render(DrawContext ctx, int n, int n2) {
@@ -91,7 +92,7 @@ public class CategoryComponent {
         TextRenderer fr = MinecraftClient.getInstance().textRenderer;
         int n3 = (int)Math.ceil(this.field2335.method1845());
         int n4 = 22 + n3;
-        Class234.method1578(ctx.getMatrices(), this.field2333, this.field2329, this.field2334, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
+        RenderUtil.method1578(ctx.getMatrices(), this.field2333, this.field2329, this.field2334, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
         CategoryComponent.method1921(ctx, this.field2333 + 1, this.field2329 + 1, this.field2334 - 2, 21, -1726737127);
         CategoryComponent.method1921(ctx, this.field2333 + 1, this.field2329 + 22, this.field2334 - 2, n4 - 22 - 1, 0x66FFFFFF);
         String string = this.category != null ? this.category.name() : "CATEGORY";
@@ -99,8 +100,8 @@ public class CategoryComponent {
         ctx.enableScissor(this.field2333 + 1, this.field2329 + 22, this.field2333 + this.field2334 - 1, this.field2329 + n4 - 1);
         int n5 = 0;
         if (this.field2338) {
-            for (Class291 class291 : this.field2330) {
-                n5 += class291.render(ctx, this.field2333 + 1, this.field2329 + 22 + n5, this.field2334 - 2, n, n2);
+            for (ModuleComponent moduleComponent : this.field2330) {
+                n5 += moduleComponent.render(ctx, this.field2333 + 1, this.field2329 + 22 + n5, this.field2334 - 2, n, n2);
             }
             this.field2335.method1847((float)n5 + 1.0f);
         } else {
@@ -110,7 +111,7 @@ public class CategoryComponent {
     }
 
     public void init() {
-        this.field2330.forEach(Class291::init);
+        this.field2330.forEach(ModuleComponent::init);
         this.field2335.method1844(0.0f);
     }
 
@@ -119,6 +120,6 @@ public class CategoryComponent {
             this.field2333 = (int)(d - (double)this.field2336);
             this.field2329 = (int)(d2 - (double)this.field2331);
         }
-        this.field2330.forEach(class291 -> class291.mouseDragged(d, d2, n, d3, d4));
+        this.field2330.forEach(moduleComponent -> moduleComponent.mouseDragged(d, d2, n, d3, d4));
     }
 }

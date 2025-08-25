@@ -18,10 +18,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ModuleManager extends MinecraftUtil {
-    public final List<Module> modules = new ArrayList<>();
+    public final List<Module> modules;
     public final Map<Class<? extends Module>, Module> field2010 = new HashMap<>();
 
     public ModuleManager() {
+        this.modules = new ArrayList<>();
         init();
     }
 
@@ -52,8 +53,7 @@ public class ModuleManager extends MinecraftUtil {
             try {
                 if (!module.method1222()) continue;
                 biConsumer.accept(module, callbackInfo);
-            }
-            catch (Exception exception) {
+            } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
                 System.out.println(exception.getMessage());
                 exception.printStackTrace();
@@ -66,8 +66,7 @@ public class ModuleManager extends MinecraftUtil {
             try {
                 if (!module.method1222()) continue;
                 consumer.accept(module);
-            }
-            catch (Exception exception) {
+            } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
                 System.out.println(exception.getMessage());
                 exception.printStackTrace();
@@ -83,10 +82,10 @@ public class ModuleManager extends MinecraftUtil {
 
     public void init() {
         this.add(new SprintModule());
-        //this.add(new Class174());
+        this.add(new GetLagModule());
         //this.add(new Class202());
         //this.add(new Class171());
-        //this.add(new Class187());
+        this.add(new FirstModuleModule());
         //this.add(new Class175());
         //this.add(new Class194());
         //this.add(new Class169());
@@ -97,24 +96,23 @@ public class ModuleManager extends MinecraftUtil {
         //this.add(new Class199());
         //this.add(new Class164());
         this.add(ClientSettingsModule.instance);
-        this.add(new Class166());
-        this.add(new nrsModule());
+        this.add(new DisablerModule());
         this.add(AntiBotModule.instance);
         //this.add(new Class179());
-       // this.add(new Class172());
-       // this.add(new Class180());
-       // this.add(new Class196());
+        // this.add(new Class172());
+        this.add(new NoRotationSetModule());
+        // this.add(new Class196());
         //this.add(new Class200());
         //this.add(new Class188());
         //this.add(new Class203());
-       // this.add(new Class189());
+        // this.add(new Class189());
         //this.add(new Class184());
-        this.add(new Class181());
+        this.add(new NotificationModule());
         //this.add(new Class183());
         //this.add(Class178.field1737);
         //this.add(new Class167());
         //this.add(new Class170());
-        //this.add(new Class173());
+        this.add(new LongJumpModule());
         //this.add(new Class192());
         //this.add(new Class177());
         //this.add(new Class191());
@@ -209,8 +207,7 @@ public class ModuleManager extends MinecraftUtil {
                 }
                 if (module.key != event.getKey() || Class224.nullCheck() || mc.currentScreen != null) continue;
                 module.toggle();
-            }
-            catch (Exception exception) {
+            } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
                 exception.printStackTrace();
             }

@@ -1,7 +1,8 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import nikoisntcat.client.screens.Class313;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.utils.math.Class250;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Class247
-extends Class245 {
+public class ModeSettingComponent
+extends SettingComponent {
     public List<Class313> field2098 = new ArrayList<>();
     private int field2099;
     private int field2100;
@@ -51,7 +52,7 @@ extends Class245 {
         context.fill(x + width - this.field2100 - 11, y + 2, x + width - 2, (int)((float)y + this.field2104.method1845()), new Color(20, 20, 20).getRGB());
         int n = 12;
         context.drawText(MinecraftClient.getInstance().textRenderer, this.field2103.getValue(), x + width - this.field2100 - 6, y + 5, -1, true);
-        context.drawText(MinecraftClient.getInstance().textRenderer, this.field2102 ? (String)Class247.method1678('\u0000') : (String)Class247.method1678('\u0001'), x + width - 10, y + 5, -1, false);
+        context.drawText(MinecraftClient.getInstance().textRenderer, this.field2102 ? "-" : "+", x + width - 10, y + 5, -1, false);
         if (this.field2102) {
             Iterator<Class313> iterator = this.field2098.iterator();
             while (iterator.hasNext()) {
@@ -89,7 +90,7 @@ extends Class245 {
         }
     }
 
-    public Class247(Setting value) {
+    public ModeSettingComponent(Setting value) {
         super(value);
         this.field2103 = (ModeSetting)value;
     }
@@ -97,9 +98,5 @@ extends Class245 {
     @Override
     public int method1673() {
         return MinecraftClient.getInstance().textRenderer.getWidth(this.field2103.getName()) + this.field2100 + 30;
-    }
-
-    private static Object method1678(char c) {
-        return ((Object[])field2106)[c];
     }
 }

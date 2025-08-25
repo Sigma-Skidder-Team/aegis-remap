@@ -5,7 +5,7 @@ public abstract class Class272 {
     protected int field2163;
     private static int field2164;
     protected Class125 field2165;
-    public TimerUtil field2166 = new TimerUtil();
+    public TimerUtil timer = new TimerUtil();
     protected double field2167;
 
     public void method1755(double endPoint) {
@@ -33,7 +33,7 @@ public abstract class Class272 {
     }
 
     public double method1761() {
-        return 1.0 - (double)this.field2166.method1904() / (double)this.field2163 * this.field2167;
+        return 1.0 - (double)this.timer.method1904() / (double)this.field2163 * this.field2167;
     }
 
     public static void method1762(int delta) {
@@ -84,7 +84,7 @@ public abstract class Class272 {
     }
 
     public boolean method1766() {
-        return this.field2166.method1903(this.field2163);
+        return this.timer.method1903(this.field2163);
     }
 
     public Class125 method1767() {
@@ -97,8 +97,8 @@ public abstract class Class272 {
         this.field2165 = state;
     }
 
-    public void method1768() {
-        this.field2166.method1905();
+    public void update() {
+        this.timer.update();
     }
 
     public Class272(int ms, double endPoint) {
@@ -108,7 +108,7 @@ public abstract class Class272 {
     public Class272 method1769(Class125 state) {
         if (this.field2165 != state) {
             this.field2165 = state;
-            this.field2166.method1900(System.currentTimeMillis() - ((long)this.field2163 - Math.min((long)this.field2163, this.field2166.method1904())));
+            this.timer.setCurrentMs(System.currentTimeMillis() - ((long)this.field2163 - Math.min((long)this.field2163, this.timer.method1904())));
         }
         return this;
     }
@@ -118,15 +118,15 @@ public abstract class Class272 {
             if (this.method1766()) {
                 return this.field2167;
             }
-            return this.method1754((double)this.field2166.method1904() / (double)this.field2163) * this.field2167;
+            return this.method1754((double)this.timer.method1904() / (double)this.field2163) * this.field2167;
         }
         if (this.method1766()) {
             return 0.0;
         }
         if (this.method1759()) {
-            double d = Math.min((long)this.field2163, Math.max(0L, (long)this.field2163 - this.field2166.method1904()));
+            double d = Math.min((long)this.field2163, Math.max(0L, (long)this.field2163 - this.timer.method1904()));
             return this.method1754(d / (double)this.field2163) * this.field2167;
         }
-        return (1.0 - this.method1754((double)this.field2166.method1904() / (double)this.field2163)) * this.field2167;
+        return (1.0 - this.method1754((double)this.timer.method1904() / (double)this.field2163)) * this.field2167;
     }
 }

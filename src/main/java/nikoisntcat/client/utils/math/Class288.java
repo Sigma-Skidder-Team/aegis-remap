@@ -8,7 +8,7 @@ public class Class288 {
     private float field2248;
 
     public void method1844(float f) {
-        this.field2247.method1905();
+        this.field2247.update();
         this.field2248 = f;
         this.field2246 = this.field2245 - this.field2248;
     }
@@ -41,7 +41,7 @@ public class Class288 {
             return;
         }
         this.field2248 = this.method1845();
-        this.field2247.method1905();
+        this.field2247.update();
         this.field2246 = f - this.field2248;
         this.field2245 = f;
     }

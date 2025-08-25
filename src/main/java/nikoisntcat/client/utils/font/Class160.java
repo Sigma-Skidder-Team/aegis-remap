@@ -12,7 +12,6 @@ import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.Closeable;
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -22,10 +21,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.IvParameterSpec;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
@@ -179,7 +174,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
     )
     @NotNull
     public static Identifier method1166() {
-        return Identifier.of((String)method1195('\u0000'), "temp/" + method1194());
+        return Identifier.of("client", "temp/" + method1194());
     }
 
     public void method1167(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a, boolean gradient, int offset) {
@@ -338,7 +333,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
 
     private void method1170(Font font, float sizePx) {
         if (this.field1584) {
-            throw new IllegalStateException((String)method1195('\u0001'));
+            throw new IllegalStateException("Double call to init()");
         } else {
             this.field1584 = true;
             this.field1587 = (int)mc.getWindow().getScaleFactor();
@@ -574,11 +569,10 @@ public class Class160 extends MinecraftUtil implements Closeable {
         this.method1190(stack, s, (float)x, (float)y, var8, var9, var10, var11);
     }
 
+    /*
+    original: (String) IntStream.range(0, 32).mapToObj(operand -> String.valueOf((char)new Random().nextInt(97, 123))).collect(Collectors.joining())
+     */
     private static String method1194() {
-        return (String)IntStream.range(0, 32).mapToObj(operand -> String.valueOf((char)new Random().nextInt(97, 123))).collect(Collectors.joining());
-    }
-
-    private static Object method1195(char var0) {
-        return ((Object[])field1588)[var0];
+        return "nxxqdbijuciiuoftggpmdqwrclupnsfj";
     }
 }

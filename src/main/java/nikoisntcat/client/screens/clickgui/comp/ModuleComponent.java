@@ -1,4 +1,4 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -16,7 +16,7 @@ import nikoisntcat.client.modules.Module;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class291 {
+public class ModuleComponent {
     int field2258;
     private final Class288 field2259;
     int field2260;
@@ -26,7 +26,7 @@ public class Class291 {
     public Module field2264;
     private final Class288 field2265;
     int field2266;
-    public List<Class245> field2267 = new ArrayList();
+    public List<SettingComponent> field2267 = new ArrayList();
     private final Class288 field2268;
     public boolean field2269 = false;
 
@@ -35,11 +35,11 @@ public class Class291 {
             this.field2262 = true;
         }
         if (this.field2269) {
-            this.field2267.forEach(class245 -> class245.method1668(d, d2, n));
+            this.field2267.forEach(settingComponent -> settingComponent.method1668(d, d2, n));
         }
     }
 
-    public Class291(Module module) {
+    public ModuleComponent(Module module) {
         this.field2265 = new Class288(3.2f, 0.0f);
         this.field2261 = new Class288(18.0f, 0.0f);
         this.field2259 = new Class288(20.0f, 0.0f);
@@ -49,15 +49,15 @@ public class Class291 {
 
     public int method1855() {
         int n = MinecraftClient.getInstance().textRenderer.getWidth(this.field2264.name) + 20;
-        for (Class245 class245 : this.field2267) {
-            n = Math.max(n, class245.method1673());
+        for (SettingComponent settingComponent : this.field2267) {
+            n = Math.max(n, settingComponent.method1673());
         }
         return n;
     }
 
     public void mouseDragged(double d, double d2, int n, double d3, double d4) {
         if (this.field2269) {
-            this.field2267.forEach(class245 -> class245.mouseDragged(d, d2, n, d3, d4));
+            this.field2267.forEach(settingComponent -> settingComponent.mouseDragged(d, d2, n, d3, d4));
         }
     }
 
@@ -67,29 +67,29 @@ public class Class291 {
 
     public void method1859() {
         for (Setting setting : this.field2264.getSettings()) {
-            Class245 class245;
+            SettingComponent settingComponent;
             if (setting instanceof BooleanSetting) {
-                class245 = new Class248(setting);
-                this.field2267.add(class245);
-                class245.method1674();
+                settingComponent = new BooleanSettingComponent(setting);
+                this.field2267.add(settingComponent);
+                settingComponent.method1674();
                 continue;
             }
             if (setting instanceof ModeSetting) {
-                class245 = new Class247(setting);
-                this.field2267.add(class245);
-                class245.method1674();
+                settingComponent = new ModeSettingComponent(setting);
+                this.field2267.add(settingComponent);
+                settingComponent.method1674();
                 continue;
             }
             if (!(setting instanceof NumberSetting)) continue;
-            class245 = new Class246(setting);
-            this.field2267.add(class245);
-            class245.method1674();
+            settingComponent = new NumberSettingComponent(setting);
+            this.field2267.add(settingComponent);
+            settingComponent.method1674();
         }
     }
 
     public void mouseScrolled(double d, double d2, double d3, double d4) {
         if (this.field2269) {
-            this.field2267.forEach(class245 -> class245.mouseScrolled(d, d2, d3, d4));
+            this.field2267.forEach(settingComponent -> settingComponent.mouseScrolled(d, d2, d3, d4));
         }
     }
 
@@ -101,7 +101,7 @@ public class Class291 {
     public void init() {
         this.field2265.method1844(0.0f);
         this.field2268.method1844(0.0f);
-        this.field2267.forEach(Class245::init);
+        this.field2267.forEach(SettingComponent::init);
     }
 
     public int render(DrawContext ctx, int n, int n2, int n3, int n4, int n5) {
@@ -124,7 +124,7 @@ public class Class291 {
         matrix.scale(f4, f5, 1.0f);
         matrix.translate(-((float) n + (float) n3 / 2.0f), -((float) n2 + 8.0f), 0.0f);
         int n6 = this.field2264.isEnabled() ? -865163265 : 0x6644464A;
-        int n7 = Class291.method1861(0xFFFFFF, (int) (34.0f * f));
+        int n7 = ModuleComponent.method1861(0xFFFFFF, (int) (34.0f * f));
         ctx.fill(n + 1, n2 + 1, n + n3 - 1, n2 + 1 + 16 - 2, n6);
         if (f > 0.001f) {
             ctx.fill(n + 1, n2 + 1, n + n3 - 1, n2 + 1 + 16 - 2, n7);
@@ -134,9 +134,9 @@ public class Class291 {
         int n8 = 16;
         if (this.field2269) {
             int n9 = 0;
-            for (Class245 class245 : this.field2267) {
-                if (!class245.method1670()) continue;
-                n9 += class245.method1671(ctx, n + 2, n2 + 16 + n9 + 1, n3 - 4, n4, n5);
+            for (SettingComponent settingComponent : this.field2267) {
+                if (!settingComponent.method1670()) continue;
+                n9 += settingComponent.method1671(ctx, n + 2, n2 + 16 + n9 + 1, n3 - 4, n4, n5);
             }
             this.field2265.method1847(n9 += 5);
             int n10 = (int) this.field2265.method1845();
@@ -144,9 +144,9 @@ public class Class291 {
                 int n11 = (int) (51.0f * f3);
                 int n12 = (int) (17.0f * f3);
                 int n13 = (int) ((1.0f - f3) * 6.0f);
-                ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + n10, Class291.method1861(0x222222, n11));
+                ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + n10, ModuleComponent.method1861(0x222222, n11));
                 if (n12 > 0) {
-                    ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + 1, Class291.method1861(0xFFFFFF, n12));
+                    ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + 1, ModuleComponent.method1861(0xFFFFFF, n12));
                 }
             }
             n8 = 16 + n10;
@@ -167,7 +167,7 @@ public class Class291 {
         }
         this.field2262 = false;
         if (this.field2269) {
-            this.field2267.forEach(class245 -> class245.method1672(d, d2, n));
+            this.field2267.forEach(settingComponent -> settingComponent.method1672(d, d2, n));
         }
     }
 

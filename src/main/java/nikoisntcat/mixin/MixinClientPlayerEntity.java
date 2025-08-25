@@ -2,7 +2,6 @@ package nikoisntcat.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.ElytraSoundInstance;
@@ -13,7 +12,7 @@ import net.minecraft.util.Hand;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.SlowdownEvent;
-import nikoisntcat.client.modules.impl.Class166;
+import nikoisntcat.client.modules.impl.DisablerModule;
 import nikoisntcat.client.utils.Class224;
 import nikoisntcat.client.utils.Class226;
 import nikoisntcat.client.utils.interfaces.IClientPlayerEntity;
@@ -125,16 +124,16 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
-        if (LIVING_FLAGS.equals(data) && !Class166.field1644.method1703()) {
+        if (LIVING_FLAGS.equals(data) && !DisablerModule.field1644.method1703()) {
             boolean bl = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 1) > 0;
             Hand hand = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
             if (bl && !this.usingItem) {
-                if (Class166.field1639.method1703()) {
+                if (DisablerModule.field1639.method1703()) {
                     Class224.method1451("Using Item");
                 }
                 this.setCurrentHand(hand);
             } else if (!bl && this.usingItem) {
-                if (Class166.field1639.method1703()) {
+                if (DisablerModule.field1639.method1703()) {
                     Class224.method1451("Clear Item");
                 }
                 this.clearActiveItem();

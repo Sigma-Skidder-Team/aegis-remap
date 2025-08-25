@@ -2,7 +2,7 @@ package nikoisntcat.client.modules;
 
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.*;
-import nikoisntcat.client.modules.impl.Class181;
+import nikoisntcat.client.modules.impl.NotificationModule;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.ColorSetting;
 import nikoisntcat.client.utils.MinecraftUtil;
@@ -33,12 +33,11 @@ public abstract class Module extends MinecraftUtil {
             return;
         }
         this.state = bl;
-        System.out.println("did we get here? yes");
         if (bl) {
-            Class181.addNotification(new Notification(this.name, "Toggled", "Enabled " + this.name, true, true, false));
+            NotificationModule.addNotification(new Notification(this.name, "Toggled", "Enabled " + this.name, true, true, false));
             this.onEnable();
         } else {
-            Class181.addNotification(new Notification(this.name, "Toggled", "Disabled " + this.name, false, true, false));
+            NotificationModule.addNotification(new Notification(this.name, "Toggled", "Disabled " + this.name, false, true, false));
             this.onDisable();
         }
         AegisClient.moduleManager.modules.forEach(module -> module.unusedMethod(this));
@@ -51,7 +50,7 @@ public abstract class Module extends MinecraftUtil {
     protected Module(String string, int n, boolean bl, Category moduleCategory) {
         this.name = string;
         this.key = n;
-        this.setState(bl);
+        this.state = bl;
         this.category = moduleCategory;
     }
 

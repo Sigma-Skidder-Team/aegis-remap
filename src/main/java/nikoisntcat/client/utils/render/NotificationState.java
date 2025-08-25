@@ -1,6 +1,6 @@
 package nikoisntcat.client.utils.render;
 
-public enum NotificationType {
+public enum NotificationState {
     INIT,
     APPEAR,
     SHOWING,

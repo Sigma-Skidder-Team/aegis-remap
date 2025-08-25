@@ -16,7 +16,7 @@ import nikoisntcat.client.utils.Class224;
 import nikoisntcat.client.utils.Class231;
 import nikoisntcat.client.utils.render.Notification;
 
-public class Class166 extends Module {
+public class DisablerModule extends Module {
     private float field1633;
     private float field1634;
     public static BooleanSetting field1635;
@@ -86,7 +86,7 @@ public class Class166 extends Module {
                 } else {
                     this.field1641 = 0;
                     this.field1637 = true;
-                    Class181.addNotification(new Notification(this.name, this.name, "Lowhop check has been disabled!", this.isEnabled(), false, false));
+                    NotificationModule.addNotification(new Notification(this.name, this.name, "Lowhop check has been disabled!", this.isEnabled(), false, false));
                 }
             }
         }
@@ -121,7 +121,7 @@ public class Class166 extends Module {
         }
     }
 
-    public Class166() {
+    public DisablerModule() {
         super("Disabler", 0, Category.MISC);
     }
 

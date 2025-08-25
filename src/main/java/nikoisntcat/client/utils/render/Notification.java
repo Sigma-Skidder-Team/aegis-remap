@@ -9,7 +9,7 @@ public class Notification {
     public boolean field2362;
     public float field2363;
     public float field2364;
-    public NotificationType field2365;
+    public NotificationState state;
     public String field2366;
     public TimerUtil field2367 = new TimerUtil();
     public String field2368;
@@ -20,8 +20,8 @@ public class Notification {
         this.field2359 = this.field2363 + f;
     }
 
-    public void method1946(NotificationType class124) {
-        this.field2365 = class124;
+    public void method1946(NotificationState class124) {
+        this.state = class124;
     }
 
     public void method1947(float f, float f2) {
@@ -55,7 +55,7 @@ public class Notification {
 
     public Notification(String string, String string2, String string3, boolean bl, boolean bl2, boolean bl3) {
         this.field2370 = string;
-        this.field2365 = NotificationType.INIT;
+        this.state = NotificationState.INIT;
         this.field2366 = string2;
         this.field2368 = string3;
         this.field2362 = bl;

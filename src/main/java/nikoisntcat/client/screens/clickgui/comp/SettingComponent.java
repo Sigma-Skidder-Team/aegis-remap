@@ -1,11 +1,11 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import nikoisntcat.client.settings.Setting;
 
-public class Class245 {
+public class SettingComponent {
     public TextRenderer fr;
     public Setting setting;
 
@@ -34,7 +34,7 @@ public class Class245 {
         return 0;
     }
 
-    public Class245(Setting value) {
+    public SettingComponent(Setting value) {
         this.setting = value;
     }
 

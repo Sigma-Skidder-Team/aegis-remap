@@ -1,4 +1,4 @@
-package nikoisntcat.client.screens;
+package nikoisntcat.client.screens.clickgui.comp;
 
 import java.awt.Color;
 import net.minecraft.client.gui.DrawContext;
@@ -7,8 +7,8 @@ import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.utils.math.Class250;
 import nikoisntcat.client.utils.math.Class288;
 
-public class Class248
-extends Class245 {
+public class BooleanSettingComponent
+extends SettingComponent {
     private boolean field2107 = false;
     private int field2108;
     private int field2109;
@@ -27,7 +27,7 @@ extends Class245 {
         return this.fr.getWidth(this.field2110.getName()) + 30;
     }
 
-    public Class248(Setting value) {
+    public BooleanSettingComponent(Setting value) {
         super(value);
         this.field2110 = (BooleanSetting)value;
     }

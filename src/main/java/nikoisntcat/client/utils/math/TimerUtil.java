@@ -1,10 +1,10 @@
 package nikoisntcat.client.utils.math;
 
 public class TimerUtil {
-    public long field2323 = System.currentTimeMillis();
+    public long currentMs = System.currentTimeMillis();
 
-    public void method1900(long l) {
-        this.field2323 = l;
+    public void setCurrentMs(long l) {
+        this.currentMs = l;
     }
 
     public long method1901() {
@@ -15,26 +15,26 @@ public class TimerUtil {
         if (d == 0.0) {
             return true;
         }
-        return (double)(System.currentTimeMillis() - this.field2323) >= d;
+        return (double)(System.currentTimeMillis() - this.currentMs) >= d;
     }
 
     public boolean method1903(long l) {
         if (l <= 0L) {
             return true;
         }
-        return System.currentTimeMillis() - this.field2323 >= l;
+        return System.currentTimeMillis() - this.currentMs >= l;
     }
 
     public long method1904() {
-        return System.currentTimeMillis() - this.field2323;
+        return System.currentTimeMillis() - this.currentMs;
     }
 
-    public void method1905() {
-        this.field2323 = System.currentTimeMillis();
+    public void update() {
+        this.currentMs = System.currentTimeMillis();
     }
 
     public TimerUtil method1906(int n) {
-        this.field2323 = this.method1901() + (long)n;
+        this.currentMs = this.method1901() + (long)n;
         return this;
     }
 }

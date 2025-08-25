@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Class318 {
+public class FontManager {
     public static Class160 field2406;
     public static Class160 field2407;
     public static Class160 field2408;
@@ -37,7 +37,7 @@ public class Class318 {
     static Object field2427;
 
     static {
-        field2418 = LoggerFactory.getLogger(Class318.class);
+        field2418 = LoggerFactory.getLogger(FontManager.class);
         field2416 = new HashMap();
     }
 
@@ -46,7 +46,7 @@ public class Class318 {
             return (Class160)field2416.get(size);
         }
         try {
-            Class160 class160 = Class318.method1988(size, (String)Class318.method1989('\u0000'));
+            Class160 class160 = FontManager.createFont(size, (String) FontManager.method1989('\u0000'));
             field2416.put(size, class160);
             return class160;
         }
@@ -57,7 +57,7 @@ public class Class318 {
     }
 
     @NotNull
-    public static Class160 method1988(float size, String name) throws IOException, FontFormatException {
+    public static Class160 createFont(float size, String name) throws IOException, FontFormatException {
         return new Class160(Font.createFont(0, Objects.requireNonNull(AegisClient.class.getClassLoader().getResourceAsStream("assets/fonts/" + name + ".ttf"))).deriveFont(0, size / 2.0f), size / 2.0f);
     }
 
