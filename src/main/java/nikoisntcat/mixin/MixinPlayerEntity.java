@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinPlayerEntity {
     @Inject(method={"equipStack"}, at={@At(value="HEAD")}, cancellable=true)
     public void equipStack(EquipmentSlot slot, ItemStack stack, CallbackInfo callbackInfo) {
-        if (DisablerModule.field1640.method1703() && ((PlayerEntity) (Object) this).getId() == MinecraftUtil.mc.player.getId() && slot == EquipmentSlot.OFFHAND && !stack.isEmpty() && stack.getItem() instanceof ShieldItem) {
+        if (DisablerModule.field1640.getValue() && ((PlayerEntity) (Object) this).getId() == MinecraftUtil.mc.player.getId() && slot == EquipmentSlot.OFFHAND && !stack.isEmpty() && stack.getItem() instanceof ShieldItem) {
             callbackInfo.cancel();
         }
     }

@@ -58,7 +58,7 @@ public class TeamsModule extends Module {
         }
         if (bum instanceof PlayerEntity) {
             PlayerEntity class_16572 = (PlayerEntity) bum;
-            return Objects.requireNonNull(class199).isEnabled() && (class199.field1901.method1703() && TeamsModule.method1373(class_16572) || class199.field1902.method1703() && TeamsModule.method1372(class_16572) || class199.field1900.method1703() && TeamsModule.method1374(class_16572));
+            return Objects.requireNonNull(class199).isEnabled() && (class199.field1901.getValue() && TeamsModule.method1373(class_16572) || class199.field1902.getValue() && TeamsModule.method1372(class_16572) || class199.field1900.getValue() && TeamsModule.method1374(class_16572));
         }
         return false;
     }

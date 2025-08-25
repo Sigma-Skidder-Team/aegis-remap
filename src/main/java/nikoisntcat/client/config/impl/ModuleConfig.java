@@ -46,7 +46,7 @@ public class ModuleConfig extends Config {
                         }
                         if (object instanceof BooleanSetting) {
                             object2 = (BooleanSetting) object;
-                            jsonObject2.addProperty(((Setting) object2).getName(), Boolean.valueOf(((BooleanSetting) object2).method1703()));
+                            jsonObject2.addProperty(((Setting) object2).getName(), Boolean.valueOf(((BooleanSetting) object2).getValue()));
                         }
                         if (object instanceof ModeSetting) {
                             object2 = (ModeSetting) object;
@@ -97,7 +97,7 @@ public class ModuleConfig extends Config {
                         Setting class261;
                         if (object instanceof BooleanSetting) {
                             class261 = (BooleanSetting) object;
-                            ((BooleanSetting) class261).method1704(jsonObject.get(class261.getName()).getAsBoolean());
+                            ((BooleanSetting) class261).setValue(jsonObject.get(class261.getName()).getAsBoolean());
                         }
                         if (object instanceof NumberSetting) {
                             class261 = (NumberSetting) object;

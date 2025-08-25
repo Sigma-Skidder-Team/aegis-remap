@@ -19,7 +19,7 @@ extends SettingComponent {
     @Override
     public void init() {
         super.init();
-        this.field2112.method1844(this.field2110.method1703() ? 13.0f : 0.0f);
+        this.field2112.method1844(this.field2110.getValue() ? 13.0f : 0.0f);
     }
 
     @Override
@@ -38,9 +38,9 @@ extends SettingComponent {
         this.field2109 = y;
         this.field2111 = width;
         context.drawText(this.fr, this.field2110.getName(), x + 5, y + 5, -1, true);
-        this.field2112.method1847(this.field2110.method1703() ? 13.0f : 0.0f);
+        this.field2112.method1847(this.field2110.getValue() ? 13.0f : 0.0f);
         context.fill(x + width - 24, y + 4, x + width - 4, y + 11, -1);
-        context.fill((int)((float)(x + width - 23) + this.field2112.method1845()), y + 5, (int)((float)(x + width - 18) + this.field2112.method1845()), y + 10, this.field2110.method1703() ? new Color(20, 255, 20).getRGB() : new Color(255, 20, 20).getRGB());
+        context.fill((int)((float)(x + width - 23) + this.field2112.method1845()), y + 5, (int)((float)(x + width - 18) + this.field2112.method1845()), y + 10, this.field2110.getValue() ? new Color(20, 255, 20).getRGB() : new Color(255, 20, 20).getRGB());
         return 15;
     }
 
@@ -54,7 +54,7 @@ extends SettingComponent {
     @Override
     public void method1672(double mouseX, double mouseY, int button) {
         if (this.field2107 && Class250.method1684(mouseX, mouseY, this.field2108 + this.field2111 - 24, this.field2109 + 4, this.field2108 + this.field2111 - 4, this.field2109 + 11)) {
-            this.field2110.method1704(!this.field2110.method1703());
+            this.field2110.setValue(!this.field2110.getValue());
         }
     }
 }

@@ -6,23 +6,23 @@ import java.util.function.Predicate;
 
 public class BooleanSetting
 extends Setting {
-    private boolean field2127;
+    private boolean value;
 
     public BooleanSetting(String string, boolean bl, Predicate predicate) {
         this.name = string;
-        this.field2127 = bl;
+        this.value = bl;
         this.pred = predicate;
     }
 
-    public boolean method1703() {
-        return this.field2127;
+    public boolean getValue() {
+        return this.value;
     }
 
     public BooleanSetting(String string, boolean bl) {
         this(string, bl, null);
     }
 
-    public void method1704(boolean bl) {
-        this.field2127 = bl;
+    public void setValue(boolean bl) {
+        this.value = bl;
     }
 }

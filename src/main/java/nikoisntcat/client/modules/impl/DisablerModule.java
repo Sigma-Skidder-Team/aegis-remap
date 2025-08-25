@@ -55,10 +55,10 @@ public class DisablerModule extends Module {
     public void onReceivePacket(PacketReceiveEvent event) {
         Packet packet = event.getPacket();
         if (packet instanceof PlayerPositionLookS2CPacket) {
-            if (field1646.method1703()) {
+            if (field1646.getValue()) {
                 event.cancel();
             }
-            if (field1635.method1703() && !this.field1637) {
+            if (field1635.getValue() && !this.field1637) {
                 ++this.field1641;
             }
         }
@@ -66,7 +66,7 @@ public class DisablerModule extends Module {
 
     @Override
     public void onMotion(MotionEvent motionEvent) {
-        if (field1635.method1703()) {
+        if (field1635.getValue()) {
             if (mc.player.getInventory().getStack(8).getItem() == Items.NETHER_STAR) {
                 this.field1637 = false;
                 this.field1641 = 0;
@@ -95,7 +95,7 @@ public class DisablerModule extends Module {
         if (f == motionEvent.method1410() && f2 == motionEvent.method1414() || mc.currentScreen != null) {
             return;
         }
-        if (field1636.method1703()) {
+        if (field1636.getValue()) {
             if (Math.abs(Class231.method1516(f, motionEvent.method1410())) < 1.0E-4f) {
                 motionEvent.method1400(Class231.method1516(f, motionEvent.method1410()) > 0.0f ? f + 1.0E-4f : f + -1.0E-4f);
             }
@@ -103,7 +103,7 @@ public class DisablerModule extends Module {
                 motionEvent.method1404(f2 + 1.0E-4f < 90.0f ? f2 + 1.0E-4f : f2 + -1.0E-4f);
             }
         }
-        if (field1642.method1703()) {
+        if (field1642.getValue()) {
             int n = 360 * Random.create().nextBetween(1, 100);
             motionEvent.method1400(motionEvent.method1410() + (float)n);
         }
@@ -115,7 +115,7 @@ public class DisablerModule extends Module {
         if (Class224.nullCheck()) {
             this.field1647 = -1;
         }
-        if (!field1635.method1703()) {
+        if (!field1635.getValue()) {
             this.field1637 = false;
             this.field1641 = 0;
         }

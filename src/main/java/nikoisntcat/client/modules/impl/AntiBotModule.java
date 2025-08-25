@@ -27,11 +27,11 @@ public class AntiBotModule extends Module {
         if (!this.isEnabled()) {
             return false;
         }
-        if (this.field1918.method1703() && !this.field1920.contains(entity.getId())) {
+        if (this.field1918.getValue() && !this.field1920.contains(entity.getId())) {
             return true;
         }
         String string = entity.getName().getString();
-        return this.field1922.method1703() && (string.contains("[") || string.contains("/") || string.contains("|") || string.contains(" ") || string.contains("ITEM SHOP") || string.isEmpty());
+        return this.field1922.getValue() && (string.contains("[") || string.contains("/") || string.contains("|") || string.contains(" ") || string.contains("ITEM SHOP") || string.isEmpty());
     }
 
     @Override

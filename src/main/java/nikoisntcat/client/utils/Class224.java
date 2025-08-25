@@ -62,7 +62,7 @@ public class Class224 extends MinecraftUtil {
     }
 
     public static boolean method1448(LivingEntity class_13092) {
-        if (mc.player == null || class_13092.getId() == mc.player.getId() || class_13092 instanceof PlayerEntity && !TargetsModule.field1773.method1703() || class_13092 instanceof AnimalEntity && !TargetsModule.field1774.method1703() || (class_13092 instanceof Npc || class_13092 instanceof Monster) && !TargetsModule.field1772.method1703() || class_13092 instanceof VillagerEntity && !TargetsModule.field1771.method1703()) {
+        if (mc.player == null || class_13092.getId() == mc.player.getId() || class_13092 instanceof PlayerEntity && !TargetsModule.field1773.getValue() || class_13092 instanceof AnimalEntity && !TargetsModule.field1774.getValue() || (class_13092 instanceof Npc || class_13092 instanceof Monster) && !TargetsModule.field1772.getValue() || class_13092 instanceof VillagerEntity && !TargetsModule.field1771.getValue()) {
           return false;
         }
         if (TeamsModule.method1375((Entity) class_13092)) {

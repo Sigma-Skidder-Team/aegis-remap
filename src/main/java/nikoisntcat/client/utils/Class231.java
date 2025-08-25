@@ -56,7 +56,7 @@ public class Class231 extends MinecraftUtil {
     }
 
     public void onJump(JumpEvent jumpEvent) {
-        if (ClientSettingsModule.field1847.getValue().equals("Normal") && field2032 != null) {
+        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null) {
             jumpEvent.field1978 = Class231.field2032.x;
         }
     }
@@ -330,7 +330,7 @@ public class Class231 extends MinecraftUtil {
     }
 
     public void onStrafe(StrafeEvent strafeEvent) {
-        if (field2032 != null && ClientSettingsModule.field1847.getValue().equals("Normal")) {
+        if (field2032 != null && ClientSettingsModule.strafeFixMode.getValue().equals("Normal")) {
             strafeEvent.method1400(Class231.field2032.x);
         }
     }
@@ -344,7 +344,7 @@ public class Class231 extends MinecraftUtil {
     }
 
     public void onMoveInput(MoveInputEvent moveInputEvent) {
-        if (ClientSettingsModule.field1847.getValue().equals("Normal") && field2032 != null && field2036) {
+        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null && field2036) {
             Class226.method1468(moveInputEvent, Class231.field2032.x);
         }
     }
