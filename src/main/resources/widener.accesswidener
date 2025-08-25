@@ -13,7 +13,7 @@ accessible	field	net/minecraft/util/hit/BlockHitResult	missed	Z
 accessible	method	net/minecraft/client/world/ClientWorld	getPendingUpdateManager	()Lnet/minecraft/client/network/PendingUpdateManager;
 accessible	field	net/minecraft/client/render/WorldRenderer	bufferBuilders	Lnet/minecraft/client/render/BufferBuilderStorage;
 accessible	field	net/minecraft/client/texture/NativeImage	pointer	J
-accessible	method	net/minecraft/entity/player/PlayerEntity	getDamageAgainst	(Lnet/minecraft/entity/Entity;FLnet/minecraft/entity/damage/DamageSourc;)F
+accessible	method	net/minecraft/entity/player/PlayerEntity	getDamageAgainst	(Lnet/minecraft/entity/Entity;FLnet/minecraft/entity/damage/DamageSource;)F
 accessible	field	net/minecraft/client/gui/DrawContext	vertexConsumers	Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;
 accessible	field	net/minecraft/entity/Entity	movementMultiplier	Lnet/minecraft/util/math/Vec3d;
 accessible	field	net/minecraft/client/network/ClientPlayerEntity	lastYaw	F
