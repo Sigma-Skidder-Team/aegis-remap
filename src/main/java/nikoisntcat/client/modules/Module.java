@@ -40,7 +40,7 @@ public abstract class Module extends MinecraftUtil {
             NotificationModule.addNotification(new Notification(this.name, "Toggled", "Disabled " + this.name, false, true, false));
             this.onDisable();
         }
-        AegisClient.moduleManager.modules.forEach(module -> module.unusedMethod(this));
+        AegisClient.moduleManager.modules.forEach(module -> module.onToggle(this));
     }
 
     public Category getCategory() {
@@ -95,8 +95,7 @@ public abstract class Module extends MinecraftUtil {
     public void onSlow(SlowdownEvent event) {
     }
 
-    //nice
-    public void unusedMethod(Module module) {
+    public void onToggle(Module module) {
     }
 
     public void onSetWorld() {
@@ -153,5 +152,13 @@ public abstract class Module extends MinecraftUtil {
             exception.printStackTrace();
         }
         return arrayList;
+    }
+
+    public int method1213() {
+        return this.method1215() != null ? this.name.length() + this.method1215().length() : this.name.length();
+    }
+
+    public String method1215() {
+        return "";
     }
 }
