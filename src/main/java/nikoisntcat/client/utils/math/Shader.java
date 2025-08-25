@@ -70,7 +70,7 @@ public class Shader {
     }
 
     public void method1789() {
-        if (!ClientSettingsModule.field1846.method1703()) {
+        if (!ClientSettingsModule.noShader.getValue()) {
             if (!field2195) {
                 field2195 = true;
                 this.put("rounded", "/assets/aegis/shaders/rounded_rect.vsh", "/assets/aegis/shaders/rounded_rect.fsh", VertexFormats.POSITION_TEXTURE_COLOR);

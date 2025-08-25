@@ -23,15 +23,15 @@ import org.joml.Matrix4f;
 public class ShaderUtil {
     private static final List<SimpleFramebuffer> field2276;
     private static final List<SimpleFramebuffer> field2277;
-    private static SimpleFramebuffer field2278;
+    private static SimpleFramebuffer fb;
     private static int field2280;
     private static int field2281;
     private static Framebuffer field2282;
     private static int field2285;
 
     static {
-        field2277 = new ArrayList();
-        field2276 = new ArrayList();
+        field2277 = new ArrayList<>();
+        field2276 = new ArrayList<>();
         field2285 = -1;
         field2281 = -1;
         field2280 = -1;
@@ -45,16 +45,16 @@ public class ShaderUtil {
     }
 
     public static void method1870(MatrixStack matrices) {
-        if (ClientSettingsModule.field1846.method1703()) {
+        if (ClientSettingsModule.noShader.getValue()) {
             return;
         }
         if (!RenderSystem.isOnRenderThread()) {
             throw new IllegalStateException("BloomRenderer must be called on the render thread!");
         }
         matrices.push();
-        field2278.beginWrite(false);
+        fb.beginWrite(false);
         RenderSystem.clear(16640);
-        RenderSystem.viewport(0, 0, ShaderUtil.field2278.textureWidth, ShaderUtil.field2278.textureHeight);
+        RenderSystem.viewport(0, 0, ShaderUtil.fb.textureWidth, ShaderUtil.fb.textureHeight);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
@@ -88,14 +88,14 @@ public class ShaderUtil {
             throw new IllegalStateException("[BloomRenderer] Invalid framebuffer size: " + n + "x" + n2);
         }
         field2282 = minecraftClient.getFramebuffer();
-        if (field2278 != null && (ShaderUtil.field2278.textureWidth != n || ShaderUtil.field2278.textureHeight != n2)) {
-            field2278.delete();
-            field2278 = null;
+        if (fb != null && (ShaderUtil.fb.textureWidth != n || ShaderUtil.fb.textureHeight != n2)) {
+            fb.delete();
+            fb = null;
         }
-        if (field2278 == null) {
-            field2278 = new SimpleFramebuffer(n, n2, true);
-            if (ShaderUtil.field2278.fbo == 0 || field2278.getColorAttachment() == 0) {
-                throw new IllegalStateException("SimpleFramebuffer creation failed! FBO: " + ShaderUtil.field2278.fbo + " Tex: " + field2278.getColorAttachment());
+        if (fb == null) {
+            fb = new SimpleFramebuffer(n, n2, true);
+            if (ShaderUtil.fb.fbo == 0 || fb.getColorAttachment() == 0) {
+                throw new IllegalStateException("SimpleFramebuffer creation failed! FBO: " + ShaderUtil.fb.fbo + " Tex: " + fb.getColorAttachment());
             }
         }
         if (field2285 != n || field2281 != n2 || field2280 != iterations) {
@@ -109,7 +109,7 @@ public class ShaderUtil {
             }
             field2277.clear();
             field2276.clear();
-            field2277.add(field2278);
+            field2277.add(fb);
             field2277.add(new SimpleFramebuffer(n, n2, true));
             field2276.add(new SimpleFramebuffer(n, n2, true));
             field2285 = n;
@@ -121,7 +121,7 @@ public class ShaderUtil {
     public static void method1874(MatrixStack matrices, float intensity, int iterations, int bloomColor, float kawaseOffset) {
         SimpleFramebuffer simpleFramebuffer;
         SimpleFramebuffer simpleFramebuffer2;
-        field2278.endWrite();
+        fb.endWrite();
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         float f = (float)(bloomColor >> 16 & 0xFF) / 255.0f;
         float f2 = (float)(bloomColor >> 8 & 0xFF) / 255.0f;
