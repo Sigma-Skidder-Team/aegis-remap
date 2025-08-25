@@ -83,11 +83,11 @@ public class ModuleManager extends MinecraftUtil {
     public void init() {
         this.add(new SprintModule());
         this.add(new GetLagModule());
-        //this.add(new Class202());
-        //this.add(new Class171());
+        this.add(new WeatherChangerModule());
+        this.add(new ProjectileTrailModule());
         this.add(new FirstModuleModule());
         //this.add(new Class175());
-        //this.add(new Class194());
+        this.add(new ArrayListModule());
         //this.add(new Class169());
         //this.add(new Class165());
         //this.add(new Class197());
