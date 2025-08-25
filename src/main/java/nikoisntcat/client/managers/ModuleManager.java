@@ -86,10 +86,10 @@ public class ModuleManager extends MinecraftUtil {
         this.add(new WeatherChangerModule());
         this.add(new ProjectileTrailModule());
         this.add(new FirstModuleModule());
-        //this.add(new Class175());
+        this.add(new AutoToolModule());
         this.add(new ArrayListModule());
-        //this.add(new Class169());
-        //this.add(new Class165());
+        //this.add(new Class169()); --killaura
+        //this.add(new Class165()); --velo
         //this.add(new Class197());
         this.add(new ClickGuiModule());
         //this.add(new Class182());
@@ -98,11 +98,11 @@ public class ModuleManager extends MinecraftUtil {
         this.add(ClientSettingsModule.instance);
         this.add(new DisablerModule());
         this.add(AntiBotModule.instance);
-        //this.add(new Class179());
+        this.add(new FuckerModule());
         // this.add(new Class172());
         this.add(new NoRotationSetModule());
         // this.add(new Class196());
-        //this.add(new Class200());
+        this.add(new SpeedModule());
         //this.add(new Class188());
         //this.add(new Class203());
         // this.add(new Class189());
