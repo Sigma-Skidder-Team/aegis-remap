@@ -276,10 +276,10 @@ public class FuckerModule extends Module {
             BlockPos var2 = Class228.method1489(this.field1744.getX(), this.field1744.getY(), this.field1744.getZ());
             Box var3 = new Box(var2);
             Vec3i var31 = new Vec3i((int) var3.getLengthX(), (int) var3.getLengthY(), (int) var3.getLengthZ());
-            render3DEvent.method1425(var31, new Color(255, 0, 0, 75));
+            render3DEvent.method1425(Vec3d.of(var31), new Color(255, 0, 0, 75));
             var3 = var3.expand(Math.max(-0.99, Math.min(-0.001, -this.field1750)) * 0.5);
             var31 = new Vec3i((int) var3.getLengthX(), (int) var3.getLengthY(), (int) var3.getLengthZ());
-            render3DEvent.method1425(var31, new Color(255, 255, 255, 75));
+            render3DEvent.method1425(Vec3d.of(var31), new Color(255, 255, 255, 75));
         }
     }
 }

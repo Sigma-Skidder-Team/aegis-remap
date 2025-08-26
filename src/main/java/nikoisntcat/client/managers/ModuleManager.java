@@ -90,36 +90,39 @@ public class ModuleManager extends MinecraftUtil {
         this.add(new FirstModuleModule());
         this.add(new AutoToolModule());
         this.add(new ArrayListModule());
-        //this.add(new Class169()); --killaura
-        //this.add(new Class165()); --velo
-        //this.add(new Class197());
+        //TODO: Native modules
+        //this.add(new Class169()); //KillAura
+        //this.add(new Class165());
+        //this.add(new Class197()); //Scaffold
         this.add(new ClickGuiModule());
-        //this.add(new Class182());
-        //this.add(new Class199());
-        //this.add(new Class164());
+        this.add(new TargetsModule());
+        this.add(new TeamsModule());
+        this.add(new RotationsModule());
         this.add(ClientSettingsModule.instance);
         this.add(new DisablerModule());
         this.add(AntiBotModule.instance);
         this.add(new FuckerModule());
-        // this.add(new Class172());
+        this.add(new Class172());
         this.add(new NoRotationSetModule());
-        // this.add(new Class196());
+        this.add(new ESPModule());
         this.add(new SpeedModule());
-        //this.add(new Class188());
-        //this.add(new Class203());
-        // this.add(new Class189());
+        this.add(new NoFallModule());
+        this.add(new HighJumpModule());
+        this.add(new InventoryMoveModule());
+        //TODO: Another native module
         //this.add(new Class184());
         this.add(new NotificationModule());
-        //this.add(new Class183());
-        //this.add(Class178.field1737);
-        //this.add(new Class167());
-        //this.add(new Class170());
+        this.add(new NoSlowModule());
+        this.add(AnimationModule.instance);
+        this.add(new BlockESPModule());
+        this.add(new NameTagsModule());
         this.add(new LongJumpModule());
-        //this.add(new Class192());
-        //this.add(new Class177());
-        //this.add(new Class191());
-        //this.add(new Class198());
-        //this.add(new Class193());
+        this.add(new NoJumpDelayModule());
+        this.add(new LogoModule());
+        this.add(new BlinkModule());
+        this.add(new StuckModule());
+        this.add(new ProjectilesModule());
+        //TODO: Another native module
         //this.add(new Class168());
         this.add(new NoFovModule());
         this.add(FastPlaceModule.instance);

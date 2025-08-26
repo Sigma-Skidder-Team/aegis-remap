@@ -25,19 +25,18 @@ public class FontManager {
     public static Class160 field2415;
     private static Map field2416;
     public static Class160 field2417;
-    private static final Logger field2418;
+    private static final Logger logger;
     public static Class160 field2419;
     public static Class160 field2420;
     public static Class160 field2421;
-    public static Class160 field2422;
+    public static Class160 thin18;
     public static Class160 field2423;
     public static Class160 field2424;
-    public static Class160 field2425;
+    public static Class160 icon48;
     public static Class160 field2426;
-    static Object field2427;
 
     static {
-        field2418 = LoggerFactory.getLogger(FontManager.class);
+        logger = LoggerFactory.getLogger(FontManager.class);
         field2416 = new HashMap();
     }
 
@@ -46,7 +45,7 @@ public class FontManager {
             return (Class160)field2416.get(size);
         }
         try {
-            Class160 class160 = FontManager.createFont(size, (String) FontManager.method1989('\u0000'));
+            Class160 class160 = FontManager.createFont(size, "icon");
             field2416.put(size, class160);
             return class160;
         }
@@ -59,9 +58,5 @@ public class FontManager {
     @NotNull
     public static Class160 createFont(float size, String name) throws IOException, FontFormatException {
         return new Class160(Font.createFont(0, Objects.requireNonNull(AegisClient.class.getClassLoader().getResourceAsStream("assets/fonts/" + name + ".ttf"))).deriveFont(0, size / 2.0f), size / 2.0f);
-    }
-
-    private static Object method1989(char c) {
-        return ((Object[])field2427)[c];
     }
 }

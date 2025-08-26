@@ -35,7 +35,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.KillAuraModule;
+import nikoisntcat.client.modules.impl.Class165;
 import nikoisntcat.client.utils.MinecraftUtil;
 import nikoisntcat.client.utils.font.Class160;
 import nikoisntcat.client.utils.font.FontManager;
@@ -117,7 +117,7 @@ public class RenderUtil extends MinecraftUtil {
             float var13 = (float) (entityX - mc.gameRenderer.getCamera().getPos().getX());
             float var14 = (float) (entityY - mc.gameRenderer.getCamera().getPos().getY());
             float var15 = (float) (entityZ - mc.gameRenderer.getCamera().getPos().getZ());
-            boolean var16 = entity == KillAuraModule.field1611;
+            boolean var16 = entity == Class165.field1611;
             Color var17 = var16 ? Color.getHSBColor((float) (System.currentTimeMillis() % 2000L) / 2000.0F, 0.4F, 1.0F) : new Color(-65794);
             String var18 = String.format("%.1f", entity.getHealth());
             float var19 = Math.min(entity.getHealth() / entity.getMaxHealth(), 1.0F);
@@ -186,11 +186,12 @@ public class RenderUtil extends MinecraftUtil {
                 || framebuffer.viewportHeight != mc.getWindow().getFramebufferHeight();
     }
 
+    //TODO: Fix notifications not rendering fonts
     public static double method1564(DrawContext drawContext, int x, int y, String text, String title, String iconCode, float percent) {
-        Class160 var7 = FontManager.field2425;
+        Class160 iconFont = FontManager.icon48;
         Class160 var8 = FontManager.field2426;
-        int var9 = (int) var7.method1191(iconCode) + 5;
-        int var10 = (int) var7.method1186(iconCode);
+        int var9 = (int) iconFont.method1191(iconCode) + 5;
+        int var10 = (int) iconFont.method1186(iconCode);
         int var12 = (int) var8.method1186(title) + 8;
         int var13 = (int) var8.method1186(text) + 8;
         int var14 = Math.max(var12, var13);
@@ -228,7 +229,7 @@ public class RenderUtil extends MinecraftUtil {
         drawContext.fill(x, y, x + 2, y + var9 + 1, var16.getRGB());
         var8.method1175(drawContext, title, (double) (x + var10 + 8), (double) (y + 3), var18.getRGB());
         var8.method1175(drawContext, text, (double) (x + var10 + 8), (double) ((float) y + 3.0F + var8.method1191(title)), var20.getRGB());
-        var7.method1175(drawContext, iconCode, (double) (x + 2 + 1), (double) (y + 4), var19.getRGB());
+        iconFont.method1175(drawContext, iconCode, (double) (x + 2 + 1), (double) (y + 4), var19.getRGB());
         return (double) var15;
     }
 
@@ -769,6 +770,10 @@ public class RenderUtil extends MinecraftUtil {
         if (borderColor != 0 && borderWidth > 0.0F) {
             method1565(matrixStack, x, y, width, height, radius, borderColor, borderWidth);
         }
+    }
+
+    public static void method1583(BufferBuilder bufferBuilder, Vec3d vec, Matrix4f m, Color c, boolean fix) {
+        method1583(bufferBuilder, new Box(vec, vec), m, c, fix);
     }
 
     public static void method1583(BufferBuilder bufferBuilder, Box box, Matrix4f m, Color c, boolean fix) {

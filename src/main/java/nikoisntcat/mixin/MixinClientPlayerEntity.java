@@ -109,12 +109,12 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
     @Inject(method = {"tick"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void tick(CallbackInfo callbackInfo) {
         AegisClient.eventManager.onPreTick();
-        if (MovementUtil.field2007) {
-            if (MovementUtil.field2008 > 18) {
-                MovementUtil.field2008 = 0;
-                MovementUtil.field2006 = false;
+        if (MovementUtil.isBlinking) {
+            if (MovementUtil.blinkTicks > 18) {
+                MovementUtil.blinkTicks = 0;
+                MovementUtil.shouldSendPackets = false;
             } else {
-                ++MovementUtil.field2008;
+                ++MovementUtil.blinkTicks;
                 sendMovementPackets();
                 callbackInfo.cancel();
             }

@@ -3,7 +3,11 @@ package nikoisntcat.client.modules.impl;
 import java.util.List;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.JumpEvent;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
@@ -14,6 +18,9 @@ import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.Class228;
+import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.MovementUtil;
+import nikoisntcat.client.utils.player.Class205;
 
 public class SpeedModule extends Module {
     public ModeSetting field1904 = new ModeSetting("Mode", "Bhop", List.of("Bhop", "Strafe", "GroundStrafe", "HypixelLowHop", "SpeedTwo"));
@@ -65,31 +72,31 @@ public class SpeedModule extends Module {
         }
     }
 
-    /*
     private void method1378() {
         double var1 = Math.floor(mc.player.getY() % 1.0 * 10000.0 + 0.5);
         double var3 = Math.sqrt(mc.player.getVelocity().getX() * mc.player.getVelocity().getX() + mc.player.getVelocity().getZ() * mc.player.getVelocity().getZ());
         Class197 var5 = (Class197) AegisClient.moduleManager.field2010.get(Class197.class);
+        boolean class197Enabled = var5 == null ? false : var5.isEnabled();
         if (mc.player != null && mc.world != null && !mc.player.isInFluid() && !mc.player.isInLava() && !mc.player.isSpectator()) {
             this.field1916 = mc.player.getYaw();
             Class165 var10000 = (Class165) AegisClient.moduleManager.field2010.get(Class165.class);
-            if (Class165.field1607 != null && !var5.isEnabled()) {
+            if (Class165.field1607 != null && !class197Enabled) {
                 this.field1916 = Class231.method1539().x;
             }
 
             if (mc.player.onGround) {
                 boolean var7 = Math.abs(mc.player.getY() - (double) Math.round(mc.player.getY())) <= 0.03;
                 this.field1906 = false;
-                if (Class226.method1472()) {
+                if (MovementUtil.isMoving()) {
                     if (!this.field1906) {
                         this.field1909 = false;
                     }
 
                     this.field1908 = true;
-                    if (!this.field1910.getValue() || !var5.isEnabled()) {
+                    if (!this.field1910.getValue() || !class197Enabled) {
                         mc.player.setSprinting(true);
                         mc.player.jump();
-                        Class226.method1465((double) Class226.method1417(), this.field1916);
+                        MovementUtil.strafe((double) MovementUtil.getSpeed(), this.field1916);
                     }
 
                     this.field1908 = false;
@@ -97,7 +104,7 @@ public class SpeedModule extends Module {
                         this.field1911 = false;
                     }
 
-                    this.field1906 = (!this.field1910.method1703() || !var5.isEnabled()) && !this.field1909 && this.field1914 >= 3.0 && var7;
+                    this.field1906 = (!this.field1910.getValue() || !class197Enabled) && !this.field1909 && this.field1914 >= 3.0 && var7;
                 }
             }
 
@@ -123,57 +130,53 @@ public class SpeedModule extends Module {
                     this.field1915 = true;
                     mc.player.addVelocity(0.0, 0.075, 0.0);
                     if (var3 < Class205.method1392() && mc.player.getVelocity().getX() == 0.0 && mc.player.getVelocity().getZ() == 0.0) {
-                        Class226.method1465(Class205.method1392() - 0.05, this.field1916);
+                        MovementUtil.strafe(Class205.method1392() - 0.05, this.field1916);
                     }
                 }
 
                 if (this.field1915) {
                     if (this.field1912 == 7 && Class205.method1387() <= 0.75) {
-                        Class226.method1465((double) Class226.method1417(), this.field1916);
+                        MovementUtil.strafe((double) MovementUtil.getSpeed(), this.field1916);
                     }
 
                     if (this.field1912 == 8 && Class205.method1387() <= 0.75) {
-                        Class226.method1465(Class205.method1392(), this.field1916);
+                        MovementUtil.strafe(Class205.method1392(), this.field1916);
                     }
                 } else {
                     if (this.field1912 == 2) {
-                        ClientPlayerEntity var9 = mc.player;
-                        if (var9 != null) {
-                            Vec3d var8 = var9.getVelocity();
-                            var9.setVelocity((var8.x * 1.0 + var8.x * 2.0) / 3.0, var8.y, (var8.z * 1.0 + var8.z * 2.0) / 3.0);
+                        if (mc.player != null) {
+                            Vec3d var8 = mc.player.getVelocity();
+                            mc.player.setVelocity((var8.x * 1.0 + var8.x * 2.0) / 3.0, var8.y, (var8.z * 1.0 + var8.z * 2.0) / 3.0);
                         }
                     }
 
                     if (this.field1912 == 9 && Class205.method1387() <= 0.8) {
-                        ClientPlayerEntity var10 = mc.player;
-                        if (var10 != null) {
-                            Vec3d var11 = var10.getVelocity();
-                            var10.setVelocity(var11.x, var11.y + 0.075, var11.z);
+                        if (mc.player != null) {
+                            Vec3d var11 = mc.player.getVelocity();
+                            mc.player.setVelocity(var11.x, var11.y + 0.075, var11.z);
                         }
 
-                        Class226.method1465((double) Class226.method1417(), this.field1916);
+                        MovementUtil.strafe((double) MovementUtil.getSpeed(), this.field1916);
                     }
 
                     if (this.field1912 == 10 && Class205.method1387() <= 0.8) {
                         if (Math.hypot(mc.player.getVelocity().x, mc.player.getVelocity().z) < Class205.method1392()
                                 || mc.player.getVelocity().x == 0.0
                                 || mc.player.getVelocity().z == 0.0) {
-                            Class226.method1465(Class205.method1392(), this.field1916);
+                            MovementUtil.strafe(Class205.method1392(), this.field1916);
                         }
 
-                        Class226.method1465((double) Class226.method1417(), this.field1916);
+                        MovementUtil.strafe((double) MovementUtil.getSpeed(), this.field1916);
                     }
 
                     if (method1377(0.0, mc.player.getVelocity().y, 0.0).equals(Blocks.AIR) && this.field1912 == 11) {
-                        Class226.method1465(0.31, this.field1916);
+                        MovementUtil.strafe(0.31, this.field1916);
                     }
                 }
             }
         }
     }
 
-
-     */
     public SpeedModule() {
         super("Speed", 0, false, Category.MOVE);
         this.field1910 = new BooleanSetting("NoScaffold", true);
@@ -225,35 +228,35 @@ public class SpeedModule extends Module {
             this.field1912++;
         }
 
-        /*
         Class197 var1 = (Class197) AegisClient.moduleManager.field2010.get(Class197.class);
+        boolean class197Enabled = var1 == null ? false : var1.isEnabled();
         String var2 = this.field1904.getValue();
         switch (var2) {
             case "Bhop":
-                if ((!this.field1910.getValue() || !var1.isEnabled()) && Class226.method1472()) {
+                if ((!this.field1910.getValue() || !class197Enabled) && MovementUtil.isMoving()) {
                     if (mc.player.onGround) {
                         this.field1908 = true;
                         mc.player.jump();
                         this.field1908 = false;
-                        Class226.method1464((double) ((float) this.field1913.getValue() + Class226.method1417()));
+                        MovementUtil.strafe((double) ((float) this.field1913.getValue() + MovementUtil.getSpeed()));
                     } else {
-                        Class226.method1464((double) ((float) this.field1913.getValue() * 0.1F + Class226.method1417()));
+                        MovementUtil.strafe((double) ((float) this.field1913.getValue() * 0.1F + MovementUtil.getSpeed()));
                     }
                 }
                 break;
             case "Strafe":
-                if (Class226.method1472() && (!this.field1910.getValue() || !var1.isEnabled())) {
+                if (MovementUtil.isMoving() && (!this.field1910.getValue() || !class197Enabled)) {
                     if (mc.player.onGround) {
                         this.field1908 = true;
                         mc.player.jump();
                         this.field1908 = false;
                     }
 
-                    Class226.method1467();
+                    MovementUtil.strafe();
                 }
                 break;
             case "GroundStrafe":
-                if (mc.player.onGround && Class226.method1472() && (!this.field1910.getValue() || !var1.isEnabled())) {
+                if (mc.player.onGround && MovementUtil.isMoving() && (!this.field1910.getValue() || !class197Enabled)) {
                     this.field1908 = true;
                     mc.player.jump();
                     this.field1908 = false;
@@ -263,7 +266,5 @@ public class SpeedModule extends Module {
             case "HypixelLowHop":
                 this.method1378();
         }
-
-         */
     }
 }

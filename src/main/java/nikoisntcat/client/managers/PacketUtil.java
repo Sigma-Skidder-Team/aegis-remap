@@ -19,7 +19,7 @@ public class PacketUtil
     public boolean lastPlayerPacketChangedPos = false;
     private boolean sendPacketWithoutEvent;
     public int ticksSincePositionChange = 0;
-    public boolean field2027LastTick = false;
+    public boolean lastTickHadMovementPacket = false;
 
     public void sendPacketSilently(Packet<?> pkt) {
         this.sendPacketWithoutEvent = true;
@@ -67,7 +67,7 @@ public class PacketUtil
 
     public void onTick() {
         this.sentAttackLastTick = this.sentAttack;
-        this.field2027LastTick = this.field2027;
+        this.lastTickHadMovementPacket = this.field2027;
         this.sentAttack = false;
         this.field2027 = false;
     }

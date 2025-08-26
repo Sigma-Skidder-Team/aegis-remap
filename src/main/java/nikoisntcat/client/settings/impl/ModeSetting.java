@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ModeSetting
-extends Setting {
-    private String field2123;
-    private List<String> field2124;
+        extends Setting {
+    private String value;
+    private List<String> values;
 
-    public List<String> method1698() {
-        return this.field2124;
+    public List<String> getValues() {
+        return this.values;
     }
 
-    public void method1696(String string) {
-        this.field2123 = string;
+    public void setValue(String string) {
+        this.value = string;
     }
 
     public String getValue() {
-        return this.field2123;
+        return this.value;
     }
 
     public ModeSetting(String string, String string2, List<String> list) {
@@ -28,8 +28,8 @@ extends Setting {
 
     public ModeSetting(String string, String string2, List<String> list, Predicate predicate) {
         this.name = string;
-        this.field2124 = list;
-        this.field2123 = string2;
+        this.values = list;
+        this.value = string2;
         this.pred = predicate;
     }
 }

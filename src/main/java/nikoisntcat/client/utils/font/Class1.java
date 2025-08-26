@@ -3,7 +3,7 @@ package nikoisntcat.client.utils.font;
 import java.lang.invoke.MethodHandle;
 import java.lang.runtime.ObjectMethods;
 
-final class Class1 {
+public final class Class1 {
     public final float field1;
     public final float field2;
     public final float field3;

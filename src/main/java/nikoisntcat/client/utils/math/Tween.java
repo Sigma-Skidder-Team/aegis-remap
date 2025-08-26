@@ -1,12 +1,11 @@
 package nikoisntcat.client.utils.math;
 
-
 public abstract class Tween {
     protected int field2163;
     private static int field2164;
     protected TweenType field2165;
     public TimerUtil timer = new TimerUtil();
-    protected double field2167;
+    public double field2167;
 
     public void method1755(double endPoint) {
         this.field2167 = endPoint;

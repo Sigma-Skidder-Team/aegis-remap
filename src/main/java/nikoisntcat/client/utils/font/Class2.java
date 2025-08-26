@@ -1,9 +1,6 @@
 package nikoisntcat.client.utils.font;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.runtime.ObjectMethods;
-
-final class Class2 {
+public class Class2 {
     private final int field7;
     private final int field8;
     private final char field9;
@@ -32,7 +29,7 @@ final class Class2 {
         return this.field11;
     }
 
-    Class2(int u, int v, int width, int height, char value, Class332 owner) {
+    public Class2(int u, int v, int width, int height, char value, Class332 owner) {
         this.field10 = u;
         this.field12 = v;
         this.field7 = width;

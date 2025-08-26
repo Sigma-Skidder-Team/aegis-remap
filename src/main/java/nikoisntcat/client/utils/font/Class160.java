@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.Closeable;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -21,6 +22,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
@@ -33,6 +38,9 @@ import net.minecraft.client.render.VertexFormat.DrawMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import nikoisntcat.client.utils.MinecraftUtil;
+import nikoisntcat.client.utils.font.Class1;
+import nikoisntcat.client.utils.font.Class2;
+import nikoisntcat.client.utils.font.Class332;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -569,10 +577,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
         this.method1190(stack, s, (float)x, (float)y, var8, var9, var10, var11);
     }
 
-    /*
-    original: (String) IntStream.range(0, 32).mapToObj(operand -> String.valueOf((char)new Random().nextInt(97, 123))).collect(Collectors.joining())
-     */
     private static String method1194() {
-        return "nxxqdbijuciiuoftggpmdqwrclupnsfj";
+        return (String)IntStream.range(0, 32).mapToObj(operand -> String.valueOf((char)new Random().nextInt(97, 123))).collect(Collectors.joining());
     }
 }

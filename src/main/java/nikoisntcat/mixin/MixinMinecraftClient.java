@@ -36,8 +36,8 @@ public abstract class MixinMinecraftClient {
     @Inject(method={"<init>"}, at={@At(value="TAIL")})
     void initHook(RunArgs args, CallbackInfo ci) {
         try {
-            FontManager.field2425 = FontManager.createFont(48.0f, "icon");
-            FontManager.field2422 = FontManager.createFont(18.0f, "thin");
+            FontManager.icon48 = FontManager.createFont(48.0f, "icon");
+            FontManager.thin18 = FontManager.createFont(18.0f, "thin");
             FontManager.field2414 = FontManager.createFont(20.0f, "thin");
             FontManager.field2415 = FontManager.createFont(30.0f, "thin");
             FontManager.field2426 = FontManager.createFont(22.0f, "thin");

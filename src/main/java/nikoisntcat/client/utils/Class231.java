@@ -345,7 +345,7 @@ public class Class231 extends MinecraftUtil {
 
     public void onMoveInput(MoveInputEvent moveInputEvent) {
         if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null && field2036) {
-            MovementUtil.method1468(moveInputEvent, Class231.field2032.x);
+            MovementUtil.moveFix(moveInputEvent, Class231.field2032.x);
         }
     }
 

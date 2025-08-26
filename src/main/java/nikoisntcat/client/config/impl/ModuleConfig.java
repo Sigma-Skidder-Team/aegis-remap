@@ -105,7 +105,7 @@ public class ModuleConfig extends Config {
                         }
                         if (object instanceof ModeSetting) {
                             class261 = (ModeSetting) object;
-                            ((ModeSetting) class261).method1696(jsonObject.get(class261.getName()).getAsString());
+                            ((ModeSetting) class261).setValue(jsonObject.get(class261.getName()).getAsString());
                         }
                     }
                     if (!(object2 instanceof ColorSetting)) continue;

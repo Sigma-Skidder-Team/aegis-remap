@@ -12,16 +12,15 @@ import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import nikoisntcat.AegisClient;
+import nikoisntcat.client.modules.impl.RotationsModule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={LivingEntityRenderer.class})
-public abstract class MixinLivingEntityRenderer<T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>>
-extends EntityRenderer<T, S>
-implements FeatureRendererContext<S, M> {
+@Mixin(value = {LivingEntityRenderer.class})
+public abstract class MixinLivingEntityRenderer<T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>> extends EntityRenderer<T, S> implements FeatureRendererContext<S, M> {
     @Unique
     private float prePitch = 0.0f;
 
@@ -29,23 +28,22 @@ implements FeatureRendererContext<S, M> {
         super(ctx);
     }
 
-    @Inject(method={"render"}, at={@At(value="HEAD")})
+    @Inject(method = {"render"}, at = {@At(value = "HEAD")})
     public void renderHead(S livingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo callbackInfo) {
         if (livingEntityRenderState instanceof PlayerEntityRenderState livingEntity) {
             if (livingEntity.id == MinecraftClient.getInstance().player.getId()) {
                 this.prePitch = MinecraftClient.getInstance().player.getPitch();
-               // Class164 rotations = (Class164) AegisClient.moduleManager.field2010.get(Class164.class);
-               // if (rotations.isEnabled()) {
-                //    rotations.method1225(livingEntity);
-               // }
+                RotationsModule rotations = (RotationsModule) AegisClient.moduleManager.field2010.get(RotationsModule.class);
+                if (rotations.isEnabled()) {
+                    rotations.method1225(livingEntity);
+                }
             }
         }
     }
 
-    @Inject(method={"render"}, at={@At(value="TAIL")})
+    @Inject(method = {"render"}, at = {@At(value = "TAIL")})
     public void renderTail(S livingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo callbackInfo) {
         if (livingEntityRenderState instanceof PlayerEntityRenderState) {
-            PlayerEntityRenderState cfr_ignored_0 = (PlayerEntityRenderState)livingEntityRenderState;
         }
     }
 }

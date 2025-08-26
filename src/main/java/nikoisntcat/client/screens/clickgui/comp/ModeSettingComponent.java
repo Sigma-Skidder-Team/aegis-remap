@@ -35,7 +35,7 @@ extends SettingComponent {
         if (this.field2102) {
             for (Class313 class313 : this.field2098) {
                 if (!class313.method1972(mouseX, mouseY, button)) continue;
-                this.field2103.method1696(class313.field2396);
+                this.field2103.setValue(class313.field2396);
                 this.field2102 = false;
             }
         }
@@ -68,7 +68,7 @@ extends SettingComponent {
 
     @Override
     public void init() {
-        for (String string : this.field2103.method1698()) {
+        for (String string : this.field2103.getValues()) {
             this.field2100 = Math.max(this.field2100, MinecraftClient.getInstance().textRenderer.getWidth(string) + 10);
         }
     }
@@ -85,7 +85,7 @@ extends SettingComponent {
 
     @Override
     public void method1674() {
-        for (String string : this.field2103.method1698()) {
+        for (String string : this.field2103.getValues()) {
             this.field2098.add(new Class313(string));
         }
     }
