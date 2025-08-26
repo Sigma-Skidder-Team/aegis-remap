@@ -32,7 +32,7 @@ public class NoRotationSetModule extends Module {
         }
         clientPlayNetworkHandler.send((Packet)new TeleportConfirmC2SPacket(packet.teleportId()));
         clientPlayNetworkHandler.send((Packet)new PlayerMoveC2SPacket.Full(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), playerEntity.getYaw(), playerEntity.getPitch(), false, false));
-        RotationUtil.method1524(new Vector2f(playerEntity.getYaw(), playerEntity.getPitch()), 0, Priority.field1511);
+        RotationUtil.rotate(new Vector2f(playerEntity.getYaw(), playerEntity.getPitch()), 0, Priority.field1511);
         playerEntity.setYaw(f);
         playerEntity.setPitch(f2);
     }

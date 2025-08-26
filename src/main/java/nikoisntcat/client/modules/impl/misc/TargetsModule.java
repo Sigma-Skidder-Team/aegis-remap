@@ -5,7 +5,6 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 
 public class TargetsModule extends Module {
-
     public static BooleanSetting targetAnimals = new BooleanSetting("Animals", true);
     public static BooleanSetting targetVillagers = new BooleanSetting("Villagers", false, setting -> targetAnimals.getValue());
     public static BooleanSetting targetPlayers = new BooleanSetting("Players", true);

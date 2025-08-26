@@ -28,7 +28,7 @@ public class NoFallModule extends Module {
 
    @Override
    public void onMotion(MotionEvent motionEvent) {
-      if (motionEvent.method1399() == MotionEvent.Class123.PRE) {
+      if (motionEvent.getState() == MotionEvent.State.PRE) {
          String var2 = this.field1819.getValue();
          switch (var2) {
             case "GroundSpoof":

@@ -64,7 +64,7 @@ public class TeamsModule extends Module {
     }
     
     public static boolean isTeammate(Entity entity) {
-        TeamsModule teamsModule = (TeamsModule) AegisClient.moduleManager.field2010.get(TeamsModule.class);
+        TeamsModule teamsModule = (TeamsModule) AegisClient.moduleManager.moduleMap.get(TeamsModule.class);
 
         if (!teamsModule.isEnabled()) {
             return false;

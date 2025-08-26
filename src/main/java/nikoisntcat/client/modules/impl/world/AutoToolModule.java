@@ -31,7 +31,7 @@ public class AutoToolModule extends Module {
                 }
             }
 
-            FuckerModule var1 = (FuckerModule) AegisClient.moduleManager.field2010.get(FuckerModule.class);
+            FuckerModule var1 = (FuckerModule) AegisClient.moduleManager.moduleMap.get(FuckerModule.class);
             if (!mc.options.attackKey.isPressed() && !var1.field1748 && !this.field1725) {
                 this.method1277();
             }

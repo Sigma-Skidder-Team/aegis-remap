@@ -6,15 +6,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.JumpEvent;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.events.impl.StrafeEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
-import nikoisntcat.client.modules.impl.Class165;
-import nikoisntcat.client.modules.impl.Class197;
+import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
@@ -72,14 +70,17 @@ public class SpeedModule extends Module {
     }
 
     @Override
-    public void onReceivePacket(PacketReceiveEvent event) {}
+    public void onReceivePacket(PacketReceiveEvent event) {
+    }
 
     @Override
     public void setState(boolean state) {
         super.setState(state);
     }
 
-    /** Returns the block at a relative offset from the player */
+    /**
+     * Returns the block at a relative offset from the player
+     */
     public static BlockState getBlockStateAtOffset(double x, double y, double z) {
         if (mc.player != null && mc.world != null) {
             BlockPos playerPos = mc.player.getBlockPos();
@@ -90,20 +91,23 @@ public class SpeedModule extends Module {
         }
     }
 
-    /** Handles HypixelLowHop / SpeedTwo mode velocity and jump adjustments */
+    /**
+     * Handles HypixelLowHop / SpeedTwo mode velocity and jump adjustments
+     */
     private void handleLowHop() {
         double yOffset = Math.floor(mc.player.getY() % 1.0 * 10000.0 + 0.5);
         double horizontalSpeed = Math.sqrt(mc.player.getVelocity().getX() * mc.player.getVelocity().getX()
                 + mc.player.getVelocity().getZ() * mc.player.getVelocity().getZ());
 
-        boolean class197Enabled = false;
-        Class197 var197 = (Class197) AegisClient.moduleManager.field2010.get(Class197.class);
-        if (var197 != null) class197Enabled = var197.isEnabled();
+        boolean scaffoldEnabled = false;
+        /*
+        Class197 scaffoldModule = (Class197) AegisClient.moduleManager.field2010.get(Class197.class);
+        if (scaffoldModule != null) scaffoldEnabled = scaffoldModule.isEnabled();
+         */
 
         if (mc.player != null && mc.world != null && !mc.player.isInFluid() && !mc.player.isInLava() && !mc.player.isSpectator()) {
             this.yawForStrafe = mc.player.getYaw();
-            Class165 var165 = (Class165) AegisClient.moduleManager.field2010.get(Class165.class);
-            if (Class165.field1607 != null && !class197Enabled) {
+            if (KillAuraModule.secondaryTarget != null && !scaffoldEnabled) {
                 this.yawForStrafe = RotationUtil.method1539().x;
             }
 
@@ -116,7 +120,7 @@ public class SpeedModule extends Module {
                     if (!this.groundBoostReady) this.lastTickJumped = false;
                     this.jumpingThisTick = true;
 
-                    if (!this.noScaffold.getValue() || !class197Enabled) {
+                    if (!this.noScaffold.getValue() || !scaffoldEnabled) {
                         mc.player.setSprinting(true);
                         mc.player.jump();
                         MovementUtil.strafe(MovementUtil.getSpeed(), this.yawForStrafe);
@@ -125,7 +129,7 @@ public class SpeedModule extends Module {
                     this.jumpingThisTick = false;
                     if (this.jumpCooldown) this.jumpCooldown = false;
 
-                    this.groundBoostReady = (!this.noScaffold.getValue() || !class197Enabled) && !this.lastTickJumped
+                    this.groundBoostReady = (!this.noScaffold.getValue() || !scaffoldEnabled) && !this.lastTickJumped
                             && this.lastAirTicks >= 3.0 && groundedPrecision;
                 }
             }
@@ -139,7 +143,8 @@ public class SpeedModule extends Module {
             }
 
             if (this.groundBoostReady) {
-                if (yOffset == 4200.0) mc.player.setVelocity(mc.player.getVelocity().x, 0.39, mc.player.getVelocity().z);
+                if (yOffset == 4200.0)
+                    mc.player.setVelocity(mc.player.getVelocity().x, 0.39, mc.player.getVelocity().z);
                 else if (yOffset == 1138.0) mc.player.addVelocity(0.0, -0.1309, 0.0);
                 else if (yOffset == 2022.0) mc.player.addVelocity(0.0, -0.2, 0.0);
 
@@ -152,8 +157,10 @@ public class SpeedModule extends Module {
                 }
 
                 if (this.velocityBoosted) {
-                    if (this.airTicks == 7 && Class205.method1387() <= 0.75) MovementUtil.strafe(MovementUtil.getSpeed(), this.yawForStrafe);
-                    if (this.airTicks == 8 && Class205.method1387() <= 0.75) MovementUtil.strafe(Class205.method1392(), this.yawForStrafe);
+                    if (this.airTicks == 7 && Class205.method1387() <= 0.75)
+                        MovementUtil.strafe(MovementUtil.getSpeed(), this.yawForStrafe);
+                    if (this.airTicks == 8 && Class205.method1387() <= 0.75)
+                        MovementUtil.strafe(Class205.method1392(), this.yawForStrafe);
                 } else {
                     if (this.airTicks == 2) {
                         Vec3d vel = mc.player.getVelocity();
@@ -195,7 +202,7 @@ public class SpeedModule extends Module {
     @Override
     public void onStrafe(StrafeEvent event) {
         if (this.mode.getValue().equals("HypixelLowHop")) {
-            event.method1400(this.yawForStrafe);
+            event.setYaw(this.yawForStrafe);
         }
     }
 
@@ -212,13 +219,15 @@ public class SpeedModule extends Module {
             this.airTicks++;
         }
 
-        boolean class197Enabled = false;
+        boolean scaffoldEnabled = false;
+        /*
         Class197 var197 = (Class197) AegisClient.moduleManager.field2010.get(Class197.class);
-        if (var197 != null) class197Enabled = var197.isEnabled();
+        if (var197 != null) scaffoldEnabled = var197.isEnabled();
+         */
 
         switch (this.mode.getValue()) {
             case "Bhop":
-                if ((!this.noScaffold.getValue() || !class197Enabled) && MovementUtil.isMoving()) {
+                if ((!this.noScaffold.getValue() || !scaffoldEnabled) && MovementUtil.isMoving()) {
                     if (mc.player.onGround) {
                         this.jumpingThisTick = true;
                         mc.player.jump();
@@ -230,7 +239,7 @@ public class SpeedModule extends Module {
                 }
                 break;
             case "Strafe":
-                if (MovementUtil.isMoving() && (!this.noScaffold.getValue() || !class197Enabled)) {
+                if (MovementUtil.isMoving() && (!this.noScaffold.getValue() || !scaffoldEnabled)) {
                     if (mc.player.onGround) {
                         this.jumpingThisTick = true;
                         mc.player.jump();
@@ -240,7 +249,7 @@ public class SpeedModule extends Module {
                 }
                 break;
             case "GroundStrafe":
-                if (mc.player.onGround && MovementUtil.isMoving() && (!this.noScaffold.getValue() || !class197Enabled)) {
+                if (mc.player.onGround && MovementUtil.isMoving() && (!this.noScaffold.getValue() || !scaffoldEnabled)) {
                     this.jumpingThisTick = true;
                     mc.player.jump();
                     this.jumpingThisTick = false;

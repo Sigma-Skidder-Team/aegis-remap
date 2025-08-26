@@ -45,7 +45,7 @@ public class InventoryMoveModule extends Module {
 
     @Override
     public void onMotion(MotionEvent event) {
-        if (clickedSlot && event.method1399() == MotionEvent.Class123.PRE && mc.currentScreen == null) {
+        if (clickedSlot && event.getState() == MotionEvent.State.PRE && mc.currentScreen == null) {
             mc.getNetworkHandler().sendPacket(new CloseHandledScreenC2SPacket(0));
         }
     }

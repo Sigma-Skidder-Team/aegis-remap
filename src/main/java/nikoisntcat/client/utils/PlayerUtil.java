@@ -91,7 +91,7 @@ public class PlayerUtil extends MinecraftUtil {
         }
 
         // Placeholder for additional checks
-        // return !Class201.field1921.method1380(entity);
+        //return !Class201.field1921.method1380(entity);
         return false;
     }
 

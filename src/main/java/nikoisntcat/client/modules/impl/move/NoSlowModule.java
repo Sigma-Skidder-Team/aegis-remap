@@ -141,7 +141,7 @@ public class NoSlowModule extends Module {
 
    @Override
    public void onMotion(MotionEvent motionEvent) {
-      if (motionEvent.method1399() == MotionEvent.Class123.PRE) {
+      if (motionEvent.getState() == MotionEvent.State.PRE) {
          if (this.field1783 && !AegisClient.blinkUtil.method2044()) {
             AegisClient.blinkUtil.method2051(this);
             mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));

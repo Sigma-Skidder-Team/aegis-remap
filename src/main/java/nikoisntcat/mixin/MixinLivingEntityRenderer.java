@@ -33,7 +33,7 @@ public abstract class MixinLivingEntityRenderer<T extends LivingEntity, S extend
         if (livingEntityRenderState instanceof PlayerEntityRenderState livingEntity) {
             if (livingEntity.id == MinecraftClient.getInstance().player.getId()) {
                 this.prePitch = MinecraftClient.getInstance().player.getPitch();
-                RotationsModule rotations = (RotationsModule) AegisClient.moduleManager.field2010.get(RotationsModule.class);
+                RotationsModule rotations = (RotationsModule) AegisClient.moduleManager.moduleMap.get(RotationsModule.class);
                 if (rotations.isEnabled()) {
                     rotations.method1225(livingEntity);
                 }

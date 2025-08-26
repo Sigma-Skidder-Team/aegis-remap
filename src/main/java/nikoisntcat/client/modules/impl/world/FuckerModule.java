@@ -150,7 +150,7 @@ public class FuckerModule extends Module {
 
     public void method1294() {
         if (!this.field1743.getValue() || Class228.method1485(this.field1744.x, this.field1744.y, this.field1744.z) instanceof BedBlock) {
-            RotationUtil.method1524(RotationUtil.method1527(this.field1744, false), 2, Priority.field1513);
+            RotationUtil.rotate(RotationUtil.method1527(this.field1744, false), 2, Priority.field1513);
             this.field1759 = true;
         }
     }

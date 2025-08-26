@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import nikoisntcat.client.events.impl.Render3DEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
-import nikoisntcat.client.modules.impl.Class165;
+import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.screens.Class276;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.RotationUtil;
@@ -44,8 +44,8 @@ public class NameTagsModule extends Module {
 
             try {
                 float alpha = -1.0F;
-                LivingEntity mainTarget = Class165.field1611;
-                LivingEntity secondaryTarget = Class165.field1606;
+                LivingEntity mainTarget = KillAuraModule.target;
+                LivingEntity secondaryTarget = KillAuraModule.secondaryTarget;
                 Vec3d renderPos;
 
                 if (entity == mainTarget) {

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinAbstractClientPlayerEntity {
     @Inject(method={"getFovMultiplier"}, at={@At(value="HEAD")}, cancellable=true)
     public void getFovMultiplier(boolean firstPerson, float fovEffectScale, CallbackInfoReturnable<Float> cir) {
-        NoFovModule noFov = (NoFovModule) AegisClient.moduleManager.field2010.get(NoFovModule.class);
+        NoFovModule noFov = (NoFovModule) AegisClient.moduleManager.moduleMap.get(NoFovModule.class);
         if (noFov != null && noFov.isEnabled()) {
             cir.setReturnValue((float) NoFovModule.fovMultipluer.getValue());
         }

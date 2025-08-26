@@ -6,6 +6,7 @@ import nikoisntcat.client.events.Event;
 import nikoisntcat.client.events.impl.*;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
+import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.modules.impl.misc.*;
 import nikoisntcat.client.modules.impl.move.*;
 import nikoisntcat.client.modules.impl.render.*;
@@ -24,7 +25,7 @@ import java.util.function.Consumer;
 
 public class ModuleManager extends MinecraftUtil {
     public final List<Module> modules;
-    public final Map<Class<? extends Module>, Module> field2010 = new HashMap<>();
+    public final Map<Class<? extends Module>, Module> moduleMap = new HashMap<>();
 
     private static JniCaller jniCaller;
 
@@ -89,7 +90,7 @@ public class ModuleManager extends MinecraftUtil {
     }
 
     public void method1476() {
-        this.field2010.clear();
+        this.moduleMap.clear();
         this.modules.clear();
         this.init();
     }
@@ -102,9 +103,9 @@ public class ModuleManager extends MinecraftUtil {
         this.add(new FirstModuleModule());
         this.add(new AutoToolModule());
         this.add(new ArrayListModule());
-        //this.add((Module) jniCaller.load(JniCaller.KillAuraModule));
-        //this.add(new Class165());
-        //this.add(new Class197()); //Scaffold
+        this.add(new KillAuraModule());
+        //Velo
+        //Scaffold
         this.add(new ClickGuiModule());
         this.add(new TargetsModule());
         this.add(new TeamsModule());
@@ -159,7 +160,7 @@ public class ModuleManager extends MinecraftUtil {
     }
 
     private void add(Module module) {
-        this.field2010.put(module.getClass(), module);
+        this.moduleMap.put(module.getClass(), module);
         this.modules.add(module);
     }
 

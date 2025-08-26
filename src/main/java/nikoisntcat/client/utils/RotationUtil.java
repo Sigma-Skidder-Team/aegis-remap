@@ -24,12 +24,12 @@ import org.joml.Vector2f;
 import org.joml.Vector2fc;
 
 public class RotationUtil extends MinecraftUtil {
-    private static Vector2f field2032;
-    private static Vector2f field2033;
+    private static Vector2f currentTargetRotation;
+    private static Vector2f currentPlayerRots;
     private static Vec3d field2034;
-    private static Priority field2035;
+    private static Priority currentPriority;
     public static boolean field2036;
-    private static int field2037;
+    private static int currentRotationTicks;
     static Object field2038;
 
     public static Vec3d method1504(Vec3d target, Vec3d vec, double y) {
@@ -47,7 +47,7 @@ public class RotationUtil extends MinecraftUtil {
         return vec == null ? false : vec.x >= box.minX && vec.x <= box.maxX && vec.y >= box.minY && vec.y <= box.maxY;
     }
 
-    public static Vector2f method1506(Vector2f rotation, Vector2f previousRotation) {
+    public static Vector2f gcdFix(Vector2f rotation, Vector2f previousRotation) {
         float f = (float) ((Double) RotationUtil.mc.options.getMouseSensitivity().getValue() * (1.0 + Math.random() / 1.0E7) * (double) 0.6f + (double) 0.2f);
         double d = (double) (f * f * f * 8.0f) * 0.15;
         float f2 = previousRotation.x + (float) ((double) Math.round((double) (rotation.x - previousRotation.x) / d) * d);
@@ -56,8 +56,8 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public void onJump(JumpEvent jumpEvent) {
-        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null) {
-            jumpEvent.field1978 = RotationUtil.field2032.x;
+        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && currentTargetRotation != null) {
+            jumpEvent.field1978 = RotationUtil.currentTargetRotation.x;
         }
     }
 
@@ -66,7 +66,7 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public static Vector2f method1508() {
-        return field2033;
+        return currentPlayerRots;
     }
 
     public static double method1509(LivingEntity living) {
@@ -126,9 +126,9 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     static {
-        field2037 = 0;
-        field2032 = null;
-        field2033 = null;
+        currentRotationTicks = 0;
+        currentTargetRotation = null;
+        currentPlayerRots = null;
         field2034 = null;
         field2036 = true;
     }
@@ -190,7 +190,7 @@ public class RotationUtil extends MinecraftUtil {
         return f;
     }
 
-    public static float method1516(float a, float b) {
+    public static float wrap(float a, float b) {
         float f;
         float f2 = MathHelper.wrapDegrees((float) a);
         float f3 = f2 - (f = MathHelper.wrapDegrees((float) b));
@@ -258,38 +258,38 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public void method1519(MotionEvent motionEvent) {
-        if (motionEvent.method1399() == MotionEvent.Class123.PRE) {
-            if (field2032 != null) {
-                motionEvent.method1400(RotationUtil.mc.player.lastYaw + RotationUtil.method1516(RotationUtil.field2032.x, RotationUtil.mc.player.lastYaw));
-                RotationUtil.field2032.x = motionEvent.method1410();
-                motionEvent.method1404(RotationUtil.field2032.y);
-                --field2037;
+        if (motionEvent.getState() == MotionEvent.State.PRE) {
+            if (currentTargetRotation != null) {
+                motionEvent.method1400(RotationUtil.mc.player.lastYaw + RotationUtil.wrap(RotationUtil.currentTargetRotation.x, RotationUtil.mc.player.lastYaw));
+                RotationUtil.currentTargetRotation.x = motionEvent.method1410();
+                motionEvent.method1404(RotationUtil.currentTargetRotation.y);
+                --currentRotationTicks;
             }
         } else {
-            if (field2037 <= 0) {
+            if (currentRotationTicks <= 0) {
                 RotationUtil.method1277();
             }
-            RotationUtil.mc.player.renderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.renderYaw, RotationUtil.mc.player.getYaw());
-            RotationUtil.mc.player.prevYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.prevYaw, RotationUtil.mc.player.getYaw());
-            RotationUtil.mc.player.lastRenderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.lastRenderYaw, RotationUtil.mc.player.getYaw());
-            field2033 = new Vector2f(motionEvent.method1410(), motionEvent.method1414());
+            RotationUtil.mc.player.renderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.renderYaw, RotationUtil.mc.player.getYaw());
+            RotationUtil.mc.player.prevYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.prevYaw, RotationUtil.mc.player.getYaw());
+            RotationUtil.mc.player.lastRenderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.lastRenderYaw, RotationUtil.mc.player.getYaw());
+            currentPlayerRots = new Vector2f(motionEvent.method1410(), motionEvent.method1414());
             Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
-            Vec3d vec3d2 = RotationUtil.method1526(field2033);
+            Vec3d vec3d2 = RotationUtil.method1526(currentPlayerRots);
             field2034 = vec3d.add(vec3d2.x * 5.0, vec3d2.y * 5.0, vec3d2.z * 5.0);
         }
     }
 
     public static void method1277() {
-        if (field2032 != null) {
-            RotationUtil.mc.player.setYaw(RotationUtil.field2032.x + RotationUtil.method1516(RotationUtil.mc.player.getYaw(), RotationUtil.field2032.x));
+        if (currentTargetRotation != null) {
+            RotationUtil.mc.player.setYaw(RotationUtil.currentTargetRotation.x + RotationUtil.wrap(RotationUtil.mc.player.getYaw(), RotationUtil.currentTargetRotation.x));
         }
-        field2032 = null;
-        field2037 = 0;
-        field2035 = Priority.field1509;
+        currentTargetRotation = null;
+        currentRotationTicks = 0;
+        currentPriority = Priority.field1509;
     }
 
     public static Vector2f method1520() {
-        return field2032;
+        return currentTargetRotation;
     }
 
     public static Vec3d method1521(Vec3d target, Vec3d vec, double z) {
@@ -315,23 +315,23 @@ public class RotationUtil extends MinecraftUtil {
         return f;
     }
 
-    public static void method1524(Vector2f targetRotation, int rotationTicks, Priority priority) {
-        if (field2035 != null && priority.ordinal() > field2035.ordinal()) {
+    public static void rotate(Vector2f targetRotation, int rotationTicks, Priority priority) {
+        if (currentPriority != null && priority.ordinal() > currentPriority.ordinal()) {
             return;
         }
-        if (field2033 == null) {
-            field2033 = new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
+        if (currentPlayerRots == null) {
+            currentPlayerRots = new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
         }
-        targetRotation.set(MathHelper.wrapDegrees((float) targetRotation.x) - MathHelper.wrapDegrees((float) RotationUtil.field2033.x) + RotationUtil.field2033.x, targetRotation.y);
-        targetRotation.set((Vector2fc) RotationUtil.method1506(targetRotation, field2033));
-        field2032 = targetRotation;
-        field2037 = rotationTicks;
-        field2035 = priority;
+        targetRotation.set(MathHelper.wrapDegrees(targetRotation.x) - MathHelper.wrapDegrees((float) RotationUtil.currentPlayerRots.x) + RotationUtil.currentPlayerRots.x, targetRotation.y);
+        targetRotation.set(RotationUtil.gcdFix(targetRotation, currentPlayerRots));
+        currentTargetRotation = targetRotation;
+        currentRotationTicks = rotationTicks;
+        currentPriority = priority;
     }
 
     public void onStrafe(StrafeEvent strafeEvent) {
-        if (field2032 != null && ClientSettingsModule.strafeFixMode.getValue().equals("Normal")) {
-            strafeEvent.method1400(RotationUtil.field2032.x);
+        if (currentTargetRotation != null && ClientSettingsModule.strafeFixMode.getValue().equals("Normal")) {
+            strafeEvent.setYaw(RotationUtil.currentTargetRotation.x);
         }
     }
 
@@ -344,8 +344,8 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public void onMoveInput(MoveInputEvent moveInputEvent) {
-        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null && field2036) {
-            MovementUtil.moveFix(moveInputEvent, RotationUtil.field2032.x);
+        if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && currentTargetRotation != null && field2036) {
+            MovementUtil.moveFix(moveInputEvent, RotationUtil.currentTargetRotation.x);
         }
     }
 
@@ -403,7 +403,7 @@ public class RotationUtil extends MinecraftUtil {
         return RotationUtil.mc.player.getYaw();
     }
 
-    public static Entity method1531(double range) {
+    public static Entity raycast(double range) {
         Entity entity2 = mc.getCameraEntity();
         float f = RotationUtil.method1539().x;
         float f2 = RotationUtil.method1539().y;
@@ -485,16 +485,16 @@ public class RotationUtil extends MinecraftUtil {
         return vec == null ? false : vec.x >= box.minX && vec.x <= box.maxX && vec.z >= box.minZ && vec.z <= box.maxZ;
     }
 
-    public static void method1534(Vector2f targetRotation, int rotationTicks, Priority priority, float yawSpeed, float pitchSpeed) {
-        float f = RotationUtil.method1516(targetRotation.x, RotationUtil.field2033.x);
-        float f2 = targetRotation.y - RotationUtil.field2033.y;
+    public static void rotate(Vector2f targetRotation, int rotationTicks, Priority priority, float yawSpeed, float pitchSpeed) {
+        float f = RotationUtil.wrap(targetRotation.x, RotationUtil.currentPlayerRots.x);
+        float f2 = targetRotation.y - RotationUtil.currentPlayerRots.y;
         if (Math.abs(f) > yawSpeed) {
-            targetRotation.x = RotationUtil.field2033.x + (f > 0.0f ? yawSpeed : -yawSpeed);
+            targetRotation.x = RotationUtil.currentPlayerRots.x + (f > 0.0f ? yawSpeed : -yawSpeed);
         }
         if (Math.abs(f2) > pitchSpeed) {
-            targetRotation.y = RotationUtil.field2033.y + (f2 > 0.0f ? pitchSpeed : -pitchSpeed);
+            targetRotation.y = RotationUtil.currentPlayerRots.y + (f2 > 0.0f ? pitchSpeed : -pitchSpeed);
         }
-        RotationUtil.method1524(targetRotation, rotationTicks, priority);
+        RotationUtil.rotate(targetRotation, rotationTicks, priority);
     }
 
     public static Vector2f method1535(Vec3d eyesPos, BlockPos targetPos, Direction targetFace, Vec3d helpVector) {
@@ -548,6 +548,6 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public static Vector2f method1539() {
-        return field2032 != null ? field2032 : new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
+        return currentTargetRotation != null ? currentTargetRotation : new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
     }
 }

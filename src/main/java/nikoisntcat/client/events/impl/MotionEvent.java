@@ -4,7 +4,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import nikoisntcat.client.events.CancellableEvent;
 
 public class MotionEvent extends CancellableEvent {
-    private Class123 field1957;
+    private State state;
     private boolean onGround;
     private float field1959;
     private float pitch;
@@ -18,22 +18,22 @@ public class MotionEvent extends CancellableEvent {
     private double z;
     private float yaw;
 
-    public Class123 method1399() {
-        return this.field1957;
+    public State getState() {
+        return this.state;
     }
 
     public void method1400(float f) {
         this.field1959 = f;
     }
 
-    public MotionEvent(double d, double d2, double d3, boolean bl, float f, float f2, Class123 class123) {
+    public MotionEvent(double d, double d2, double d3, boolean bl, float f, float f2, State state) {
         this.field1966 = d;
         this.field1963 = d2;
         this.field1965 = d3;
         this.field1962 = f2;
         this.field1959 = f;
         this.field1967 = bl;
-        this.field1957 = class123;
+        this.state = state;
     }
 
     public double method1401() {
@@ -88,8 +88,8 @@ public class MotionEvent extends CancellableEvent {
         return this.field1959;
     }
 
-    public void setState(Class123 class123) {
-        this.field1957 = class123;
+    public void setState(State state) {
+        this.state = state;
     }
 
     public boolean method1412() {
@@ -104,7 +104,7 @@ public class MotionEvent extends CancellableEvent {
         return this.field1962;
     }
 
-    public static enum Class123 {
+    public static enum State {
         PRE, POST
     }
 }

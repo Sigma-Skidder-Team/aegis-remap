@@ -82,7 +82,7 @@ public class DisablerModule extends Module {
                 return;
             }
 
-            if (!lowHopActive && event.method1399() == MotionEvent.Class123.PRE) {
+            if (!lowHopActive && event.getState() == MotionEvent.State.PRE) {
                 if (lowHopTicks < 24) {
                     if (airTicks >= 9 && airTicks % 2 == 0) {
                         event.method1413(event.method1407() -
@@ -112,8 +112,8 @@ public class DisablerModule extends Module {
         }
 
         if (acaAim.getValue()) {
-            if (Math.abs(RotationUtil.method1516(currentYaw, event.method1410())) < 1.0E-4f) {
-                event.method1400(RotationUtil.method1516(currentYaw, event.method1410()) > 0.0f
+            if (Math.abs(RotationUtil.wrap(currentYaw, event.method1410())) < 1.0E-4f) {
+                event.method1400(RotationUtil.wrap(currentYaw, event.method1410()) > 0.0f
                         ? currentYaw + 1.0E-4f
                         : currentYaw - 1.0E-4f);
             }

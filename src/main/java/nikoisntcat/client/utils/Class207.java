@@ -73,7 +73,7 @@ extends MinecraftUtil {
                     RotationUtil.method1520().x = yaw;
                 } else {
                     bl = true;
-                    RotationUtil.method1524(new Vector2f(yaw, 1.0f), 1, Priority.field1513);
+                    RotationUtil.rotate(new Vector2f(yaw, 1.0f), 1, Priority.field1513);
                 }
                 MoveInputEvent.field1982 = true;
                 this.field1945.tick();

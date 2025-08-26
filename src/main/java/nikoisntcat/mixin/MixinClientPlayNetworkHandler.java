@@ -28,7 +28,7 @@ public abstract class MixinClientPlayNetworkHandler extends ClientCommonNetworkH
 
     @Inject(method = {"onPlayerPositionLook"}, at = {@At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/network/NetworkThreadUtils;forceMainThread(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;Lnet/minecraft/util/thread/ThreadExecutor;)V")}, cancellable = true)
     public void onPlayerPositionLook(PlayerPositionLookS2CPacket packet, CallbackInfo ci) {
-        NoRotationSetModule nrs = (NoRotationSetModule)AegisClient.moduleManager.field2010.get(NoRotationSetModule.class);
+        NoRotationSetModule nrs = (NoRotationSetModule)AegisClient.moduleManager.moduleMap.get(NoRotationSetModule.class);
         if (nrs.isEnabled()) {
             nrs.method1298(packet, (PlayerEntity)this.client.player, this.connection);
             ci.cancel();

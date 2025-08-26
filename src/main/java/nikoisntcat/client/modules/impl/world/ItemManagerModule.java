@@ -33,7 +33,6 @@ import net.minecraft.util.math.random.Random;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
-import nikoisntcat.client.modules.impl.Class165;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.Class264;
 import nikoisntcat.client.settings.impl.NumberSetting;
