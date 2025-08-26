@@ -35,6 +35,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import nikoisntcat.AegisClient;
+import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.utils.MinecraftUtil;
 import nikoisntcat.client.utils.font.Class160;
 import nikoisntcat.client.utils.font.FontManager;
@@ -116,7 +117,7 @@ public class RenderUtil extends MinecraftUtil {
             float var13 = (float) (entityX - mc.gameRenderer.getCamera().getPos().getX());
             float var14 = (float) (entityY - mc.gameRenderer.getCamera().getPos().getY());
             float var15 = (float) (entityZ - mc.gameRenderer.getCamera().getPos().getZ());
-            boolean var16 = entity == Class165.target;
+            boolean var16 = entity == KillAuraModule.target;
             Color var17 = var16 ? Color.getHSBColor((float) (System.currentTimeMillis() % 2000L) / 2000.0F, 0.4F, 1.0F) : new Color(-65794);
             String var18 = String.format("%.1f", entity.getHealth());
             float var19 = Math.min(entity.getHealth() / entity.getMaxHealth(), 1.0F);

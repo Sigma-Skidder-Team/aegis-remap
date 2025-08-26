@@ -33,6 +33,7 @@ import net.minecraft.util.math.random.Random;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
+import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.Class264;
 import nikoisntcat.client.settings.impl.NumberSetting;
@@ -185,7 +186,7 @@ public class ItemManagerModule extends Module {
                 this.field1694.update();
             }
 
-            if (mc.currentScreen != null || Class165.field1607 == null) {
+            if (mc.currentScreen != null || KillAuraModule.target == null) {
                 if (this.field1688) {
                     this.field1694.update();
                 } else if (this.field1694.method1902(this.field1687.getValue())) {

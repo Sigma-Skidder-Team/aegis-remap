@@ -154,7 +154,7 @@ public abstract class Module extends MinecraftUtil {
         return arrayList;
     }
 
-    public int method1213() {
+    public int getDisplayLength() {
         return this.method1215() != null ? this.name.length() + this.method1215().length() : this.name.length();
     }
 
