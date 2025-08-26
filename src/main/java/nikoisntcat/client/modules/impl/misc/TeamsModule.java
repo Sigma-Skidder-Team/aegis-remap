@@ -19,7 +19,7 @@ public class TeamsModule extends Module {
 
     public TeamsModule() {
         super("Teams", "Skip your teammates", 0, Category.MISC);
-        this.scoreboardCheck = new BooleanSetting("Scoreboard", true);
+        this.scoreboardCheck = new BooleanSetting("ScoareBoard", true);
     }
 
     private static boolean isSameNameColor(PlayerEntity other) {
