@@ -3,7 +3,7 @@ package nikoisntcat.mixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.ESPModule;
+import nikoisntcat.client.modules.impl.render.ESPModule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

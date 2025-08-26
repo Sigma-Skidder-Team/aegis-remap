@@ -11,8 +11,8 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
-import nikoisntcat.client.modules.impl.TargetsModule;
-import nikoisntcat.client.modules.impl.TeamsModule;
+import nikoisntcat.client.modules.impl.misc.TargetsModule;
+import nikoisntcat.client.modules.impl.misc.TeamsModule;
 
 import java.util.function.Supplier;
 

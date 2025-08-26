@@ -2,7 +2,7 @@ package nikoisntcat.mixin;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.NoFovModule;
+import nikoisntcat.client.modules.impl.render.NoFovModule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

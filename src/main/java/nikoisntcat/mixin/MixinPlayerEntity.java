@@ -4,7 +4,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
-import nikoisntcat.client.modules.impl.DisablerModule;
+import nikoisntcat.client.modules.impl.misc.DisablerModule;
 import nikoisntcat.client.utils.MinecraftUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

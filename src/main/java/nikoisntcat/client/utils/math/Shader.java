@@ -15,7 +15,7 @@ import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
-import nikoisntcat.client.modules.impl.ClientSettingsModule;
+import nikoisntcat.client.modules.impl.misc.ClientSettingsModule;
 import org.joml.Matrix4f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

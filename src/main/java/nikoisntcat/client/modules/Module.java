@@ -2,7 +2,7 @@ package nikoisntcat.client.modules;
 
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.*;
-import nikoisntcat.client.modules.impl.NotificationModule;
+import nikoisntcat.client.modules.impl.render.NotificationModule;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.ColorSetting;
 import nikoisntcat.client.utils.MinecraftUtil;

@@ -16,7 +16,7 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.ClientSettingsModule;
+import nikoisntcat.client.modules.impl.misc.ClientSettingsModule;
 import nikoisntcat.client.utils.math.Shader;
 import org.joml.Matrix4f;
 

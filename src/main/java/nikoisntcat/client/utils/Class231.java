@@ -19,7 +19,7 @@ import nikoisntcat.client.events.impl.JumpEvent;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.MoveInputEvent;
 import nikoisntcat.client.events.impl.StrafeEvent;
-import nikoisntcat.client.modules.impl.ClientSettingsModule;
+import nikoisntcat.client.modules.impl.misc.ClientSettingsModule;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 

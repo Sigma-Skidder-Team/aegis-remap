@@ -12,7 +12,7 @@ import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.RotationsModule;
+import nikoisntcat.client.modules.impl.render.RotationsModule;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

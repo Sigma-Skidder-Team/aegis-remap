@@ -5,7 +5,7 @@ import net.minecraft.client.RunArgs;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.HitResult;
 import nikoisntcat.AegisClient;
-import nikoisntcat.client.modules.impl.FastPlaceModule;
+import nikoisntcat.client.modules.impl.world.FastPlaceModule;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.font.FontManager;
 import org.jetbrains.annotations.Nullable;

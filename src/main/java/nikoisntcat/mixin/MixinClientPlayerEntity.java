@@ -12,7 +12,7 @@ import net.minecraft.util.Hand;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.SlowdownEvent;
-import nikoisntcat.client.modules.impl.DisablerModule;
+import nikoisntcat.client.modules.impl.misc.DisablerModule;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MovementUtil;
 import nikoisntcat.client.utils.interfaces.IClientPlayerEntity;
