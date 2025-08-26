@@ -6,6 +6,10 @@ An auth emulator will (hopefully) released alongside this.
 
 Just look at the quality of this client...
 
+### Number settings can go out of bounds
+
+[Screencast_20250825_223424.webm](https://github.com/user-attachments/assets/1d6b8599-faeb-495e-b723-115f680b9b46)
+
 ### Obfuscating their KillAura and Velocity using a native obfuscator (which probably slows down their performance by 8x)
 
 Native obfuscations should be used only in sensitive parts like auth — but no, we obfuscate our killaura and velocity with it.
