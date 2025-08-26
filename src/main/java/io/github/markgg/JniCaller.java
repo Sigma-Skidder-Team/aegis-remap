@@ -13,6 +13,9 @@ public class JniCaller {
 
     private final ClassLoader loader;
 
+    public static final String AbstractModule = "skidonion.Dwz.\u2000\u2000\u2000\u2000\u2000\u2000\u2009\u200b";
+    public static final String KillAuraModule = "";
+
     public JniCaller(File jarFile) throws Exception {
         if (!jarFile.exists()) {
             LOGGER.error("Obfuscated Aegis jar is nowhere to be found - {}", jarFile.getAbsolutePath());
