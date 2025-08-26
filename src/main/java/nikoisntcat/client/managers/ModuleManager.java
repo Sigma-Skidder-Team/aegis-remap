@@ -1,15 +1,21 @@
 package nikoisntcat.client.managers;
 
+import io.github.markgg.JniCaller;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.Event;
 import nikoisntcat.client.events.impl.*;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.*;
+import nikoisntcat.client.modules.impl.misc.*;
+import nikoisntcat.client.modules.impl.move.*;
+import nikoisntcat.client.modules.impl.render.*;
+import nikoisntcat.client.modules.impl.world.*;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MinecraftUtil;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +27,15 @@ public class ModuleManager extends MinecraftUtil {
     public final List<Module> modules;
     public final Map<Class<? extends Module>, Module> field2010 = new HashMap<>();
 
+    private static JniCaller jniCaller;
+
     public ModuleManager() {
         this.modules = new ArrayList<>();
+        try {
+            jniCaller = new JniCaller(new File("Aegis-obf.jar"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         init();
     }
 
@@ -90,8 +103,7 @@ public class ModuleManager extends MinecraftUtil {
         this.add(new FirstModuleModule());
         this.add(new AutoToolModule());
         this.add(new ArrayListModule());
-        //TODO: Native modules
-        //this.add(new Class169()); //KillAura
+        //this.add((Module) jniCaller.load(JniCaller.KillAuraModule));
         //this.add(new Class165());
         //this.add(new Class197()); //Scaffold
         this.add(new ClickGuiModule());
