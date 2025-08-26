@@ -23,6 +23,9 @@ if you **don't make it generic** and have many options, you probably won't be ab
 
 it's $16 lifetime and $4 monthly, and 4² is 16...
 
+### Awesome magic values 
+![](https://i.imgur.com/Px7NcWL.png)
+
 ### the "0 flags" telly [flags the telly checks](https://youtu.be/l3Nq9HI0yII?t=129)
 
 ALL you HAD to DO is make sure that you're rotating <= 37° on the yaw axis... If you're using edge angle then you can do 40° instead.
