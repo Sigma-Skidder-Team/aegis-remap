@@ -6,7 +6,6 @@ import nikoisntcat.client.events.Event;
 import nikoisntcat.client.events.impl.*;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
-import nikoisntcat.client.modules.impl.*;
 import nikoisntcat.client.modules.impl.misc.*;
 import nikoisntcat.client.modules.impl.move.*;
 import nikoisntcat.client.modules.impl.render.*;
@@ -114,7 +113,7 @@ public class ModuleManager extends MinecraftUtil {
         this.add(new DisablerModule());
         this.add(AntiBotModule.instance);
         this.add(new FuckerModule());
-        this.add(new Class172());
+        this.add(new ItemManagerModule());
         this.add(new NoRotationSetModule());
         this.add(new ESPModule());
         this.add(new SpeedModule());

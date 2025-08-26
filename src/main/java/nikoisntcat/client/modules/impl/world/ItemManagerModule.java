@@ -1,4 +1,4 @@
-package nikoisntcat.client.modules.impl;
+package nikoisntcat.client.modules.impl.world;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +33,7 @@ import net.minecraft.util.math.random.Random;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
+import nikoisntcat.client.modules.impl.Class165;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.Class264;
 import nikoisntcat.client.settings.impl.NumberSetting;
@@ -40,7 +41,7 @@ import nikoisntcat.client.utils.Class228;
 import nikoisntcat.client.utils.math.TimerUtil;
 import nikoisntcat.client.utils.player.Class205;
 
-public class Class172 extends Module {
+public class ItemManagerModule extends Module {
     public NumberSetting field1687;
     private boolean field1688;
     private int field1689;
@@ -257,8 +258,8 @@ public class Class172 extends Module {
         }
     }
 
-    public Class172() {
-        super("ItemManager", 0, Category.MISC);
+    public ItemManagerModule() {
+        super("ItemManager", 0, Category.WORLD);
         this.field1703 = new NumberSetting("MaxChestClickDelay", 0.0, 2000.0, 0.0, 1.0);
         this.field1707 = new NumberSetting("MinChestClickDelay", 0.0, 2000.0, 0.0, 1.0);
         this.field1696 = new NumberSetting("MaxInventoryClickDelay", 0.0, 2000.0, 0.0, 1.0);
