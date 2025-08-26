@@ -6,7 +6,7 @@ import net.minecraft.util.math.random.Random;
 import nikoisntcat.client.alt.Alt;
 import nikoisntcat.client.managers.*;
 import nikoisntcat.client.screens.clickgui.ClickGuiScreen;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.math.Shader;
 
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ public class AegisClient implements ModInitializer {
     public static String CLIENT_VERSION = "1.0";
     public static Shader shaders;
     public static EventManager eventManager;
-    public static BlinkUtil field2315;
-    public static Class231 field2316;
+    public static BlinkUtil blinkUtil;
+    public static RotationUtil rotationUtil;
     public static List<Alt> alts = new ArrayList<>();
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
@@ -48,9 +48,9 @@ public class AegisClient implements ModInitializer {
         configManager.createClientDirectories();
         commandManager = new CommandManager();
         packetUtil = new PacketUtil();
-        field2315 = new BlinkUtil();
+        blinkUtil = new BlinkUtil();
         field2310 = new Class223();
-        field2316 = new Class231();
+        rotationUtil = new RotationUtil();
         motionManager = new MotionManager();
         clickGui = new ClickGuiScreen();
         shaders = new Shader();

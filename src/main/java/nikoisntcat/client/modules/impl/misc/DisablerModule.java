@@ -14,7 +14,7 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.render.NotificationModule;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.utils.PlayerUtil;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.render.Notification;
 
 public class DisablerModule extends Module {
@@ -112,8 +112,8 @@ public class DisablerModule extends Module {
         }
 
         if (acaAim.getValue()) {
-            if (Math.abs(Class231.method1516(currentYaw, event.method1410())) < 1.0E-4f) {
-                event.method1400(Class231.method1516(currentYaw, event.method1410()) > 0.0f
+            if (Math.abs(RotationUtil.method1516(currentYaw, event.method1410())) < 1.0E-4f) {
+                event.method1400(RotationUtil.method1516(currentYaw, event.method1410()) > 0.0f
                         ? currentYaw + 1.0E-4f
                         : currentYaw - 1.0E-4f);
             }

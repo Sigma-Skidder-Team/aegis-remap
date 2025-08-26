@@ -21,7 +21,7 @@ import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class228;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.MovementUtil;
 import nikoisntcat.client.utils.math.TimerUtil;
 import nikoisntcat.client.utils.player.Class205;
@@ -204,7 +204,7 @@ public class Class197 extends Module {
     public void onDisable() {
         mc.options.jumpKey.setPressed(PlayerUtil.isKeyPressed(mc.options.jumpKey));
         Class223.method1277();
-        AegisClient.field2315.method2047();
+        AegisClient.blinkUtil.method2047();
         this.field1890 = false;
     }
 
@@ -257,7 +257,7 @@ public class Class197 extends Module {
             }
 
             if (!this.field1896 && this.field1881.getValue().equals((String) method1370('\b'))) {
-                BlockHitResult var2 = Class231.method1517(Class231.method1539(), 4.5);
+                BlockHitResult var2 = RotationUtil.method1517(RotationUtil.method1539(), 4.5);
                 if (!mc.world.getBlockState(var2.getBlockPos()).isReplaceable()
                         && !Class228.method1488(var2.getBlockPos(), var2.getSide())
                         && mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, new BlockHitResult(var2.getPos(), var2.getSide(), var2.getBlockPos(), false))
@@ -266,7 +266,7 @@ public class Class197 extends Module {
                 }
             }
 
-            Class231.field2036 = true;
+            RotationUtil.field2036 = true;
         }
     }
 
@@ -302,7 +302,7 @@ public class Class197 extends Module {
             this.method1359();
             this.method1361();
             if (this.field1881.getValue().equals((String) method1370('\u0005')) && !MovementUtil.isMoving()) {
-                AegisClient.field2315.method2047();
+                AegisClient.blinkUtil.method2047();
             }
         }
     }

@@ -19,10 +19,10 @@ import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.Class129;
+import nikoisntcat.client.utils.Priority;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class228;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.math.TimerUtil;
 
 public class FuckerModule extends Module {
@@ -150,7 +150,7 @@ public class FuckerModule extends Module {
 
     public void method1294() {
         if (!this.field1743.getValue() || Class228.method1485(this.field1744.x, this.field1744.y, this.field1744.z) instanceof BedBlock) {
-            Class231.method1524(Class231.method1527(this.field1744, false), 2, Class129.field1513);
+            RotationUtil.method1524(RotationUtil.method1527(this.field1744, false), 2, Priority.field1513);
             this.field1759 = true;
         }
     }
@@ -199,7 +199,7 @@ public class FuckerModule extends Module {
                         Block var5 = Class228.method1493((double) var2, (double) var3, (double) var4);
                         Vec3d var6 = new Vec3d(mc.player.getX() + (double) var2, mc.player.getY() + (double) var3, mc.player.getZ() + (double) var4);
                         if (var5 instanceof BedBlock) {
-                            BlockHitResult var7 = Class231.method1517(Class231.method1527(var6, false), 4.5);
+                            BlockHitResult var7 = RotationUtil.method1517(RotationUtil.method1527(var6, false), 4.5);
                             if (var7 != null && !(var7.getPos().distanceTo(new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ())) > 4.5)) {
                                 if (this.field1745.getValue()) {
                                     if (this.field1746.getValue()) {

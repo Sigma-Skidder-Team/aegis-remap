@@ -23,11 +23,11 @@ import nikoisntcat.client.modules.impl.misc.ClientSettingsModule;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 
-public class Class231 extends MinecraftUtil {
+public class RotationUtil extends MinecraftUtil {
     private static Vector2f field2032;
     private static Vector2f field2033;
     private static Vec3d field2034;
-    private static Class129 field2035;
+    private static Priority field2035;
     public static boolean field2036;
     private static int field2037;
     static Object field2038;
@@ -48,7 +48,7 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static Vector2f method1506(Vector2f rotation, Vector2f previousRotation) {
-        float f = (float) ((Double) Class231.mc.options.getMouseSensitivity().getValue() * (1.0 + Math.random() / 1.0E7) * (double) 0.6f + (double) 0.2f);
+        float f = (float) ((Double) RotationUtil.mc.options.getMouseSensitivity().getValue() * (1.0 + Math.random() / 1.0E7) * (double) 0.6f + (double) 0.2f);
         double d = (double) (f * f * f * 8.0f) * 0.15;
         float f2 = previousRotation.x + (float) ((double) Math.round((double) (rotation.x - previousRotation.x) / d) * d);
         float f3 = previousRotation.y + (float) ((double) Math.round((double) (rotation.y - previousRotation.y) / d) * d);
@@ -57,7 +57,7 @@ public class Class231 extends MinecraftUtil {
 
     public void onJump(JumpEvent jumpEvent) {
         if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null) {
-            jumpEvent.field1978 = Class231.field2032.x;
+            jumpEvent.field1978 = RotationUtil.field2032.x;
         }
     }
 
@@ -70,8 +70,8 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static double method1509(LivingEntity living) {
-        Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
-        return vec3d.distanceTo(Class231.method1528(vec3d, living.getBoundingBox()));
+        Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
+        return vec3d.distanceTo(RotationUtil.method1528(vec3d, living.getBoundingBox()));
     }
 
     public static Vec3d method1510(Vec3d target, Vec3d vec, double x) {
@@ -87,26 +87,26 @@ public class Class231 extends MinecraftUtil {
 
     public static Vector2f method1511(BlockPos pos, int predictTicks) {
         Vector2f vector2f;
-        float f = Class231.mc.player.getYaw() - 180.0f;
+        float f = RotationUtil.mc.player.getYaw() - 180.0f;
         int n = 0;
         while (true) {
-            vector2f = n == 0 ? new Vector2f(Class231.mc.player.lastYaw, Class231.mc.player.lastPitch) : Class231.method1532(new Class207().method1396((int) predictTicks, (float) f, (boolean) true).field2177.add(0.0, (double) Class231.mc.player.getStandingEyeHeight(), 0.0), pos, null);
-            Vec3d vec3d = new Class207().method1396((int) predictTicks, (float) vector2f.x, (boolean) true).field2177.add(0.0, (double) Class231.mc.player.getStandingEyeHeight(), 0.0);
-            Vec3d vec3d2 = Class231.method1526(vector2f);
+            vector2f = n == 0 ? new Vector2f(RotationUtil.mc.player.lastYaw, RotationUtil.mc.player.lastPitch) : RotationUtil.method1532(new Class207().method1396((int) predictTicks, (float) f, (boolean) true).field2177.add(0.0, (double) RotationUtil.mc.player.getStandingEyeHeight(), 0.0), pos, null);
+            Vec3d vec3d = new Class207().method1396((int) predictTicks, (float) vector2f.x, (boolean) true).field2177.add(0.0, (double) RotationUtil.mc.player.getStandingEyeHeight(), 0.0);
+            Vec3d vec3d2 = RotationUtil.method1526(vector2f);
             Vec3d vec3d3 = vec3d.add(vec3d2.x * 4.5, vec3d2.y * 4.5, vec3d2.z * 4.5);
-            BlockHitResult blockHitResult = Class231.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player));
-            Vec3d vec3d4 = Class231.mc.player.getCameraPosVec(1.0f);
-            Vec3d vec3d5 = Class231.method1526(vector2f);
+            BlockHitResult blockHitResult = RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player));
+            Vec3d vec3d4 = RotationUtil.mc.player.getCameraPosVec(1.0f);
+            Vec3d vec3d5 = RotationUtil.method1526(vector2f);
             Vec3d vec3d6 = vec3d4.add(vec3d5.x * 4.5, vec3d5.y * 4.5, vec3d5.z * 4.5);
-            BlockHitResult blockHitResult2 = Class231.mc.world.raycast(new RaycastContext(vec3d4, vec3d6, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player));
+            BlockHitResult blockHitResult2 = RotationUtil.mc.world.raycast(new RaycastContext(vec3d4, vec3d6, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player));
             if (!blockHitResult.getBlockPos().equals((Object) pos) || !blockHitResult2.getBlockPos().equals((Object) pos)) {
                 f = vector2f.x;
                 for (float f2 = 40.0f; f2 < 90.0f; f2 += 0.01f) {
-                    vec3d5 = vec3d2 = Class231.method1526(new Vector2f(vector2f.x, f2));
+                    vec3d5 = vec3d2 = RotationUtil.method1526(new Vector2f(vector2f.x, f2));
                     vec3d3 = vec3d.add(vec3d2.x * 4.5, vec3d2.y * 4.5, vec3d2.z * 4.5);
-                    blockHitResult = Class231.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player));
+                    blockHitResult = RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player));
                     vec3d6 = vec3d4.add(vec3d5.x * 4.5, vec3d5.y * 4.5, vec3d5.z * 4.5);
-                    blockHitResult2 = Class231.mc.world.raycast(new RaycastContext(vec3d4, vec3d6, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player));
+                    blockHitResult2 = RotationUtil.mc.world.raycast(new RaycastContext(vec3d4, vec3d6, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player));
                     if (!blockHitResult.getBlockPos().equals((Object) pos) || !blockHitResult2.getBlockPos().equals((Object) pos))
                         continue;
                     vector2f.y = f2;
@@ -135,19 +135,19 @@ public class Class231 extends MinecraftUtil {
 
     public static Vector2f method1512(BlockPos pos, Direction direction) {
         Vector2f vector2f;
-        float f = Class231.mc.player.getYaw() - 180.0f;
+        float f = RotationUtil.mc.player.getYaw() - 180.0f;
         int n = 0;
         while (true) {
-            vector2f = Class231.method1535(new Class207().method1396((int) 1, (float) f, (boolean) true).field2177.add(0.0, (double) Class231.mc.player.getStandingEyeHeight(), 0.0), pos, direction, null);
-            Vec3d vec3d = new Class207().method1396((int) 1, (float) vector2f.x, (boolean) true).field2177.add(0.0, (double) Class231.mc.player.getStandingEyeHeight(), 0.0);
-            Vec3d vec3d2 = Class231.method1526(vector2f);
+            vector2f = RotationUtil.method1535(new Class207().method1396((int) 1, (float) f, (boolean) true).field2177.add(0.0, (double) RotationUtil.mc.player.getStandingEyeHeight(), 0.0), pos, direction, null);
+            Vec3d vec3d = new Class207().method1396((int) 1, (float) vector2f.x, (boolean) true).field2177.add(0.0, (double) RotationUtil.mc.player.getStandingEyeHeight(), 0.0);
+            Vec3d vec3d2 = RotationUtil.method1526(vector2f);
             Vec3d vec3d3 = vec3d.add(vec3d2.x * 4.5, vec3d2.y * 4.5, vec3d2.z * 4.5);
-            if (Class231.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player)).getSide() != direction) {
+            if (RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player)).getSide() != direction) {
                 f = vector2f.x;
                 for (float f2 = 0.0f; f2 < 90.0f; f2 += 0.01f) {
-                    vec3d2 = Class231.method1526(new Vector2f(vector2f.x, f2));
+                    vec3d2 = RotationUtil.method1526(new Vector2f(vector2f.x, f2));
                     vec3d3 = vec3d.add(vec3d2.x * 4.5, vec3d2.y * 4.5, vec3d2.z * 4.5);
-                    if (Class231.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player)).getSide() != direction)
+                    if (RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player)).getSide() != direction)
                         continue;
                     return new Vector2f(vector2f.x, f2);
                 }
@@ -163,14 +163,14 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static boolean method1513(Vec3d vec3) {
-        Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
-        return Class231.mc.world.raycast(new RaycastContext(vec3d, vec3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.ANY, (Entity) Class231.mc.player)) == null;
+        Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
+        return RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.ANY, (Entity) RotationUtil.mc.player)) == null;
     }
 
     public static Vec3d method1514(double range) {
-        Vector2f vector2f = Class231.method1539();
-        Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
-        Vec3d vec3d2 = Class231.method1526(vector2f);
+        Vector2f vector2f = RotationUtil.method1539();
+        Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
+        Vec3d vec3d2 = RotationUtil.method1526(vector2f);
         return vec3d.add(vec3d2.x * range, vec3d2.y * range, vec3d2.z * range);
     }
 
@@ -178,7 +178,7 @@ public class Class231 extends MinecraftUtil {
         float f = 75.0f;
         float f2 = 55.0f;
         while ((double) f2 < 79.5) {
-            BlockHitResult blockHitResult = Class231.method1517(new Vector2f(yaw, f2), 4.5);
+            BlockHitResult blockHitResult = RotationUtil.method1517(new Vector2f(yaw, f2), 4.5);
             if (blockHitResult.getBlockPos().equals((Object) pos)) {
                 if (blockHitResult.getSide() == direction) {
                     return f2;
@@ -201,34 +201,34 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static BlockHitResult method1517(Vector2f toRotation, double reach) {
-        Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
-        Vec3d vec3d2 = Class231.method1526(toRotation);
-        return Class231.mc.world.raycast(new RaycastContext(vec3d, vec3d.add(new Vec3d(vec3d2.x * reach, vec3d2.y * reach, vec3d2.z * reach)), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) Class231.mc.player));
+        Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
+        Vec3d vec3d2 = RotationUtil.method1526(toRotation);
+        return RotationUtil.mc.world.raycast(new RaycastContext(vec3d, vec3d.add(new Vec3d(vec3d2.x * reach, vec3d2.y * reach, vec3d2.z * reach)), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, (Entity) RotationUtil.mc.player));
     }
 
     public static BlockHitResult method1518(Box targetBox, Vec3d eyesPos, Vec3d hitVec) {
-        Vec3d vec3d = Class231.method1510(eyesPos, hitVec, targetBox.minX);
-        Vec3d vec3d2 = Class231.method1510(eyesPos, hitVec, targetBox.maxX);
-        Vec3d vec3d3 = Class231.method1504(eyesPos, hitVec, targetBox.minY);
-        Vec3d vec3d4 = Class231.method1504(eyesPos, hitVec, targetBox.maxY);
-        Vec3d vec3d5 = Class231.method1521(eyesPos, hitVec, targetBox.minZ);
-        Vec3d vec3d6 = Class231.method1521(eyesPos, hitVec, targetBox.maxZ);
-        if (!Class231.method1507(targetBox, vec3d)) {
+        Vec3d vec3d = RotationUtil.method1510(eyesPos, hitVec, targetBox.minX);
+        Vec3d vec3d2 = RotationUtil.method1510(eyesPos, hitVec, targetBox.maxX);
+        Vec3d vec3d3 = RotationUtil.method1504(eyesPos, hitVec, targetBox.minY);
+        Vec3d vec3d4 = RotationUtil.method1504(eyesPos, hitVec, targetBox.maxY);
+        Vec3d vec3d5 = RotationUtil.method1521(eyesPos, hitVec, targetBox.minZ);
+        Vec3d vec3d6 = RotationUtil.method1521(eyesPos, hitVec, targetBox.maxZ);
+        if (!RotationUtil.method1507(targetBox, vec3d)) {
             vec3d = null;
         }
-        if (!Class231.method1507(targetBox, vec3d2)) {
+        if (!RotationUtil.method1507(targetBox, vec3d2)) {
             vec3d2 = null;
         }
-        if (!Class231.method1533(targetBox, vec3d3)) {
+        if (!RotationUtil.method1533(targetBox, vec3d3)) {
             vec3d3 = null;
         }
-        if (!Class231.method1533(targetBox, vec3d4)) {
+        if (!RotationUtil.method1533(targetBox, vec3d4)) {
             vec3d4 = null;
         }
-        if (!Class231.method1505(targetBox, vec3d5)) {
+        if (!RotationUtil.method1505(targetBox, vec3d5)) {
             vec3d5 = null;
         }
-        if (!Class231.method1505(targetBox, vec3d6)) {
+        if (!RotationUtil.method1505(targetBox, vec3d6)) {
             vec3d6 = null;
         }
         Vec3d vec3d7 = null;
@@ -260,32 +260,32 @@ public class Class231 extends MinecraftUtil {
     public void method1519(MotionEvent motionEvent) {
         if (motionEvent.method1399() == MotionEvent.Class123.PRE) {
             if (field2032 != null) {
-                motionEvent.method1400(Class231.mc.player.lastYaw + Class231.method1516(Class231.field2032.x, Class231.mc.player.lastYaw));
-                Class231.field2032.x = motionEvent.method1410();
-                motionEvent.method1404(Class231.field2032.y);
+                motionEvent.method1400(RotationUtil.mc.player.lastYaw + RotationUtil.method1516(RotationUtil.field2032.x, RotationUtil.mc.player.lastYaw));
+                RotationUtil.field2032.x = motionEvent.method1410();
+                motionEvent.method1404(RotationUtil.field2032.y);
                 --field2037;
             }
         } else {
             if (field2037 <= 0) {
-                Class231.method1277();
+                RotationUtil.method1277();
             }
-            Class231.mc.player.renderYaw = Class231.mc.player.getYaw() + Class231.method1516(Class231.mc.player.renderYaw, Class231.mc.player.getYaw());
-            Class231.mc.player.prevYaw = Class231.mc.player.getYaw() + Class231.method1516(Class231.mc.player.prevYaw, Class231.mc.player.getYaw());
-            Class231.mc.player.lastRenderYaw = Class231.mc.player.getYaw() + Class231.method1516(Class231.mc.player.lastRenderYaw, Class231.mc.player.getYaw());
+            RotationUtil.mc.player.renderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.renderYaw, RotationUtil.mc.player.getYaw());
+            RotationUtil.mc.player.prevYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.prevYaw, RotationUtil.mc.player.getYaw());
+            RotationUtil.mc.player.lastRenderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.method1516(RotationUtil.mc.player.lastRenderYaw, RotationUtil.mc.player.getYaw());
             field2033 = new Vector2f(motionEvent.method1410(), motionEvent.method1414());
-            Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
-            Vec3d vec3d2 = Class231.method1526(field2033);
+            Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
+            Vec3d vec3d2 = RotationUtil.method1526(field2033);
             field2034 = vec3d.add(vec3d2.x * 5.0, vec3d2.y * 5.0, vec3d2.z * 5.0);
         }
     }
 
     public static void method1277() {
         if (field2032 != null) {
-            Class231.mc.player.setYaw(Class231.field2032.x + Class231.method1516(Class231.mc.player.getYaw(), Class231.field2032.x));
+            RotationUtil.mc.player.setYaw(RotationUtil.field2032.x + RotationUtil.method1516(RotationUtil.mc.player.getYaw(), RotationUtil.field2032.x));
         }
         field2032 = null;
         field2037 = 0;
-        field2035 = Class129.field1509;
+        field2035 = Priority.field1509;
     }
 
     public static Vector2f method1520() {
@@ -315,15 +315,15 @@ public class Class231 extends MinecraftUtil {
         return f;
     }
 
-    public static void method1524(Vector2f targetRotation, int rotationTicks, Class129 priority) {
+    public static void method1524(Vector2f targetRotation, int rotationTicks, Priority priority) {
         if (field2035 != null && priority.ordinal() > field2035.ordinal()) {
             return;
         }
         if (field2033 == null) {
-            field2033 = new Vector2f(Class231.mc.player.getYaw(), Class231.mc.player.getPitch());
+            field2033 = new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
         }
-        targetRotation.set(MathHelper.wrapDegrees((float) targetRotation.x) - MathHelper.wrapDegrees((float) Class231.field2033.x) + Class231.field2033.x, targetRotation.y);
-        targetRotation.set((Vector2fc) Class231.method1506(targetRotation, field2033));
+        targetRotation.set(MathHelper.wrapDegrees((float) targetRotation.x) - MathHelper.wrapDegrees((float) RotationUtil.field2033.x) + RotationUtil.field2033.x, targetRotation.y);
+        targetRotation.set((Vector2fc) RotationUtil.method1506(targetRotation, field2033));
         field2032 = targetRotation;
         field2037 = rotationTicks;
         field2035 = priority;
@@ -331,7 +331,7 @@ public class Class231 extends MinecraftUtil {
 
     public void onStrafe(StrafeEvent strafeEvent) {
         if (field2032 != null && ClientSettingsModule.strafeFixMode.getValue().equals("Normal")) {
-            strafeEvent.method1400(Class231.field2032.x);
+            strafeEvent.method1400(RotationUtil.field2032.x);
         }
     }
 
@@ -345,14 +345,14 @@ public class Class231 extends MinecraftUtil {
 
     public void onMoveInput(MoveInputEvent moveInputEvent) {
         if (ClientSettingsModule.strafeFixMode.getValue().equals("Normal") && field2032 != null && field2036) {
-            MovementUtil.moveFix(moveInputEvent, Class231.field2032.x);
+            MovementUtil.moveFix(moveInputEvent, RotationUtil.field2032.x);
         }
     }
 
     public static Vector2f method1527(Vec3d vec, boolean predict) {
-        Vec3d vec3d = Class231.mc.player.getCameraPosVec(1.0f);
+        Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
         if (predict) {
-            vec3d.add(Class231.mc.player.getVelocity());
+            vec3d.add(RotationUtil.mc.player.getVelocity());
         }
         double d = vec.x - vec3d.x;
         double d2 = vec.y - vec3d.y;
@@ -389,25 +389,25 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static float method1530() {
-        Vector2f vector2f = new Vector2f(Class231.mc.player.getYaw(), Class231.mc.player.getPitch());
-        if (Class231.method1523(Class231.method1539(), vector2f) > 135.0 && Class231.mc.player.onGround) {
+        Vector2f vector2f = new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
+        if (RotationUtil.method1523(RotationUtil.method1539(), vector2f) > 135.0 && RotationUtil.mc.player.onGround) {
             double d;
-            Vector2f vector2f2 = new Vector2f(Class231.method1539().x + 145.0f, Class231.mc.player.getPitch());
-            Vector2f vector2f3 = new Vector2f(Class231.method1539().x - 145.0f, Class231.mc.player.getPitch());
-            double d2 = Class231.method1523(vector2f2, new Vector2f(Class231.mc.player.getYaw(), Class231.mc.player.getPitch()));
-            if (d2 > (d = Class231.method1523(vector2f3, new Vector2f(Class231.mc.player.getYaw(), Class231.mc.player.getPitch())))) {
+            Vector2f vector2f2 = new Vector2f(RotationUtil.method1539().x + 145.0f, RotationUtil.mc.player.getPitch());
+            Vector2f vector2f3 = new Vector2f(RotationUtil.method1539().x - 145.0f, RotationUtil.mc.player.getPitch());
+            double d2 = RotationUtil.method1523(vector2f2, new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch()));
+            if (d2 > (d = RotationUtil.method1523(vector2f3, new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch())))) {
                 return vector2f3.x;
             }
             return vector2f2.x;
         }
-        return Class231.mc.player.getYaw();
+        return RotationUtil.mc.player.getYaw();
     }
 
     public static Entity method1531(double range) {
         Entity entity2 = mc.getCameraEntity();
-        float f = Class231.method1539().x;
-        float f2 = Class231.method1539().y;
-        if (entity2 != null && Class231.mc.world != null) {
+        float f = RotationUtil.method1539().x;
+        float f2 = RotationUtil.method1539().y;
+        if (entity2 != null && RotationUtil.mc.world != null) {
             double d = range;
             Vec3d vec3d = entity2.getCameraPosVec(1.0f);
             float f3 = (float) Math.cos((double) (-f * ((float) Math.PI / 180)) - Math.PI);
@@ -416,12 +416,12 @@ public class Class231 extends MinecraftUtil {
             float f6 = (float) Math.sin(-f2 * ((float) Math.PI / 180));
             Vec3d vec3d2 = new Vec3d((double) (f4 * f5), (double) f6, (double) (f3 * f5));
             Vec3d vec3d3 = vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d);
-            List<Entity> list = Class231.mc.world.getOtherEntities(entity2, entity2.getBoundingBox().expand(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d).expand(1.0, 1.0, 1.0), entity -> entity != null && (entity.getId() != Class231.mc.player.getId() || !entity.isSpectator()) && entity.canHit());
+            List<Entity> list = RotationUtil.mc.world.getOtherEntities(entity2, entity2.getBoundingBox().expand(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d).expand(1.0, 1.0, 1.0), entity -> entity != null && (entity.getId() != RotationUtil.mc.player.getId() || !entity.isSpectator()) && entity.canHit());
             Entity entity3 = null;
             for (Entity entity4 : list) {
                 double d2;
                 Box box = entity4.getBoundingBox().expand(0.0, 0.0, 0.0);
-                BlockHitResult blockHitResult = Class231.method1518(box, vec3d, vec3d3);
+                BlockHitResult blockHitResult = RotationUtil.method1518(box, vec3d, vec3d3);
                 if (box.contains(vec3d)) {
                     if (!(d >= 0.0)) continue;
                     entity3 = entity4;
@@ -444,7 +444,7 @@ public class Class231 extends MinecraftUtil {
     }
 
     public static Vector2f method1532(Vec3d eyesPos, BlockPos targetPos, Vec3d helpVector) {
-        VoxelShape voxelShape = Class231.mc.world.getBlockState(targetPos).getSidesShape((BlockView) Class231.mc.world, targetPos);
+        VoxelShape voxelShape = RotationUtil.mc.world.getBlockState(targetPos).getSidesShape((BlockView) RotationUtil.mc.world, targetPos);
         Box box = voxelShape.isEmpty() ? new Box(0.0, 0.0, 0.0, 1.0, 1.0, 1.0) : voxelShape.getBoundingBox();
         double d = box.maxY - box.minY;
         double d2 = box.maxX - box.minX;
@@ -478,27 +478,27 @@ public class Class231 extends MinecraftUtil {
                 d5 = 0.0 + Math.min(-d3 / 2.0 * 0.4, Math.max(d3 / 2.0 * 0.4, random.nextDouble() * 0.8 - 0.4));
             }
         }
-        return Class231.method1536(vec3d.add(d4, d6, d5), eyesPos, false);
+        return RotationUtil.method1536(vec3d.add(d4, d6, d5), eyesPos, false);
     }
 
     private static boolean method1533(Box box, Vec3d vec) {
         return vec == null ? false : vec.x >= box.minX && vec.x <= box.maxX && vec.z >= box.minZ && vec.z <= box.maxZ;
     }
 
-    public static void method1534(Vector2f targetRotation, int rotationTicks, Class129 priority, float yawSpeed, float pitchSpeed) {
-        float f = Class231.method1516(targetRotation.x, Class231.field2033.x);
-        float f2 = targetRotation.y - Class231.field2033.y;
+    public static void method1534(Vector2f targetRotation, int rotationTicks, Priority priority, float yawSpeed, float pitchSpeed) {
+        float f = RotationUtil.method1516(targetRotation.x, RotationUtil.field2033.x);
+        float f2 = targetRotation.y - RotationUtil.field2033.y;
         if (Math.abs(f) > yawSpeed) {
-            targetRotation.x = Class231.field2033.x + (f > 0.0f ? yawSpeed : -yawSpeed);
+            targetRotation.x = RotationUtil.field2033.x + (f > 0.0f ? yawSpeed : -yawSpeed);
         }
         if (Math.abs(f2) > pitchSpeed) {
-            targetRotation.y = Class231.field2033.y + (f2 > 0.0f ? pitchSpeed : -pitchSpeed);
+            targetRotation.y = RotationUtil.field2033.y + (f2 > 0.0f ? pitchSpeed : -pitchSpeed);
         }
-        Class231.method1524(targetRotation, rotationTicks, priority);
+        RotationUtil.method1524(targetRotation, rotationTicks, priority);
     }
 
     public static Vector2f method1535(Vec3d eyesPos, BlockPos targetPos, Direction targetFace, Vec3d helpVector) {
-        VoxelShape voxelShape = Class231.mc.world.getBlockState(targetPos).getSidesShape((BlockView) Class231.mc.world, targetPos);
+        VoxelShape voxelShape = RotationUtil.mc.world.getBlockState(targetPos).getSidesShape((BlockView) RotationUtil.mc.world, targetPos);
         Box box = voxelShape.isEmpty() ? new Box(0.0, 0.0, 0.0, 1.0, 1.0, 1.0) : voxelShape.getBoundingBox();
         double d = box.maxY - box.minY;
         double d2 = box.maxX - box.minX;
@@ -521,12 +521,12 @@ public class Class231 extends MinecraftUtil {
                 d5 = 0.0 + Math.min(-d3 / 2.0 * 0.4, Math.max(d3 / 2.0 * 0.4, helpVector.getZ() - vec3d.getZ()));
             }
         }
-        return Class231.method1536(vec3d.add(d4, d6, d5), eyesPos, false);
+        return RotationUtil.method1536(vec3d.add(d4, d6, d5), eyesPos, false);
     }
 
     public static Vector2f method1536(Vec3d vec, Vec3d eyesPos, boolean predict) {
         if (predict) {
-            eyesPos.add(Class231.mc.player.getVelocity());
+            eyesPos.add(RotationUtil.mc.player.getVelocity());
         }
         double d = vec.x - eyesPos.x;
         double d2 = vec.y - eyesPos.y;
@@ -536,18 +536,18 @@ public class Class231 extends MinecraftUtil {
 
     public static Vector2f method1537(Box bb, boolean predict, boolean throughWalls, float distance) {
         Vec3d vec3d;
-        Vec3d vec3d2 = Class231.mc.player.getCameraPosVec(1.0f);
-        if (vec3d2.distanceTo(vec3d = Class231.method1528(vec3d2, bb)) <= (double) distance && (throughWalls || Class231.method1513(vec3d))) {
-            return new Vector2f((Vector2fc) Class231.method1527(vec3d, predict));
+        Vec3d vec3d2 = RotationUtil.mc.player.getCameraPosVec(1.0f);
+        if (vec3d2.distanceTo(vec3d = RotationUtil.method1528(vec3d2, bb)) <= (double) distance && (throughWalls || RotationUtil.method1513(vec3d))) {
+            return new Vector2f((Vector2fc) RotationUtil.method1527(vec3d, predict));
         }
         return null;
     }
 
     public static BlockHitResult method1538(float reach) {
-        return Class231.method1517(Class231.method1539(), reach);
+        return RotationUtil.method1517(RotationUtil.method1539(), reach);
     }
 
     public static Vector2f method1539() {
-        return field2032 != null ? field2032 : new Vector2f(Class231.mc.player.getYaw(), Class231.mc.player.getPitch());
+        return field2032 != null ? field2032 : new Vector2f(RotationUtil.mc.player.getYaw(), RotationUtil.mc.player.getPitch());
     }
 }

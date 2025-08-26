@@ -73,7 +73,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
         }
         ClientPlayerEntity clientPlayerEntity = (ClientPlayerEntity) (Object) this;
         this.motionEvent = new MotionEvent(clientPlayerEntity.getX(), clientPlayerEntity.getY(), clientPlayerEntity.getZ(), clientPlayerEntity.isOnGround(), clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch(), MotionEvent.Class123.PRE);
-        AegisClient.field2316.method1519(this.motionEvent);
+        AegisClient.rotationUtil.method1519(this.motionEvent);
         AegisClient.eventManager.onMotion(this.motionEvent);
         this.motionEvent.method1405(clientPlayerEntity);
     }
@@ -103,7 +103,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
         this.motionEvent.setState(MotionEvent.Class123.PRE);
         AegisClient.eventManager.onMotion(this.motionEvent);
         this.motionEvent.method1402(clientPlayerEntity);
-        AegisClient.field2316.method1519(this.motionEvent);
+        AegisClient.rotationUtil.method1519(this.motionEvent);
     }
 
     @Inject(method = {"tick"}, at = {@At(value = "HEAD")}, cancellable = true)

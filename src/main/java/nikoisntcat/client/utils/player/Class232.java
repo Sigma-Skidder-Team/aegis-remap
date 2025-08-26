@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,7 +17,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 import nikoisntcat.client.utils.Class228;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.MinecraftUtil;
 import org.joml.Vector2f;
 
@@ -36,7 +35,7 @@ public class Class232 extends MinecraftUtil {
 
     public void method1544(boolean checkPos, boolean checkFace, Vec3d vec3, Vector2f rotation) {
         this.field2040 = false;
-        Vec3d var5 = Class231.method1526(rotation);
+        Vec3d var5 = RotationUtil.method1526(rotation);
         BlockHitResult var6 = mc.world
                 .raycast(new RaycastContext(vec3, vec3.add(var5.x * 5.0, var5.y * 5.0, var5.z * 5.0), ShapeType.OUTLINE, FluidHandling.NONE, mc.player));
         if (var6.getBlockPos().equals(this.field2042) || !checkPos && !checkFace) {
@@ -186,9 +185,9 @@ public class Class232 extends MinecraftUtil {
                             var16.field2039 = Direction.UP;
                         }
 
-                        Vector2f var23 = Class231.method1535(mc.player.getCameraPosVec(1.0F), var16.method1556(), var16.method1553(), null);
+                        Vector2f var23 = RotationUtil.method1535(mc.player.getCameraPosVec(1.0F), var16.method1556(), var16.method1553(), null);
                         var23.x = MathHelper.wrapDegrees(var23.x) + (float) (Math.round(mc.player.getYaw() / 360.0F) * 360);
-                        BlockHitResult var24 = Class231.method1517(var23, 4.5);
+                        BlockHitResult var24 = RotationUtil.method1517(var23, 4.5);
                         if (var24.getSide() == var16.method1553() && var24.getBlockPos().equals(var16.method1556())) {
                             var16.field2041 = var23;
                             var16.field2043 = var24.getPos();

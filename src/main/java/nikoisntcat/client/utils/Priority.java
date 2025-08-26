@@ -1,6 +1,6 @@
 package nikoisntcat.client.utils;
 
-public enum Class129 {
+public enum Priority {
     field1508,
     field1509,
     field1510,

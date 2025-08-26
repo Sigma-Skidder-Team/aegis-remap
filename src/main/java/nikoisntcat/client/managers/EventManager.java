@@ -12,7 +12,7 @@ public class EventManager {
 
     public void onTick(CallbackInfo ci) {
         AegisClient.packetUtil.onTick();
-        AegisClient.field2315.onTick();
+        AegisClient.blinkUtil.onTick();
         AegisClient.field2310.onTick();
         AegisClient.moduleManager.onTick(ci);
         AegisClient.moduleManager.onTick();
@@ -35,7 +35,7 @@ public class EventManager {
         if (!MoveInputEvent.field1982) {
             AegisClient.moduleManager.onMoveInput(event);
         }
-        AegisClient.field2316.onMoveInput(event);
+        AegisClient.rotationUtil.onMoveInput(event);
     }
 
     public void method2015(BlinkEvent event) {
@@ -59,17 +59,17 @@ public class EventManager {
         AegisClient.motionManager.onSendPacket(event);
         AegisClient.moduleManager.onSendPacket(event);
         AegisClient.field2310.onSendPacket(event);
-        AegisClient.field2315.onSendPacket(event);
+        AegisClient.blinkUtil.onSendPacket(event);
         AegisClient.packetUtil.onSendPacket(event);
     }
 
     public void onJump(JumpEvent event) {
-        AegisClient.field2316.onJump(event);
+        AegisClient.rotationUtil.onJump(event);
         AegisClient.moduleManager.onJump(event);
     }
 
     public void onStrafe(StrafeEvent event) {
-        AegisClient.field2316.onStrafe(event);
+        AegisClient.rotationUtil.onStrafe(event);
         AegisClient.moduleManager.onStrafe(event);
     }
 

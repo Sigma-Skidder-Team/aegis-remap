@@ -19,7 +19,7 @@ import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.Class228;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.MovementUtil;
 import nikoisntcat.client.utils.player.Class205;
 
@@ -104,7 +104,7 @@ public class SpeedModule extends Module {
             this.yawForStrafe = mc.player.getYaw();
             Class165 var165 = (Class165) AegisClient.moduleManager.field2010.get(Class165.class);
             if (Class165.field1607 != null && !class197Enabled) {
-                this.yawForStrafe = Class231.method1539().x;
+                this.yawForStrafe = RotationUtil.method1539().x;
             }
 
             // On-ground jump / strafe logic

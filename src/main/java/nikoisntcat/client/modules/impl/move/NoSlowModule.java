@@ -142,13 +142,13 @@ public class NoSlowModule extends Module {
    @Override
    public void onMotion(MotionEvent motionEvent) {
       if (motionEvent.method1399() == MotionEvent.Class123.PRE) {
-         if (this.field1783 && !AegisClient.field2315.method2044()) {
-            AegisClient.field2315.method2051(this);
+         if (this.field1783 && !AegisClient.blinkUtil.method2044()) {
+            AegisClient.blinkUtil.method2051(this);
             mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
          }
       } else {
          if (this.field1784.getValue().equals("Blink") && this.field1788 > 33) {
-            AegisClient.field2315.method2047();
+            AegisClient.blinkUtil.method2047();
             this.field1788 = 0;
             this.field1783 = false;
          }
@@ -160,22 +160,22 @@ public class NoSlowModule extends Module {
 
             if (this.field1788 > 33) {
                if (this.field1779) {
-                  AegisClient.field2315.method2046();
+                  AegisClient.blinkUtil.method2046();
                   if (this.field1788 % 2 == 0) {
-                     AegisClient.field2315.method2046();
+                     AegisClient.blinkUtil.method2046();
                      PlayerUtil.setTickCounter(1);
-                     PlayerUtil.sendChatMessage("Release More. Now Left: " + AegisClient.field2315.previousHeldPackets.size());
+                     PlayerUtil.sendChatMessage("Release More. Now Left: " + AegisClient.blinkUtil.previousHeldPackets.size());
                   }
                } else {
                   for (int var2 = 0; var2 < 9; var2++) {
-                     AegisClient.field2315.method2046();
+                     AegisClient.blinkUtil.method2046();
                   }
 
                   this.field1779 = true;
                }
 
-               if (AegisClient.field2315.previousHeldPackets.isEmpty()) {
-                  AegisClient.field2315.method2047();
+               if (AegisClient.blinkUtil.previousHeldPackets.isEmpty()) {
+                  AegisClient.blinkUtil.method2047();
                   this.field1788 = 0;
                   this.field1783 = false;
                   this.field1779 = false;

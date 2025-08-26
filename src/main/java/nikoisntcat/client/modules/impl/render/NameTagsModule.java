@@ -15,7 +15,7 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.Class165;
 import nikoisntcat.client.screens.Class276;
 import nikoisntcat.client.utils.PlayerUtil;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.math.Tween;
 import nikoisntcat.client.utils.math.TweenType;
 import nikoisntcat.client.utils.render.RenderUtil;
@@ -66,7 +66,7 @@ public class NameTagsModule extends Module {
                     );
 
                     float fovMultiplier = mc.player.getFovMultiplier(true, mc.options.getFovEffectScale().getValue().floatValue());
-                    Vec3d offset = Class231.method1526(new Vector2f(mc.player.getYaw(delta), mc.player.getPitch(delta) - 25.0F));
+                    Vec3d offset = RotationUtil.method1526(new Vector2f(mc.player.getYaw(delta), mc.player.getPitch(delta) - 25.0F));
                     Vec3d targetPos = playerPrevInterpolated.add(offset.multiply(3.0 / fovMultiplier));
 
                     Vec3d previousPos = entityRenderPositions.getOrDefault(entity, targetPos);

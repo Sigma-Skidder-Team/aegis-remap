@@ -11,8 +11,8 @@ import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.util.math.Vec3d;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
-import nikoisntcat.client.utils.Class129;
-import nikoisntcat.client.utils.Class231;
+import nikoisntcat.client.utils.Priority;
+import nikoisntcat.client.utils.RotationUtil;
 import org.joml.Vector2f;
 
 import java.util.Set;
@@ -32,7 +32,7 @@ public class NoRotationSetModule extends Module {
         }
         clientPlayNetworkHandler.send((Packet)new TeleportConfirmC2SPacket(packet.teleportId()));
         clientPlayNetworkHandler.send((Packet)new PlayerMoveC2SPacket.Full(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), playerEntity.getYaw(), playerEntity.getPitch(), false, false));
-        Class231.method1524(new Vector2f(playerEntity.getYaw(), playerEntity.getPitch()), 0, Class129.field1511);
+        RotationUtil.method1524(new Vector2f(playerEntity.getYaw(), playerEntity.getPitch()), 0, Priority.field1511);
         playerEntity.setYaw(f);
         playerEntity.setPitch(f2);
     }

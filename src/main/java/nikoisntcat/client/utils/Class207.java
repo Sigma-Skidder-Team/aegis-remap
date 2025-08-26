@@ -68,20 +68,20 @@ extends MinecraftUtil {
             float f;
             if (directionFix) {
                 boolean bl = false;
-                float f2 = Class231.method1539().x;
-                if (Class231.method1520() != null) {
-                    Class231.method1520().x = yaw;
+                float f2 = RotationUtil.method1539().x;
+                if (RotationUtil.method1520() != null) {
+                    RotationUtil.method1520().x = yaw;
                 } else {
                     bl = true;
-                    Class231.method1524(new Vector2f(yaw, 1.0f), 1, Class129.field1513);
+                    RotationUtil.method1524(new Vector2f(yaw, 1.0f), 1, Priority.field1513);
                 }
                 MoveInputEvent.field1982 = true;
                 this.field1945.tick();
                 MoveInputEvent.field1982 = false;
                 if (bl) {
-                    Class231.method1277();
+                    RotationUtil.method1277();
                 } else {
-                    Class231.method1520().x = f2;
+                    RotationUtil.method1520().x = f2;
                 }
             } else {
                 MoveInputEvent.field1982 = true;
