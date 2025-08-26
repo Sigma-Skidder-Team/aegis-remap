@@ -102,12 +102,12 @@ public class CategoryComponent {
         String string = this.category != null ? this.category.name() : "CATEGORY";
         ctx.drawText(fr, string, this.x + 8, this.y + 7, -1, false);
         ctx.enableScissor(this.x + 1, this.y + 22, this.x + this.width - 1, this.y + n4 - 1);
-        int n5 = 0;
+        int offset = 0;
         if (this.expanded) {
             for (ModuleComponent moduleComponent : this.moduleComponents) {
-                n5 += moduleComponent.render(ctx, this.x + 1, this.y + 22 + n5, this.width - 2, n, n2);
+                offset += moduleComponent.render(ctx, this.x + 1, this.y + 22 + offset, this.width - 2, n, n2);
             }
-            this.field2335.method1847((float)n5 + 1.0f);
+            this.field2335.method1847((float)offset + 1.0f);
         } else {
             this.field2335.method1847(0.0f);
         }
