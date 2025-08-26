@@ -124,16 +124,16 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
-        if (LIVING_FLAGS.equals(data) && !DisablerModule.field1644.getValue()) {
+        if (LIVING_FLAGS.equals(data) && !DisablerModule.cancelServerUsing.getValue()) {
             boolean bl = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 1) > 0;
             Hand hand = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
             if (bl && !this.usingItem) {
-                if (DisablerModule.field1639.getValue()) {
+                if (DisablerModule.debugServerUsing.getValue()) {
                     Class224.method1451("Using Item");
                 }
                 this.setCurrentHand(hand);
             } else if (!bl && this.usingItem) {
-                if (DisablerModule.field1639.getValue()) {
+                if (DisablerModule.debugServerUsing.getValue()) {
                     Class224.method1451("Clear Item");
                 }
                 this.clearActiveItem();
