@@ -64,7 +64,7 @@ public abstract class MixinMinecraftClient {
     @Inject(method={"doItemUse"}, at={@At(value="FIELD", target="Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", shift=At.Shift.AFTER)})
     private void hookItemUseCooldown(CallbackInfo callbackInfo) {
         if (FastPlaceModule.instance.isEnabled() && this.crosshairTarget.getType() == HitResult.Type.BLOCK) {
-            this.itemUseCooldown = (int)FastPlaceModule.field1806.getValue();
+            this.itemUseCooldown = (int)FastPlaceModule.delay.getValue();
         }
     }
 

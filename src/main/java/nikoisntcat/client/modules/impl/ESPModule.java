@@ -18,110 +18,120 @@ import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.utils.Class224;
 
 public class ESPModule extends Module {
-   public final BooleanSetting field1851;
-   public final BooleanSetting field1852;
-   public final BooleanSetting field1853;
-   public final BooleanSetting field1854;
-   private final Set field1855;
-   private final Set field1856;
-   public final BooleanSetting field1857;
-   public final BooleanSetting field1858;
-   public final ModeSetting field1859 = new ModeSetting("Mode", "Glow", List.of("Glow"));
-   public final BooleanSetting field1860;
-   static Object field1861;
 
-   private void method1342() {
-      if (mc.world != null) {
-         for (Entity var2 : mc.world.getEntities()) {
-            if (this.field1856.contains(var2.getUuid()) && var2.isGlowing()) {
-               var2.setGlowing(false);
+    // Settings
+    public final BooleanSetting excludeTeammates;
+    public final BooleanSetting highlightVillagers;
+    public final BooleanSetting highlightMobs;
+    public final BooleanSetting highlightPlayers;
+    public final BooleanSetting highlightAnimals;
+    public final BooleanSetting useTargets;
+    public final BooleanSetting ignoreAntiBot;
+    public final ModeSetting mode = new ModeSetting("Mode", "Glow", List.of("Glow"));
+
+    private final Set<UUID> activeEntities;
+    private final Set<UUID> glowingEntities;
+
+    static Object unusedField;
+
+    public ESPModule() {
+        super("ESP", 0, false, Category.RENDER);
+
+        this.useTargets = new BooleanSetting("UseTargets", true);
+        this.highlightPlayers = new BooleanSetting("Players", true, v -> !this.useTargets.getValue());
+        this.highlightMobs = new BooleanSetting("Mobs", true, v -> !this.useTargets.getValue());
+        this.highlightAnimals = new BooleanSetting("Animals", false, v -> !this.useTargets.getValue());
+        this.highlightVillagers = new BooleanSetting("Villagers", false, v -> !this.useTargets.getValue());
+        this.excludeTeammates = new BooleanSetting("ExcludeTeammates", false);
+        this.ignoreAntiBot = new BooleanSetting("IgnoreAntiBot", true);
+
+        this.glowingEntities = new HashSet<>();
+        this.activeEntities = new HashSet<>();
+    }
+
+    private void clearGlowingEntities() {
+        if (mc.world != null) {
+            for (Entity entity : mc.world.getEntities()) {
+                if (this.glowingEntities.contains(entity.getUuid()) && entity.isGlowing()) {
+                    entity.setGlowing(false);
+                }
             }
-         }
-      }
+        }
+        this.glowingEntities.clear();
+        this.activeEntities.clear();
+    }
 
-      this.field1856.clear();
-      this.field1855.clear();
-   }
+    @Override
+    public void onRender3D(Render3DEvent event) {
+        if ("Glow".equals(this.mode.getValue())) {
+            if (mc.world != null && mc.player != null) {
+                this.activeEntities.clear();
 
-   @Override
-   public void onRender3D(Render3DEvent event) {
-      if ("Glow".equals(this.field1859.getValue())) {
-         if (mc.world != null && mc.player != null) {
-            this.field1855.clear();
+                for (Entity entity : mc.world.getEntities()) {
+                    if (entity instanceof LivingEntity && shouldHighlight(this, (LivingEntity) entity)) {
+                        if (!entity.isGlowing()) {
+                            entity.setGlowing(true);
+                            this.glowingEntities.add(entity.getUuid());
+                        }
+                        this.activeEntities.add(entity.getUuid());
+                    }
+                }
 
-            for (Entity var3 : mc.world.getEntities()) {
-               if (var3 instanceof LivingEntity && method1344(this, (LivingEntity)var3)) {
-                  if (!var3.isGlowing()) {
-                     var3.setGlowing(true);
-                     this.field1856.add(var3.getUuid());
-                  }
-
-                  this.field1855.add(var3.getUuid());
-               }
+                for (Entity entity : mc.world.getEntities()) {
+                    UUID uuid = entity.getUuid();
+                    if (this.glowingEntities.contains(uuid) && !this.activeEntities.contains(uuid)) {
+                        if (entity.isGlowing()) {
+                            entity.setGlowing(false);
+                        }
+                        this.glowingEntities.remove(uuid);
+                    }
+                }
             }
+        }
+    }
 
-            for (Entity var6 : mc.world.getEntities()) {
-               UUID var4 = var6.getUuid();
-               if (this.field1856.contains(var4) && !this.field1855.contains(var4)) {
-                  if (var6.isGlowing()) {
-                     var6.setGlowing(false);
-                  }
-
-                  this.field1856.remove(var4);
-               }
-            }
-         }
-      }
-   }
-
-   public static boolean method1344(ESPModule esp, LivingEntity e) {
-      if (esp == null || !esp.isEnabled() || !"Glow".equals(esp.field1859.getValue())) {
-         return false;
-      } else if (Class224.nullCheck()) {
-         return false;
-      } else if (e.getId() == mc.player.getId()) {
-         return false;
-      } else {
-         boolean var2;
-         if (esp.field1858.getValue()) {
-            var2 = Class224.method1448(e);
-         } else {
-            boolean var3 = e instanceof PlayerEntity;
-            boolean var4 = e instanceof VillagerEntity;
-            boolean var5 = e instanceof AnimalEntity;
-            boolean var6 = e instanceof Monster;
-            var2 = var3 && esp.field1854.getValue()
-               || var6 && esp.field1853.getValue()
-               || var5 && esp.field1857.getValue()
-               || var4 && esp.field1852.getValue();
-         }
-
-         if (!var2) {
+    public static boolean shouldHighlight(ESPModule esp, LivingEntity entity) {
+        if (esp == null || !esp.isEnabled() || !"Glow".equals(esp.mode.getValue())) {
             return false;
-         } else {
-            return esp.field1851.getValue() && TeamsModule.method1375(e)
-               ? false
-               : esp.field1860.getValue() || AntiBotModule.instance == null || !AntiBotModule.instance.method1380(e);
-         }
-      }
-   }
+        } else if (Class224.nullCheck()) {
+            return false;
+        } else if (entity.getId() == mc.player.getId()) {
+            return false;
+        }
 
-   @Override
-   public void onDisable() {
-      super.onDisable();
-      this.method1342();
-   }
+        boolean highlight;
 
-   public ESPModule() {
-      super("ESP", 0, false, Category.RENDER);
-      this.field1858 = new BooleanSetting("UseTargets", true);
-      this.field1854 = new BooleanSetting("Players", true, v -> !this.field1858.getValue());
-      this.field1853 = new BooleanSetting("Mobs", true, v -> !this.field1858.getValue());
-      this.field1857 = new BooleanSetting("Animals", false, v -> !this.field1858.getValue());
-      this.field1852 = new BooleanSetting("Villagers", false, v -> !this.field1858.getValue());
-      this.field1851 = new BooleanSetting("ExcludeTeammates", false);
-      this.field1860 = new BooleanSetting("IgnoreAntiBot", true);
-      this.field1856 = new HashSet();
-      this.field1855 = new HashSet();
-   }
+        if (esp.useTargets.getValue()) {
+            highlight = Class224.method1448(entity);
+        } else {
+            boolean isPlayer = entity instanceof PlayerEntity;
+            boolean isVillager = entity instanceof VillagerEntity;
+            boolean isAnimal = entity instanceof AnimalEntity;
+            boolean isMonster = entity instanceof Monster;
+
+            highlight =
+                    (isPlayer && esp.highlightPlayers.getValue()) ||
+                            (isMonster && esp.highlightMobs.getValue()) ||
+                            (isAnimal && esp.highlightAnimals.getValue()) ||
+                            (isVillager && esp.highlightVillagers.getValue());
+        }
+
+        if (!highlight) {
+            return false;
+        }
+
+        if (esp.excludeTeammates.getValue() && TeamsModule.method1375(entity)) {
+            return false;
+        }
+
+        return esp.ignoreAntiBot.getValue()
+                || AntiBotModule.instance == null
+                || !AntiBotModule.instance.method1380(entity);
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        this.clearGlowingEntities();
+    }
 }

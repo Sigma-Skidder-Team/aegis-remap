@@ -38,9 +38,9 @@ public class EventManager {
         AegisClient.field2316.onMoveInput(event);
     }
 
-    public void method2015(Class213 class213) {
-        MovementUtil.method1462(class213);
-        AegisClient.packetUtil.method1503();
+    public void method2015(BlinkEvent event) {
+        MovementUtil.shouldBlink(event);
+        AegisClient.packetUtil.markMovementPacket();
     }
 
     public void onMotion(MotionEvent event) {

@@ -18,7 +18,7 @@ public abstract class MixinEntityGlow {
             return;
         }
         ESPModule esp = (ESPModule) AegisClient.moduleManager.field2010.get(ESPModule.class);
-        if (ESPModule.method1344(esp, (LivingEntity) self)) {
+        if (ESPModule.shouldHighlight(esp, (LivingEntity) self)) {
             cir.setReturnValue(true);
         }
     }
