@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import net.minecraft.client.gui.DrawContext;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.math.Class250;
+import nikoisntcat.client.utils.math.BoundaryUtils;
 import nikoisntcat.client.utils.math.Class288;
 
 public class NumberSettingComponent
@@ -20,7 +20,7 @@ extends SettingComponent {
 
     @Override
     public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        if (Class250.method1684(mouseX, mouseY, this.field2097 + 5, this.field2092 + 13, this.field2097 + this.field2093 - 5, this.field2092 + 19)) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.field2097 + 5, this.field2092 + 13, this.field2097 + this.field2093 - 5, this.field2092 + 19)) {
             if (verticalAmount > 0.0) {
                 this.field2095.setValue(this.field2095.getValue() + this.field2095.getMinPerc());
             } else {
@@ -45,7 +45,7 @@ extends SettingComponent {
 
     @Override
     public void method1668(double mouseX, double mouseY, int button) {
-        if (Class250.method1684(mouseX, mouseY, this.field2097 + 5, this.field2092 + 13, this.field2097 + this.field2093 - 5, this.field2092 + 19)) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.field2097 + 5, this.field2092 + 13, this.field2097 + this.field2093 - 5, this.field2092 + 19)) {
             this.field2096 = true;
         }
     }

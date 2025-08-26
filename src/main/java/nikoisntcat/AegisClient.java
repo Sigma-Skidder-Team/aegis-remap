@@ -22,20 +22,20 @@ public class AegisClient implements ModInitializer {
     public static String CLIENT_VERSION = "1.0";
     public static Shader shaders;
     public static EventManager eventManager;
-    public static Class326 field2315;
+    public static BlinkUtil field2315;
     public static Class231 field2316;
     public static List<Alt> alts = new ArrayList<>();
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
     public static Random field2320 = Random.create();
-    public static Class230 field2321;
+    public static PacketUtil packetUtil;
 
 	@Override
 	public void onInitialize() {
-        method1897();
+        saveConfig();
 	}
 
-    public static void method1897() {
+    public static void saveConfig() {
         configManager.save();
     }
 
@@ -47,8 +47,8 @@ public class AegisClient implements ModInitializer {
         configManager = new ConfigManager();
         configManager.createClientDirectories();
         commandManager = new CommandManager();
-        field2321 = new Class230();
-        field2315 = new Class326();
+        packetUtil = new PacketUtil();
+        field2315 = new BlinkUtil();
         field2310 = new Class223();
         field2316 = new Class231();
         motionManager = new MotionManager();

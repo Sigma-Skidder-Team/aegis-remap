@@ -4,17 +4,17 @@ import nikoisntcat.client.events.Event;
 
 public class SlowdownEvent
 extends Event {
-    private boolean field1993;
+    private boolean slowdown;
 
-    public boolean method1432() {
-        return this.field1993;
+    public boolean getSlowdown() {
+        return this.slowdown;
     }
 
     public SlowdownEvent(boolean bl) {
-        this.field1993 = bl;
+        this.slowdown = bl;
     }
 
-    public void method1433(boolean bl) {
-        this.field1993 = bl;
+    public void setSlowdown(boolean bl) {
+        this.slowdown = bl;
     }
 }

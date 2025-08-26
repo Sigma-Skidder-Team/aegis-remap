@@ -157,7 +157,7 @@ public class FuckerModule extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck() && this.field1749.method1903((long) this.field1742.getValue())) {
+        if (!Class224.nullCheck() && this.field1749.passed((long) this.field1742.getValue())) {
             this.field1751 = this.field1744;
             Vec3d var1 = this.method1295();
             if (!this.field1741.getValue() || this.field1744 == null || this.field1750 <= 0.0) {

@@ -2,7 +2,7 @@ package nikoisntcat.client.managers;
 
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.*;
-import nikoisntcat.client.utils.Class226;
+import nikoisntcat.client.utils.MovementUtil;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public class EventManager {
@@ -11,7 +11,7 @@ public class EventManager {
     }
 
     public void onTick(CallbackInfo ci) {
-        AegisClient.field2321.onTick();
+        AegisClient.packetUtil.onTick();
         AegisClient.field2315.onTick();
         AegisClient.field2310.onTick();
         AegisClient.moduleManager.onTick(ci);
@@ -19,7 +19,7 @@ public class EventManager {
     }
 
     public void onReceivePacket(PacketReceiveEvent event) {
-        Class226.method1470(event);
+        MovementUtil.method1470(event);
         AegisClient.moduleManager.onReceivePacket(event);
     }
 
@@ -39,8 +39,8 @@ public class EventManager {
     }
 
     public void method2015(Class213 class213) {
-        Class226.method1462(class213);
-        AegisClient.field2321.method1503();
+        MovementUtil.method1462(class213);
+        AegisClient.packetUtil.method1503();
     }
 
     public void onMotion(MotionEvent event) {
@@ -60,7 +60,7 @@ public class EventManager {
         AegisClient.moduleManager.onSendPacket(event);
         AegisClient.field2310.onSendPacket(event);
         AegisClient.field2315.onSendPacket(event);
-        AegisClient.field2321.onSendPacket(event);
+        AegisClient.packetUtil.onSendPacket(event);
     }
 
     public void onJump(JumpEvent event) {

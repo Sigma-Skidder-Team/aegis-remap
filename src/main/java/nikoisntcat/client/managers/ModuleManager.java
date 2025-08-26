@@ -26,7 +26,7 @@ public class ModuleManager extends MinecraftUtil {
         init();
     }
 
-    public static List<Module> method1479(Category moduleCategory) {
+    public static List<Module> findInCategory(Category moduleCategory) {
         ArrayList<Module> arrayList = new ArrayList<>();
         for (Module module : AegisClient.moduleManager.modules) {
             if (module.getCategory() != moduleCategory) continue;
@@ -49,6 +49,8 @@ public class ModuleManager extends MinecraftUtil {
     }
 
     private void onTick(BiConsumer<Module, CallbackInfo> biConsumer, CallbackInfo callbackInfo) {
+        // literally the same as call(biConsumer, callbackInfo);
+        // :broken_heart:
         for (Module module : this.modules) {
             try {
                 if (!module.method1222()) continue;

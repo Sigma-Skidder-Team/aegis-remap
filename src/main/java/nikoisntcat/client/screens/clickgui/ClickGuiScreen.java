@@ -43,9 +43,9 @@ public class ClickGuiScreen extends Screen {
         this.components.forEach(CategoryComponent::init);
     }
 
-    public boolean mouseDragged(double d, double d2, int n, double d3, double d4) {
-        this.components.forEach(categoryComponent -> categoryComponent.mouseDragged(d, d2, n, d3, d4));
-        return super.mouseDragged(d, d2, n, d3, d4);
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        this.components.forEach(categoryComponent -> categoryComponent.mouseDragged(mouseX, mouseY, button, deltaX, deltaY));
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
     public void render(DrawContext class_3322, int n, int n2, float f) {
@@ -53,9 +53,9 @@ public class ClickGuiScreen extends Screen {
         this.components.forEach(categoryComponent -> categoryComponent.render(class_3322, n, n2));
     }
 
-    public boolean mouseClicked(double d, double d2, int n) {
-        this.components.forEach(categoryComponent -> categoryComponent.mouseClicked(d, d2, n));
-        return super.mouseClicked(d, d2, n);
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        this.components.forEach(categoryComponent -> categoryComponent.mouseClicked(mouseX, mouseY, button));
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     public boolean mouseScrolled(double d, double d2, double d3, double d4) {

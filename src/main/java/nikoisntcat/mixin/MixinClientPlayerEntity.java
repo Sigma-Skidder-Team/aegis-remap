@@ -14,7 +14,7 @@ import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.SlowdownEvent;
 import nikoisntcat.client.modules.impl.DisablerModule;
 import nikoisntcat.client.utils.Class224;
-import nikoisntcat.client.utils.Class226;
+import nikoisntcat.client.utils.MovementUtil;
 import nikoisntcat.client.utils.interfaces.IClientPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -82,12 +82,12 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
     private boolean slow(ClientPlayerEntity instance) {
         this.slowDownEvent = new SlowdownEvent(this.isUsingItem());
         AegisClient.eventManager.onSlow(this.slowDownEvent);
-        return this.slowDownEvent.method1432();
+        return this.slowDownEvent.getSlowdown();
     }
 
     @Redirect(method = {"canStartSprinting"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"))
     private boolean sprint(ClientPlayerEntity instance) {
-        if (this.slowDownEvent != null && !this.slowDownEvent.method1432()) {
+        if (this.slowDownEvent != null && !this.slowDownEvent.getSlowdown()) {
             this.slowDownEvent = null;
             return false;
         }
@@ -109,12 +109,12 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
     @Inject(method = {"tick"}, at = {@At(value = "HEAD")}, cancellable = true)
     public void tick(CallbackInfo callbackInfo) {
         AegisClient.eventManager.onPreTick();
-        if (Class226.field2007) {
-            if (Class226.field2008 > 18) {
-                Class226.field2008 = 0;
-                Class226.field2006 = false;
+        if (MovementUtil.field2007) {
+            if (MovementUtil.field2008 > 18) {
+                MovementUtil.field2008 = 0;
+                MovementUtil.field2006 = false;
             } else {
-                ++Class226.field2008;
+                ++MovementUtil.field2008;
                 sendMovementPackets();
                 callbackInfo.cancel();
             }

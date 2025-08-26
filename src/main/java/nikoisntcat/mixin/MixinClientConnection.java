@@ -13,13 +13,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value={ClientConnection.class})
 public class MixinClientConnection {
-    @Inject(at={@At(value="HEAD")}, method={"send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;Z)V"}, cancellable=true)
-    private void sendInternal(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush, CallbackInfo callbackInfo) {
-        if (!AegisClient.field2321.method1502()) {
+    @Inject(at = @At("HEAD"), method = "send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;Z)V", cancellable=true)
+    private void sendInternal(Packet<?> packet, @Nullable PacketCallbacks __, boolean ___, CallbackInfo ci) {
+        // nice packet hooking system bro, you could just hook send(Packet) instead
+        // and then send it silently using the overload this is hooking...
+        if (!AegisClient.packetUtil.sendPacketWithoutEvent()) {
             PacketSendEvent packetSendEvent = new PacketSendEvent(packet);
             AegisClient.eventManager.onSendPacket(packetSendEvent);
             if (packetSendEvent.isCancelled()) {
-                callbackInfo.cancel();
+                ci.cancel();
             }
         }
     }

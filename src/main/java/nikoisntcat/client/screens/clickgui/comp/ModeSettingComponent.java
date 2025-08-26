@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawContext;
 import nikoisntcat.client.screens.Class313;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.ModeSetting;
-import nikoisntcat.client.utils.math.Class250;
+import nikoisntcat.client.utils.math.BoundaryUtils;
 import nikoisntcat.client.utils.math.Class288;
 
 import java.awt.Color;
@@ -74,7 +74,7 @@ extends SettingComponent {
     }
     @Override
     public void method1668(double mouseX, double mouseY, int button) {
-        if (Class250.method1684(mouseX, mouseY, this.field2099 + this.field2101 - this.field2100 - 11, this.field2105 + 2, this.field2099 + this.field2101 - 2, this.field2105 + 16) && button == 1) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.field2099 + this.field2101 - this.field2100 - 11, this.field2105 + 2, this.field2099 + this.field2101 - 2, this.field2105 + 16) && button == 1) {
             boolean bl = this.field2102 = !this.field2102;
         }
         if (this.field2102) {

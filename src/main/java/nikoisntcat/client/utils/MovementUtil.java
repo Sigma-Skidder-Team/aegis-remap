@@ -8,7 +8,7 @@ import nikoisntcat.client.events.impl.PacketReceiveEvent;
 import nikoisntcat.client.events.impl.Class213;
 import nikoisntcat.client.events.impl.MoveInputEvent;
 
-public class Class226 extends MinecraftUtil {
+public class MovementUtil extends MinecraftUtil {
     public static boolean field2006;
     public static boolean field2007;
     public static int field2008;
@@ -28,20 +28,20 @@ public class Class226 extends MinecraftUtil {
         field2008 = 0;
     }
 
-    public static void method1464(double speed) {
-        if (!Class226.method1472()) {
+    public static void strafe(double speed) {
+        if (!MovementUtil.method1472()) {
             return;
         }
-        double d = Class226.method1469();
-        Class226.mc.player.setVelocity(-Math.sin(d) * speed, Class226.mc.player.getVelocity().y, Math.cos(d) * speed);
+        double d = MovementUtil.getDirection();
+        MovementUtil.mc.player.setVelocity(-Math.sin(d) * speed, MovementUtil.mc.player.getVelocity().y, Math.cos(d) * speed);
     }
 
-    public static void method1465(double speed, float yaw) {
-        if (!Class226.method1472()) {
+    public static void strafe(double speed, float yaw) {
+        if (!MovementUtil.method1472()) {
             return;
         }
-        double d = Class226.method1473(yaw);
-        Class226.mc.player.setVelocity(-Math.sin(d) * speed, Class226.mc.player.getVelocity().y, Math.cos(d) * speed);
+        double d = MovementUtil.getDirection(yaw);
+        MovementUtil.mc.player.setVelocity(-Math.sin(d) * speed, MovementUtil.mc.player.getVelocity().y, Math.cos(d) * speed);
     }
 
     public static double method1466(float rotationYaw, double moveForward, double moveStrafing) {
@@ -70,17 +70,17 @@ public class Class226 extends MinecraftUtil {
     }
 
     public static void method1467() {
-        Class226.method1464(Class226.method1417());
+        MovementUtil.strafe(MovementUtil.method1417());
     }
 
     public static void method1468(MoveInputEvent event, float yaw) {
         float f = event.field1979;
         float f2 = event.field1983;
-        double d = MathHelper.wrapDegrees((double)Math.toDegrees(Class226.method1466(Class226.mc.player.getYaw(), f, f2)));
-        if (!Class226.mc.player.isSprinting()) {
+        double d = MathHelper.wrapDegrees((double)Math.toDegrees(MovementUtil.method1466(MovementUtil.mc.player.getYaw(), f, f2)));
+        if (!MovementUtil.mc.player.isSprinting()) {
             // empty if block
         }
-        Class226.mc.player.ticksLeftToDoubleTapSprint = -1;
+        MovementUtil.mc.player.ticksLeftToDoubleTapSprint = -1;
         if (f == 0.0f && f2 == 0.0f) {
             return;
         }
@@ -91,7 +91,7 @@ public class Class226 extends MinecraftUtil {
             for (float f7 = -1.0f; f7 <= 1.0f; f7 += 1.0f) {
                 double d2;
                 double d3;
-                if (f7 == 0.0f && f6 == 0.0f || !((d3 = Math.abs(d - (d2 = MathHelper.wrapDegrees((double)Math.toDegrees(Class226.method1466(yaw, f6, f7)))))) < (double)f5)) continue;
+                if (f7 == 0.0f && f6 == 0.0f || !((d3 = Math.abs(d - (d2 = MathHelper.wrapDegrees((double)Math.toDegrees(MovementUtil.method1466(yaw, f6, f7)))))) < (double)f5)) continue;
                 f5 = (float)d3;
                 f3 = f6;
                 f4 = f7;
@@ -101,53 +101,53 @@ public class Class226 extends MinecraftUtil {
         event.field1983 = f4;
     }
 
-    public static double method1469() {
-        return Class226.method1473(Class226.mc.player.getYaw());
+    public static double getDirection() {
+        return MovementUtil.getDirection(MovementUtil.mc.player.getYaw());
     }
 
     public static void method1470(PacketReceiveEvent event) {
         EntityVelocityUpdateS2CPacket entityVelocityUpdateS2CPacket;
         Packet packet;
-        if (Class226.mc.player != null && field2007 && (packet = event.getPacket()) instanceof EntityVelocityUpdateS2CPacket && (entityVelocityUpdateS2CPacket = (EntityVelocityUpdateS2CPacket)packet).getEntityId() == Class226.mc.player.getId()) {
+        if (MovementUtil.mc.player != null && field2007 && (packet = event.getPacket()) instanceof EntityVelocityUpdateS2CPacket && (entityVelocityUpdateS2CPacket = (EntityVelocityUpdateS2CPacket)packet).getEntityId() == MovementUtil.mc.player.getId()) {
             if (field2006) {
                 event.cancel();
-                Class226.mc.player.setVelocity(entityVelocityUpdateS2CPacket.getVelocityX() * 0.6, entityVelocityUpdateS2CPacket.getVelocityY(), entityVelocityUpdateS2CPacket.getVelocityZ() * 0.6);
+                MovementUtil.mc.player.setVelocity(entityVelocityUpdateS2CPacket.getVelocityX() * 0.6, entityVelocityUpdateS2CPacket.getVelocityY(), entityVelocityUpdateS2CPacket.getVelocityZ() * 0.6);
             }
             field2008 = 20;
         }
     }
 
     public static float method1417() {
-        return (float)Math.sqrt(Class226.mc.player.getVelocity().x * Class226.mc.player.getVelocity().x + Class226.mc.player.getVelocity().z * Class226.mc.player.getVelocity().z);
+        return (float)Math.sqrt(MovementUtil.mc.player.getVelocity().x * MovementUtil.mc.player.getVelocity().x + MovementUtil.mc.player.getVelocity().z * MovementUtil.mc.player.getVelocity().z);
     }
 
     public static void method1471() {
         if (!field2007) {
             field2007 = true;
-            field2008 = Class226.mc.player.ticksSinceLastPositionPacketSent;
-            field2006 = AegisClient.field2321.field2031 && AegisClient.field2321.field2028;
+            field2008 = MovementUtil.mc.player.ticksSinceLastPositionPacketSent;
+            field2006 = AegisClient.packetUtil.field2027LastTick && AegisClient.packetUtil.lastPlayerPacketChangedPos;
         }
     }
 
     public static boolean method1472() {
-        return Class226.mc.player != null && (Class226.mc.player.input.movementForward != 0.0f || Class226.mc.player.input.movementSideways != 0.0f);
+        return MovementUtil.mc.player != null && (MovementUtil.mc.player.input.movementForward != 0.0f || MovementUtil.mc.player.input.movementSideways != 0.0f);
     }
 
-    public static double method1473(float yaw) {
+    public static double getDirection(float yaw) {
         float f = yaw;
-        if (Class226.mc.player.forwardSpeed < 0.0f) {
+        if (MovementUtil.mc.player.forwardSpeed < 0.0f) {
             f += 180.0f;
         }
         float f2 = 1.0f;
-        if (Class226.mc.player.forwardSpeed < 0.0f) {
+        if (MovementUtil.mc.player.forwardSpeed < 0.0f) {
             f2 = -0.5f;
-        } else if (Class226.mc.player.forwardSpeed > 0.0f) {
+        } else if (MovementUtil.mc.player.forwardSpeed > 0.0f) {
             f2 = 0.5f;
         }
-        if (Class226.mc.player.sidewaysSpeed > 0.0f) {
+        if (MovementUtil.mc.player.sidewaysSpeed > 0.0f) {
             f -= 90.0f * f2;
         }
-        if (Class226.mc.player.sidewaysSpeed < 0.0f) {
+        if (MovementUtil.mc.player.sidewaysSpeed < 0.0f) {
             f += 90.0f * f2;
         }
         return Math.toRadians(f);

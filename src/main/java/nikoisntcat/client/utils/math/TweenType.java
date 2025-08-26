@@ -1,10 +1,10 @@
 package nikoisntcat.client.utils.math;
 
-public enum Class125 {
+public enum TweenType {
     field1464,
     field1465;
 
-    public Class125 method1006() {
+    public TweenType method1006() {
         if (this == field1464) {
             return field1465;
         }

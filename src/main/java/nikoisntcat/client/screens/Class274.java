@@ -1,12 +1,12 @@
 package nikoisntcat.client.screens;
 
-import nikoisntcat.client.utils.math.Class125;
-import nikoisntcat.client.utils.math.Class272;
+import nikoisntcat.client.utils.math.TweenType;
+import nikoisntcat.client.utils.math.Tween;
 
 public class Class274
-extends Class272 {
+extends Tween {
     @Override
-    protected double method1754(double x) {
+    protected double smooth(double x) {
         return 1.0 - (x - 1.0) * (x - 1.0);
     }
 
@@ -14,7 +14,7 @@ extends Class272 {
         super(ms, endPoint);
     }
 
-    public Class274(int ms, double endPoint, Class125 state) {
+    public Class274(int ms, double endPoint, TweenType state) {
         super(ms, endPoint, state);
     }
 }

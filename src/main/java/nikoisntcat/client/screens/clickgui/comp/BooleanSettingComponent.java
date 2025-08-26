@@ -4,7 +4,7 @@ import java.awt.Color;
 import net.minecraft.client.gui.DrawContext;
 import nikoisntcat.client.settings.Setting;
 import nikoisntcat.client.settings.impl.BooleanSetting;
-import nikoisntcat.client.utils.math.Class250;
+import nikoisntcat.client.utils.math.BoundaryUtils;
 import nikoisntcat.client.utils.math.Class288;
 
 public class BooleanSettingComponent
@@ -46,14 +46,14 @@ extends SettingComponent {
 
     @Override
     public void method1668(double mouseX, double mouseY, int button) {
-        if (Class250.method1684(mouseX, mouseY, this.field2108 + this.field2111 - 24, this.field2109 + 4, this.field2108 + this.field2111 - 4, this.field2109 + 11)) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.field2108 + this.field2111 - 24, this.field2109 + 4, this.field2108 + this.field2111 - 4, this.field2109 + 11)) {
             this.field2107 = true;
         }
     }
 
     @Override
     public void method1672(double mouseX, double mouseY, int button) {
-        if (this.field2107 && Class250.method1684(mouseX, mouseY, this.field2108 + this.field2111 - 24, this.field2109 + 4, this.field2108 + this.field2111 - 4, this.field2109 + 11)) {
+        if (this.field2107 && BoundaryUtils.inBoundary(mouseX, mouseY, this.field2108 + this.field2111 - 24, this.field2109 + 4, this.field2108 + this.field2111 - 4, this.field2109 + 11)) {
             this.field2110.setValue(!this.field2110.getValue());
         }
     }

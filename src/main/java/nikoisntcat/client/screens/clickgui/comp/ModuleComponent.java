@@ -9,7 +9,7 @@ import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.math.Class249;
-import nikoisntcat.client.utils.math.Class250;
+import nikoisntcat.client.utils.math.BoundaryUtils;
 import nikoisntcat.client.utils.math.Class288;
 import nikoisntcat.client.modules.Module;
 
@@ -31,7 +31,7 @@ public class ModuleComponent {
     public boolean field2269 = false;
 
     public void mouseClicked(double d, double d2, int n) {
-        if (Class250.method1684(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && (n == 1 || n == 0)) {
+        if (BoundaryUtils.inBoundary(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && (n == 1 || n == 0)) {
             this.field2262 = true;
         }
         if (this.field2269) {
@@ -109,7 +109,7 @@ public class ModuleComponent {
         this.field2258 = n2;
         this.field2266 = n3;
         TextRenderer fr = MinecraftClient.getInstance().textRenderer;
-        boolean bl = Class250.method1684(n4, n5, n, n2, n + n3, n2 + 16);
+        boolean bl = BoundaryUtils.inBoundary(n4, n5, n, n2, n + n3, n2 + 16);
         this.field2261.method1847(bl ? 1.0f : 0.0f);
         this.field2259.method1847(this.field2262 ? 1.0f : 0.0f);
         this.field2268.method1847(this.field2263 ? 1.0f : 0.0f);
@@ -157,7 +157,7 @@ public class ModuleComponent {
     }
 
     public void mouseReleased(double d, double d2, int n) {
-        if (Class250.method1684(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && this.field2262) {
+        if (BoundaryUtils.inBoundary(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && this.field2262) {
             if (n == 1) {
                 boolean bl = this.field2269 = !this.field2269;
             }

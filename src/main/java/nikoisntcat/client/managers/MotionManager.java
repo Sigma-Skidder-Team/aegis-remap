@@ -8,18 +8,18 @@ import nikoisntcat.client.utils.MinecraftUtil;
 import org.joml.Vector2f;
 
 public class MotionManager extends MinecraftUtil {
-    private float field2012;
-    private float field2013;
-    private boolean field2014;
-    private Vector2f field2015;
-    private float field2016;
-    private float field2017;
-    private Vec3d field2018;
-    private Vector2f field2019;
+    private float speed;
+    private float fallDistance;
+    private boolean onGround;
+    private Vector2f pretRots;
+    private float sidewaysSpeed;
+    private float forwardsSpeed;
+    private Vec3d prevPos;
+    private Vector2f rots;
     public boolean field2020;
-    private Vec3d field2021;
-    private boolean field2022;
-    private Vec3d field2023;
+    private Vec3d velocity;
+    private boolean sprinting;
+    private Vec3d pos;
 
     public void method1496() {
         try {
@@ -37,39 +37,39 @@ public class MotionManager extends MinecraftUtil {
     }
 
     public void method1499() {
-        this.field2023 = new Vec3d(mc.player.getPos().getX(), mc.player.getPos().getY(), mc.player.getPos().getZ());
-        this.field2018 = new Vec3d(mc.player.prevX, mc.player.prevY, mc.player.prevZ);
-        this.field2019 = new Vector2f(mc.player.getYaw(), mc.player.getPitch());
-        this.field2015 = new Vector2f(mc.player.prevYaw, mc.player.prevPitch);
-        this.field2021 = new Vec3d(mc.player.getVelocity().getX(), mc.player.getVelocity().getY(), mc.player.getVelocity().getZ());
-        this.field2013 = mc.player.fallDistance;
-        this.field2022 = mc.player.isSprinting();
-        this.field2017 = mc.player.forwardSpeed;
-        this.field2016 = mc.player.sidewaysSpeed;
-        this.field2014 = mc.player.isOnGround();
-        this.field2012 = mc.player.speed;
+        this.pos = new Vec3d(mc.player.getPos().getX(), mc.player.getPos().getY(), mc.player.getPos().getZ());
+        this.prevPos = new Vec3d(mc.player.prevX, mc.player.prevY, mc.player.prevZ);
+        this.rots = new Vector2f(mc.player.getYaw(), mc.player.getPitch());
+        this.pretRots = new Vector2f(mc.player.prevYaw, mc.player.prevPitch);
+        this.velocity = new Vec3d(mc.player.getVelocity().getX(), mc.player.getVelocity().getY(), mc.player.getVelocity().getZ());
+        this.fallDistance = mc.player.fallDistance;
+        this.sprinting = mc.player.isSprinting();
+        this.forwardsSpeed = mc.player.forwardSpeed;
+        this.sidewaysSpeed = mc.player.sidewaysSpeed;
+        this.onGround = mc.player.isOnGround();
+        this.speed = mc.player.speed;
         this.field2020 = true;
         AegisClient.moduleManager.modules.forEach(module -> {
             module.field1594 = false;
         });
     }
 
-    public void method1500() {
-        mc.player.sidewaysSpeed = this.field2016;
-        mc.player.speed = this.field2012;
-        mc.player.setSprinting(this.field2022);
-        mc.player.forwardSpeed = this.field2017;
-        mc.player.setOnGround(this.field2014);
-        mc.player.fallDistance = this.field2013;
-        mc.player.setVelocity(this.field2021);
-        mc.player.setPosition(this.field2023);
-        mc.player.prevX = this.field2018.x;
-        mc.player.prevY = this.field2018.y;
-        mc.player.prevZ = this.field2018.z;
-        mc.player.setYaw(this.field2019.x);
-        mc.player.setYaw(this.field2019.y);
-        mc.player.prevYaw = this.field2015.x;
-        mc.player.prevPitch = this.field2015.y;
+    public void set() {
+        mc.player.sidewaysSpeed = this.sidewaysSpeed;
+        mc.player.speed = this.speed;
+        mc.player.setSprinting(this.sprinting);
+        mc.player.forwardSpeed = this.forwardsSpeed;
+        mc.player.setOnGround(this.onGround);
+        mc.player.fallDistance = this.fallDistance;
+        mc.player.setVelocity(this.velocity);
+        mc.player.setPosition(this.pos);
+        mc.player.prevX = this.prevPos.x;
+        mc.player.prevY = this.prevPos.y;
+        mc.player.prevZ = this.prevPos.z;
+        mc.player.setYaw(this.rots.x);
+        mc.player.setYaw(this.rots.y);
+        mc.player.prevYaw = this.pretRots.x;
+        mc.player.prevPitch = this.pretRots.y;
         this.field2020 = false;
         AegisClient.moduleManager.modules.forEach(module -> {
             module.field1594 = true;

@@ -3,11 +3,7 @@ package nikoisntcat.client.modules.impl;
 import java.util.List;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.JumpEvent;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.PacketReceiveEvent;
@@ -17,10 +13,7 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.Class226;
 import nikoisntcat.client.utils.Class228;
-import nikoisntcat.client.utils.Class231;
-import nikoisntcat.client.utils.player.Class205;
 
 public class SpeedModule extends Module {
     public ModeSetting field1904 = new ModeSetting("Mode", "Bhop", List.of("Bhop", "Strafe", "GroundStrafe", "HypixelLowHop", "SpeedTwo"));
