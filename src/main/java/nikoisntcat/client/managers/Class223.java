@@ -9,7 +9,7 @@ import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import nikoisntcat.client.events.impl.PacketSendEvent;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MinecraftUtil;
 import nikoisntcat.client.utils.interfaces.Class303;
 
@@ -22,7 +22,7 @@ public class Class223 extends MinecraftUtil {
     public static int field1999;
 
     public void method1434() {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             method1277();
             return;
         }
@@ -46,7 +46,7 @@ public class Class223 extends MinecraftUtil {
     }
 
     public void method1436() {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             method1277();
             return;
         }
@@ -57,7 +57,7 @@ public class Class223 extends MinecraftUtil {
     }
 
     public void method1437() {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             method1277();
             return;
         }
@@ -93,7 +93,7 @@ public class Class223 extends MinecraftUtil {
         field1998 = false;
         field1995 = false;
         field1996 = false;
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             mc.player.getInventory().selectedSlot = field1994;
         }
         field1999 = -1;
@@ -124,7 +124,7 @@ public class Class223 extends MinecraftUtil {
     }
 
     public void method1444() {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             method1277();
             return;
         }

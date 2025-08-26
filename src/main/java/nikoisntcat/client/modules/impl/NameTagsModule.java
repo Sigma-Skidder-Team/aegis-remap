@@ -13,7 +13,7 @@ import nikoisntcat.client.events.impl.Render3DEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.screens.Class276;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class231;
 import nikoisntcat.client.utils.math.Tween;
 import nikoisntcat.client.utils.math.TweenType;
@@ -34,14 +34,14 @@ public class NameTagsModule extends Module {
 
     @Override
     public void onRender3D(Render3DEvent event) {
-        if (Class224.nullCheck()) return;
+        if (PlayerUtil.nullCheck()) return;
 
         float delta = event.method1423();
         Vec3d playerInterpolatedPos = RenderUtil.method1570(mc.player, delta);
 
         for (Entity entity : mc.world.getEntities()) {
             if (!(entity instanceof LivingEntity livingEntity)) continue;
-            if (!Class224.method1448(livingEntity)) continue;
+            if (!PlayerUtil.isValidTarget(livingEntity)) continue;
 
             try {
                 float alpha = -1.0F;

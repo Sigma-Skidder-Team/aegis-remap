@@ -13,7 +13,7 @@ import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 
 public class NoFallModule extends Module {
    private boolean field1814;
@@ -50,7 +50,7 @@ public class NoFallModule extends Module {
                   this.field1817 = false;
                   this.field1816 = false;
                } else if (this.field1820 && mc.player.fallDistance > 0.0F) {
-                  mc.options.jumpKey.setPressed(Class224.method1445(mc.options.jumpKey));
+                  mc.options.jumpKey.setPressed(PlayerUtil.isKeyPressed(mc.options.jumpKey));
                   this.field1820 = false;
                }
 
@@ -96,7 +96,7 @@ public class NoFallModule extends Module {
 
    @Override
    public void onTick() {
-      if (Class224.nullCheck()) {
+      if (PlayerUtil.nullCheck()) {
          this.field1817 = false;
          this.field1814 = false;
          this.field1816 = false;
@@ -119,7 +119,7 @@ public class NoFallModule extends Module {
             this.field1817 = false;
             mc.player.networkHandler.sendPacket(new OnGroundOnly(false, false));
             mc.player.networkHandler.sendPacket(new ClientTickEndC2SPacket());
-            Class224.method1450(1);
+            PlayerUtil.setTickCounter(1);
          }
       }
    }

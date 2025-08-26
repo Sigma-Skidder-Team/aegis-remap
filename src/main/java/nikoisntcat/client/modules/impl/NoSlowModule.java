@@ -24,7 +24,7 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.utils.Class207;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MovementUtil;
 
 public class NoSlowModule extends Module {
@@ -117,7 +117,7 @@ public class NoSlowModule extends Module {
 
    @Override
    public void onTick() {
-      if (!Class224.nullCheck()) {
+      if (!PlayerUtil.nullCheck()) {
          this.field1788++;
          this.field1780 = this.field1787;
          this.field1787 = false;
@@ -163,8 +163,8 @@ public class NoSlowModule extends Module {
                   AegisClient.field2315.method2046();
                   if (this.field1788 % 2 == 0) {
                      AegisClient.field2315.method2046();
-                     Class224.method1450(1);
-                     Class224.method1451("Release More. Now Left: " + AegisClient.field2315.previousHeldPackets.size());
+                     PlayerUtil.setTickCounter(1);
+                     PlayerUtil.sendChatMessage("Release More. Now Left: " + AegisClient.field2315.previousHeldPackets.size());
                   }
                } else {
                   for (int var2 = 0; var2 < 9; var2++) {

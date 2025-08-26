@@ -6,7 +6,7 @@ import nikoisntcat.client.events.impl.*;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.*;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MinecraftUtil;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -210,7 +210,7 @@ public class ModuleManager extends MinecraftUtil {
                 if (module.method1222()) {
                     module.onKey(event);
                 }
-                if (module.key != event.getKey() || Class224.nullCheck() || mc.currentScreen != null) continue;
+                if (module.key != event.getKey() || PlayerUtil.nullCheck() || mc.currentScreen != null) continue;
                 module.toggle();
             } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");

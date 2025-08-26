@@ -2,7 +2,7 @@ package nikoisntcat.client.managers;
 
 import nikoisntcat.client.commands.Command;
 import nikoisntcat.client.events.impl.ChatMessageEvent;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class CommandManager {
                 });
             }
             if (!atomicBoolean.get()) {
-                Class224.method1451("(String)CommandManager.method1881('\u0002')");
+                PlayerUtil.sendChatMessage("(String)CommandManager.method1881('\u0002')");
             }
         }
     }

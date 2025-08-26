@@ -13,7 +13,7 @@ import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ColorSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class228;
 import nikoisntcat.client.utils.math.TimerUtil;
 
@@ -28,7 +28,7 @@ public class BlockESPModule extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             if (this.field1649.passed(2000L)) {
                 this.field1651 = new Thread(() -> {
                     this.field1655.clear();

@@ -14,7 +14,7 @@ import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.player.Class205;
 
 public class LongJumpModule extends Module {
@@ -45,7 +45,7 @@ public class LongJumpModule extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             if (mode.getValue().equals("Fireball")) {
                 if (mc.options.attackKey.wasPressed()) {
                     method1273();
@@ -61,7 +61,7 @@ public class LongJumpModule extends Module {
 
     @Override
     public void onReceivePacket(PacketReceiveEvent event) {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             this.setState(false);
         } else {
             String var2 = this.mode.getValue();

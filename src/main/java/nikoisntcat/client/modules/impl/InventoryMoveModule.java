@@ -9,54 +9,53 @@ import nikoisntcat.client.events.impl.PacketSendEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 
 public class InventoryMoveModule extends Module {
-   private boolean field1823;
-   private final KeyBinding[] field1824;
-   private boolean field1825;
-   public BooleanSetting field1826 = new BooleanSetting("Hypixel", true);
-   private boolean field1827;
-   static Object field1828;
 
-   @Override
-   public void onSendPacket(PacketSendEvent event) {
-      if (this.field1826.getValue() && mc.currentScreen == null) {
-         Packet var2 = event.getPacket();
-         if (var2 instanceof ClickSlotC2SPacket) {
-            this.field1825 = true;
-         }
+    public BooleanSetting hypixelBypass = new BooleanSetting("Hypixel", true);
+    private boolean clickedSlot = false;
+    private final KeyBinding[] movementKeys;
 
-         var2 = event.getPacket();
-         if (var2 instanceof CloseHandledScreenC2SPacket) {
-            this.field1825 = false;
-         }
-      }
-   }
+    public InventoryMoveModule() {
+        super("InventoryMove", 0, Category.MOVE);
 
-   @Override
-   public void onMotion(MotionEvent motionEvent) {
-      if (this.field1825 && motionEvent.method1399() == MotionEvent.Class123.PRE && mc.currentScreen == null) {
-         mc.getNetworkHandler().sendPacket(new CloseHandledScreenC2SPacket(0));
-      }
-   }
+        this.movementKeys = new KeyBinding[]{
+                mc.options.forwardKey,
+                mc.options.rightKey,
+                mc.options.leftKey,
+                mc.options.jumpKey,
+                mc.options.backKey
+        };
+    }
 
-   public InventoryMoveModule() {
-      super("InventoryMove", 0, Category.MOVE);
-      this.field1823 = false;
-      this.field1827 = false;
-      this.field1825 = false;
-      this.field1824 = new KeyBinding[]{mc.options.forwardKey, mc.options.rightKey, mc.options.leftKey, mc.options.jumpKey, mc.options.backKey};
-   }
+    @Override
+    public void onSendPacket(PacketSendEvent event) {
+        if (hypixelBypass.getValue() && mc.currentScreen == null) {
+            Packet packet = event.getPacket();
 
-   @Override
-   public void onTick() {
-      if (!this.field1826.getValue()) {
-         if (mc.currentScreen != null) {
-            for (KeyBinding var4 : this.field1824) {
-               var4.setPressed(Class224.method1445(var4));
+            if (packet instanceof ClickSlotC2SPacket) {
+                clickedSlot = true;
             }
-         }
-      }
-   }
+            if (packet instanceof CloseHandledScreenC2SPacket) {
+                clickedSlot = false;
+            }
+        }
+    }
+
+    @Override
+    public void onMotion(MotionEvent event) {
+        if (clickedSlot && event.method1399() == MotionEvent.Class123.PRE && mc.currentScreen == null) {
+            mc.getNetworkHandler().sendPacket(new CloseHandledScreenC2SPacket(0));
+        }
+    }
+
+    @Override
+    public void onTick() {
+        if (!hypixelBypass.getValue() && mc.currentScreen != null) {
+            for (KeyBinding key : movementKeys) {
+                key.setPressed(PlayerUtil.isKeyPressed(key));
+            }
+        }
+    }
 }

@@ -9,7 +9,7 @@ import nikoisntcat.client.managers.Class223;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.player.Class205;
 
 public class AutoToolModule extends Module {
@@ -22,7 +22,7 @@ public class AutoToolModule extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             if (this.field1725) {
                 this.field1724--;
                 if (this.field1724 == 0) {

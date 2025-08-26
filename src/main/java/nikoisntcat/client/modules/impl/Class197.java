@@ -19,7 +19,7 @@ import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.Class259;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class228;
 import nikoisntcat.client.utils.Class231;
 import nikoisntcat.client.utils.MovementUtil;
@@ -202,7 +202,7 @@ public class Class197 extends Module {
 
     @Override
     public void onDisable() {
-        mc.options.jumpKey.setPressed(Class224.method1445(mc.options.jumpKey));
+        mc.options.jumpKey.setPressed(PlayerUtil.isKeyPressed(mc.options.jumpKey));
         Class223.method1277();
         AegisClient.field2315.method2047();
         this.field1890 = false;
@@ -233,7 +233,7 @@ public class Class197 extends Module {
 
     @Override
     public void onPreTick() {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             if (mc.player.onGround && this.field1863.getValue()) {
                 MovementUtil.strafe((double) ((float) ((double) MovementUtil.getSpeed() * this.field1869.getValue())));
             }
@@ -275,7 +275,7 @@ public class Class197 extends Module {
         //TODO: This
         switch (var1) {
             case "(String)method1370('\u0018')":
-                mc.options.jumpKey.setPressed(mc.player.onGround && mc.options.forwardKey.isPressed() || Class224.method1445(mc.options.jumpKey));
+                mc.options.jumpKey.setPressed(mc.player.onGround && mc.options.forwardKey.isPressed() || PlayerUtil.isKeyPressed(mc.options.jumpKey));
                 break;
             case "(String)method1370('\u0019')":
                 if (mc.player.onGround && mc.options.forwardKey.isPressed()) {
@@ -286,11 +286,11 @@ public class Class197 extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             this.field1873++;
             if (mc.player.onGround) {
                 this.field1862 = 0;
-                this.field1886 = Class224.method1445(mc.options.jumpKey)
+                this.field1886 = PlayerUtil.isKeyPressed(mc.options.jumpKey)
                         || !this.field1881.getValue().equals((String) method1370('\u0006'))
                         && !this.field1881.getValue().equals((String) method1370('\u0007'))
                         && !this.field1881.getValue().equals((String) method1370('\b'));

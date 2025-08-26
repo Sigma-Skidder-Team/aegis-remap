@@ -20,7 +20,7 @@ import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
 import nikoisntcat.client.utils.Class129;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class228;
 import nikoisntcat.client.utils.Class231;
 import nikoisntcat.client.utils.math.TimerUtil;
@@ -68,7 +68,7 @@ public class FuckerModule extends Module {
 
     @Override
     public void onReceivePacket(PacketReceiveEvent event) {
-        if (!Class224.nullCheck()) {
+        if (!PlayerUtil.nullCheck()) {
             if (event.getPacket() instanceof PlayerPositionLookS2CPacket var3 && Math.sqrt(mc.player.squaredDistanceTo(var3.change().position())) > 40.0) {
                 this.field1747 = var3.change().position();
             }
@@ -138,7 +138,7 @@ public class FuckerModule extends Module {
 
     @Override
     public void onPreTick() {
-        if (Class224.nullCheck() || this.field1744 == null) {
+        if (PlayerUtil.nullCheck() || this.field1744 == null) {
             ;
         }
     }
@@ -157,7 +157,7 @@ public class FuckerModule extends Module {
 
     @Override
     public void onTick() {
-        if (!Class224.nullCheck() && this.field1749.passed((long) this.field1742.getValue())) {
+        if (!PlayerUtil.nullCheck() && this.field1749.passed((long) this.field1742.getValue())) {
             this.field1751 = this.field1744;
             Vec3d var1 = this.method1295();
             if (!this.field1741.getValue() || this.field1744 == null || this.field1750 <= 0.0) {

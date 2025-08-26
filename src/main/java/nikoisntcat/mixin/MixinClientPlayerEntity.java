@@ -13,7 +13,7 @@ import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.events.impl.SlowdownEvent;
 import nikoisntcat.client.modules.impl.DisablerModule;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MovementUtil;
 import nikoisntcat.client.utils.interfaces.IClientPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
@@ -129,12 +129,12 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
             Hand hand = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
             if (bl && !this.usingItem) {
                 if (DisablerModule.debugServerUsing.getValue()) {
-                    Class224.method1451("Using Item");
+                    PlayerUtil.sendChatMessage("Using Item");
                 }
                 this.setCurrentHand(hand);
             } else if (!bl && this.usingItem) {
                 if (DisablerModule.debugServerUsing.getValue()) {
-                    Class224.method1451("Clear Item");
+                    PlayerUtil.sendChatMessage("Clear Item");
                 }
                 this.clearActiveItem();
             }

@@ -12,7 +12,7 @@ import nikoisntcat.client.events.impl.PacketSendEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.Class231;
 import nikoisntcat.client.utils.render.Notification;
 
@@ -131,7 +131,7 @@ public class DisablerModule extends Module {
 
     @Override
     public void onTick() {
-        if (Class224.nullCheck()) {
+        if (PlayerUtil.nullCheck()) {
             lastSelectedSlot = -1;
         }
 

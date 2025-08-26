@@ -15,7 +15,7 @@ import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.settings.impl.BooleanSetting;
 import nikoisntcat.client.settings.impl.ModeSetting;
-import nikoisntcat.client.utils.Class224;
+import nikoisntcat.client.utils.PlayerUtil;
 
 public class ESPModule extends Module {
 
@@ -93,7 +93,7 @@ public class ESPModule extends Module {
     public static boolean shouldHighlight(ESPModule esp, LivingEntity entity) {
         if (esp == null || !esp.isEnabled() || !"Glow".equals(esp.mode.getValue())) {
             return false;
-        } else if (Class224.nullCheck()) {
+        } else if (PlayerUtil.nullCheck()) {
             return false;
         } else if (entity.getId() == mc.player.getId()) {
             return false;
@@ -102,7 +102,7 @@ public class ESPModule extends Module {
         boolean highlight;
 
         if (esp.useTargets.getValue()) {
-            highlight = Class224.method1448(entity);
+            highlight = PlayerUtil.isValidTarget(entity);
         } else {
             boolean isPlayer = entity instanceof PlayerEntity;
             boolean isVillager = entity instanceof VillagerEntity;
