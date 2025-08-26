@@ -65,7 +65,7 @@ public class Class224 extends MinecraftUtil {
         if (mc.player == null || class_13092.getId() == mc.player.getId() || class_13092 instanceof PlayerEntity && !TargetsModule.field1773.getValue() || class_13092 instanceof AnimalEntity && !TargetsModule.field1774.getValue() || (class_13092 instanceof Npc || class_13092 instanceof Monster) && !TargetsModule.field1772.getValue() || class_13092 instanceof VillagerEntity && !TargetsModule.field1771.getValue()) {
           return false;
         }
-        if (TeamsModule.method1375((Entity) class_13092)) {
+        if (TeamsModule.isTeammate((Entity) class_13092)) {
             return false;
         }
         //return !Class201.field1921.method1380(class_13092);

@@ -120,7 +120,7 @@ public class ESPModule extends Module {
             return false;
         }
 
-        if (esp.excludeTeammates.getValue() && TeamsModule.method1375(entity)) {
+        if (esp.excludeTeammates.getValue() && TeamsModule.isTeammate(entity)) {
             return false;
         }
 
