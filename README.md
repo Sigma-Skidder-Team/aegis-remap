@@ -1,6 +1,6 @@
 # Aegis client remapping project powered by the Venezuelan immigrant Aegis dick rider named s0ropt
 
-A auth emulator will (hopefully) released alongside this.
+An auth emulator will (hopefully) released alongside this.
 
 ## Why?
 
