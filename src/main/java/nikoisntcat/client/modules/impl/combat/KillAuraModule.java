@@ -6,6 +6,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
+import nikoisntcat.client.events.impl.MotionEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.misc.TargetsModule;
@@ -71,22 +72,31 @@ public class KillAuraModule extends Module {
                 lastSwitch = System.currentTimeMillis();
             }
         }
-        RotationUtil.rotate(
-                new Vector2f(target.getYaw(), target.getPitch()),
-                (int) rotationKeepTicks.getValue(),
-                Priority.field1513
-        );
 
+        // CPS-limited attack
         double delay = 1000.0 / cps.getValue();
-        if (timerUtil.passed((long) delay)) {
+        if (target != null && timerUtil.passed((long) delay)) {
             attack(target);
             timerUtil.update();
         }
     }
 
+    // Tech is god tier
+    @Override
+    public void onMotion(MotionEvent event) {
+        if (target == null) return;
+        Vector2f rotation = new Vector2f(target.getYaw(), target.getPitch());
+
+        RotationUtil.rotate(rotation, (int) rotationKeepTicks.getValue(), Priority.field1513);
+
+        event.method1400(rotation.x);
+        event.method1404(rotation.y);
+    }
+
     private void attack(LivingEntity entity) {
         mc.player.swingHand(Hand.MAIN_HAND);
         mc.interactionManager.attackEntity(mc.player, entity);
+
         if (!autoBlock.getValue().equals("None")) {
             Hand hand = blockHand.getValue().equals("MainHand") ? Hand.MAIN_HAND : Hand.OFF_HAND;
             mc.player.swingHand(hand);
@@ -100,7 +110,6 @@ public class KillAuraModule extends Module {
         if (entity instanceof AnimalEntity) return TargetsModule.targetAnimals.getValue();
         return TargetsModule.targetMobs.getValue();
     }
-
 
     @Override
     public void onDisable() {

@@ -5,7 +5,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.ElytraSoundInstance;
-import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.util.Hand;
@@ -121,12 +120,16 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
         }
     }
 
+    /**
+     * @author graph
+     * @reason to make my IDE shut the FUCK up
+     */
     @Overwrite
     public void onTrackedDataSet(TrackedData<?> data) {
         super.onTrackedDataSet(data);
         if (LIVING_FLAGS.equals(data) && !DisablerModule.cancelServerUsing.getValue()) {
-            boolean bl = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 1) > 0;
-            Hand hand = ((Byte) this.dataTracker.get(LIVING_FLAGS) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
+            boolean bl = (this.dataTracker.get(LIVING_FLAGS) & 1) > 0;
+            Hand hand = (this.dataTracker.get(LIVING_FLAGS) & 2) > 0 ? Hand.OFF_HAND : Hand.MAIN_HAND;
             if (bl && !this.usingItem) {
                 if (DisablerModule.debugServerUsing.getValue()) {
                     PlayerUtil.sendChatMessage("Using Item");
@@ -140,7 +143,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
             }
         }
         if (FLAGS.equals(data) && this.isGliding() && !this.falling) {
-            this.client.getSoundManager().play((SoundInstance) new ElytraSoundInstance((ClientPlayerEntity) (Object) this));
+            this.client.getSoundManager().play(new ElytraSoundInstance((ClientPlayerEntity) (Object) this));
         }
     }
 }
