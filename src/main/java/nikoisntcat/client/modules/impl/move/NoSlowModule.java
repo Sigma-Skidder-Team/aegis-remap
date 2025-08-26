@@ -28,178 +28,195 @@ import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.MovementUtil;
 
 public class NoSlowModule extends Module {
-   public BooleanSetting field1776 = new BooleanSetting("Sword", false);
-   private boolean field1777;
-   public ModeSetting field1778;
-   private boolean field1779;
-   private boolean field1780;
-   public BooleanSetting field1781;
-   public BooleanSetting field1782;
-   private boolean field1783;
-   public ModeSetting field1784;
-   public ModeSetting field1785 = new ModeSetting("SwordPacketMode", "None", List.of("None"));
-   public BooleanSetting field1786;
-   private boolean field1787;
-   private int field1788;
-   static Object field1789;
 
-   @Override
-   public void onSlow(SlowdownEvent slowDownEvent) {
-      ItemStack var2 = mc.player.getInventory().getMainHandStack();
-      Item var3 = var2.getItem();
-      if (this.field1781.getValue() && mc.options.useKey.isPressed() && (var2.getUseAction() == UseAction.EAT || var2.getUseAction() == UseAction.DRINK)) {
-         slowDownEvent.setSlowdown(true);
-         if (!mc.player.isUsingItem() || mc.player.getItemUseTime() < 2) {
-            this.field1787 = false;
-            this.field1780 = false;
-            mc.player.setSprinting(false);
-            mc.options.sprintKey.setPressed(false);
-            return;
-         }
-      }
+    // Settings
+    public BooleanSetting swordNoSlow = new BooleanSetting("Sword", false);
+    public BooleanSetting foodNoSlow = new BooleanSetting("Food", false);
+    public BooleanSetting bowNoSlow = new BooleanSetting("Bow", false);
+    public BooleanSetting server1_8Fix = new BooleanSetting("Server1_8", false);
 
-      if (slowDownEvent.getSlowdown()) {
-         this.field1787 = true;
-         if (var3 instanceof SwordItem && this.field1776.getValue()) {
-            slowDownEvent.setSlowdown(false);
-         } else if (var3 instanceof BowItem && this.field1786.getValue()) {
-            slowDownEvent.setSlowdown(false);
-         } else if (this.field1782.getValue() && (var2.getUseAction() == UseAction.EAT || var2.getUseAction() == UseAction.DRINK)) {
-            String var4 = this.field1784.getValue();
-            switch (var4) {
-               case "Blink":
-                  if (!this.field1783) {
-                     mc.player
-                        .networkHandler
-                        .sendPacket(
-                           new PlayerInteractItemC2SPacket(
-                              Hand.MAIN_HAND, mc.world.getPendingUpdateManager().incrementSequence().getSequence(), mc.player.getYaw(), mc.player.getPitch()
-                           )
-                        );
-                     this.field1788 = 0;
-                     this.field1783 = true;
-                  }
+    public ModeSetting foodPacketMode = new ModeSetting("FoodPacketMode", "None", List.of("None", "Blink", "Half", "GrimTest"));
+    public ModeSetting bowPacketMode = new ModeSetting("BowPacketMode", "None", List.of("None"));
+    public ModeSetting swordPacketMode = new ModeSetting("SwordPacketMode", "None", List.of("None"));
 
-                  slowDownEvent.setSlowdown(false);
-                  break;
-               case "GrimTest":
-                  if (!this.field1783) {
-                     MovementUtil.isBlinking = true;
-                     mc.player
-                        .networkHandler
-                        .sendPacket(
-                           new PlayerInteractItemC2SPacket(
-                              Hand.MAIN_HAND, mc.world.getPendingUpdateManager().incrementSequence().getSequence(), mc.player.getYaw(), mc.player.getPitch()
-                           )
-                        );
-                     this.field1788 = 0;
-                     this.field1783 = true;
-                  } else {
-                     slowDownEvent.setSlowdown(false);
-                  }
-                  break;
-               case "Half":
-                  if (!mc.player.onGround && new Class207().method1396(1, mc.player.getYaw(), true).field2178) {
-                     this.field1777 = true;
-                  } else if ((mc.player.age % 2 == 0 || this.field1777) && this.field1780) {
-                     slowDownEvent.setSlowdown(false);
-                     if (this.field1777) {
-                        this.field1777 = false;
-                     }
-                  }
-                  break;
-               default:
-                  slowDownEvent.setSlowdown(false);
+    // State flags
+    private boolean halfTickFlag;
+    private boolean isBlinkingFood;
+    private boolean wasUsingItemLastTick;
+    private boolean isUsingItemThisTick;
+    private boolean grimReleaseStarted;
+
+    // Timer
+    private int tickCounter;
+
+    static Object unused; // leftover artifact
+
+    public NoSlowModule() {
+        super("NoSlow", 0, Category.MOVE);
+
+        this.isBlinkingFood = false;
+        this.wasUsingItemLastTick = false;
+        this.isUsingItemThisTick = false;
+        this.halfTickFlag = false;
+        this.tickCounter = 0;
+        this.grimReleaseStarted = false;
+    }
+
+    @Override
+    public void onSlow(SlowdownEvent event) {
+        ItemStack mainHand = mc.player.getInventory().getMainHandStack();
+        Item item = mainHand.getItem();
+
+        // Eating/Drinking handling
+        if (server1_8Fix.getValue() && mc.options.useKey.isPressed() &&
+                (mainHand.getUseAction() == UseAction.EAT || mainHand.getUseAction() == UseAction.DRINK)) {
+            event.setSlowdown(true);
+
+            if (!mc.player.isUsingItem() || mc.player.getItemUseTime() < 2) {
+                isUsingItemThisTick = false;
+                wasUsingItemLastTick = false;
+                mc.player.setSprinting(false);
+                mc.options.sprintKey.setPressed(false);
+                return;
             }
-         }
-      }
-   }
+        }
 
-   @Override
-   public void onTick() {
-      if (!PlayerUtil.nullCheck()) {
-         this.field1788++;
-         this.field1780 = this.field1787;
-         this.field1787 = false;
-      }
-   }
+        if (event.getSlowdown()) {
+            isUsingItemThisTick = true;
 
-   public NoSlowModule() {
-      super("NoSlow", 0, Category.MOVE);
-      this.field1782 = new BooleanSetting("Food", false);
-      this.field1784 = new ModeSetting("FoodPacketMode", "None", List.of("None", "Blink", "Half", "GrimTest"));
-      this.field1786 = new BooleanSetting("Bow", false);
-      this.field1778 = new ModeSetting("BowPacketMode", "None", List.of("None"));
-      this.field1781 = new BooleanSetting("Server1_8", false);
-      this.field1783 = false;
-      this.field1780 = false;
-      this.field1787 = false;
-      this.field1777 = false;
-      this.field1788 = 0;
-      this.field1779 = false;
-   }
+            // Sword
+            if (item instanceof SwordItem && swordNoSlow.getValue()) {
+                event.setSlowdown(false);
 
-   @Override
-   public void onMotion(MotionEvent motionEvent) {
-      if (motionEvent.getState() == MotionEvent.State.PRE) {
-         if (this.field1783 && !AegisClient.blinkUtil.method2044()) {
-            AegisClient.blinkUtil.method2051(this);
-            mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
-         }
-      } else {
-         if (this.field1784.getValue().equals("Blink") && this.field1788 > 33) {
-            AegisClient.blinkUtil.method2047();
-            this.field1788 = 0;
-            this.field1783 = false;
-         }
+                // Bow
+            } else if (item instanceof BowItem && bowNoSlow.getValue()) {
+                event.setSlowdown(false);
 
-         if (this.field1784.getValue().equals("GrimTest") && this.field1783) {
-            if (this.field1788 > 6) {
-                MovementUtil.isBlinking = false;
+                // Food
+            } else if (foodNoSlow.getValue() &&
+                    (mainHand.getUseAction() == UseAction.EAT || mainHand.getUseAction() == UseAction.DRINK)) {
+                switch (foodPacketMode.getValue()) {
+                    case "Blink":
+                        if (!isBlinkingFood) {
+                            mc.player.networkHandler.sendPacket(
+                                    new PlayerInteractItemC2SPacket(
+                                            Hand.MAIN_HAND,
+                                            mc.world.getPendingUpdateManager().incrementSequence().getSequence(),
+                                            mc.player.getYaw(),
+                                            mc.player.getPitch()
+                                    )
+                            );
+                            tickCounter = 0;
+                            isBlinkingFood = true;
+                        }
+                        event.setSlowdown(false);
+                        break;
+
+                    case "GrimTest":
+                        if (!isBlinkingFood) {
+                            MovementUtil.isBlinking = true;
+                            mc.player.networkHandler.sendPacket(
+                                    new PlayerInteractItemC2SPacket(
+                                            Hand.MAIN_HAND,
+                                            mc.world.getPendingUpdateManager().incrementSequence().getSequence(),
+                                            mc.player.getYaw(),
+                                            mc.player.getPitch()
+                                    )
+                            );
+                            tickCounter = 0;
+                            isBlinkingFood = true;
+                        } else {
+                            event.setSlowdown(false);
+                        }
+                        break;
+
+                    case "Half":
+                        if (!mc.player.onGround && new Class207().method1396(1, mc.player.getYaw(), true).field2178) {
+                            halfTickFlag = true;
+                        } else if ((mc.player.age % 2 == 0 || halfTickFlag) && wasUsingItemLastTick) {
+                            event.setSlowdown(false);
+                            if (halfTickFlag) halfTickFlag = false;
+                        }
+                        break;
+
+                    default:
+                        event.setSlowdown(false);
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onTick() {
+        if (!PlayerUtil.nullCheck()) {
+            tickCounter++;
+            wasUsingItemLastTick = isUsingItemThisTick;
+            isUsingItemThisTick = false;
+        }
+    }
+
+    @Override
+    public void onMotion(MotionEvent event) {
+        if (event.getState() == MotionEvent.State.PRE) {
+            if (isBlinkingFood && !AegisClient.blinkUtil.isBlinking()) {
+                AegisClient.blinkUtil.startBlinking(this);
+                mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
+            }
+        } else {
+            if (foodPacketMode.getValue().equals("Blink") && tickCounter > 33) {
+                AegisClient.blinkUtil.stopBlinking();
+                tickCounter = 0;
+                isBlinkingFood = false;
             }
 
-            if (this.field1788 > 33) {
-               if (this.field1779) {
-                  AegisClient.blinkUtil.method2046();
-                  if (this.field1788 % 2 == 0) {
-                     AegisClient.blinkUtil.method2046();
-                     PlayerUtil.setTickCounter(1);
-                     PlayerUtil.sendChatMessage("Release More. Now Left: " + AegisClient.blinkUtil.previousHeldPackets.size());
-                  }
-               } else {
-                  for (int var2 = 0; var2 < 9; var2++) {
-                     AegisClient.blinkUtil.method2046();
-                  }
+            if (foodPacketMode.getValue().equals("GrimTest") && isBlinkingFood) {
+                if (tickCounter > 6) {
+                    MovementUtil.isBlinking = false;
+                }
 
-                  this.field1779 = true;
-               }
+                if (tickCounter > 33) {
+                    if (grimReleaseStarted) {
+                        AegisClient.blinkUtil.sendHeldPackets();
+                        if (tickCounter % 2 == 0) {
+                            AegisClient.blinkUtil.sendHeldPackets();
+                            PlayerUtil.setTickCounter(1);
+                            PlayerUtil.sendChatMessage("Release More. Now Left: " + AegisClient.blinkUtil.previousPacketQueues.size());
+                        }
+                    } else {
+                        for (int i = 0; i < 9; i++) {
+                            AegisClient.blinkUtil.sendHeldPackets();
+                        }
+                        grimReleaseStarted = true;
+                    }
 
-               if (AegisClient.blinkUtil.previousHeldPackets.isEmpty()) {
-                  AegisClient.blinkUtil.method2047();
-                  this.field1788 = 0;
-                  this.field1783 = false;
-                  this.field1779 = false;
-               }
+                    if (AegisClient.blinkUtil.previousPacketQueues.isEmpty()) {
+                        AegisClient.blinkUtil.stopBlinking();
+                        tickCounter = 0;
+                        isBlinkingFood = false;
+                        grimReleaseStarted = false;
+                    }
 
-               mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
+                    mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public void onSendPacket(PacketSendEvent event) {
-      if (this.field1783) {
-      }
-   }
+    @Override
+    public void onSendPacket(PacketSendEvent event) {
+        if (isBlinkingFood) {
 
-   @Override
-   public void onReceivePacket(PacketReceiveEvent event) {
-      if (this.field1783) {
-         Packet<?> var2 = event.getPacket();
-         if (var2 instanceof SetPlayerInventoryS2CPacket) {
-            ;
-         }
-      }
-   }
+        }
+    }
+
+    @Override
+    public void onReceivePacket(PacketReceiveEvent event) {
+        if (isBlinkingFood) {
+            Packet<?> packet = event.getPacket();
+            if (packet instanceof SetPlayerInventoryS2CPacket) {
+
+            }
+        }
+    }
 }

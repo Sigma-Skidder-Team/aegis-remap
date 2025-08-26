@@ -4,42 +4,46 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.Packet;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.events.impl.PacketSendEvent;
+import nikoisntcat.client.modules.Module;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
-import nikoisntcat.client.modules.Module;
 
 public class BlinkUtil {
-    // ?????? why
-    public final LinkedList<LinkedBlockingDeque<Packet<?>>> previousHeldPackets = new LinkedList<>();
-    private boolean blinking = false;
+
+    public final LinkedList<LinkedBlockingDeque<Packet<?>>> previousPacketQueues = new LinkedList<>();
+    private boolean isBlinking = false;
     private LinkedBlockingDeque<Packet<?>> heldPackets;
-    public Module field2467 = null;
-    private final List<Packet<?>> field2468 = new ArrayList<>();
+    public Module activeModule = null;
+    private final List<Packet<?>> ignoredPacketTypes = new ArrayList<>();
 
-    public boolean method2044() {
-        return this.blinking;
+    public BlinkUtil() {
+        this.heldPackets = new LinkedBlockingDeque<>();
     }
 
-    public void onSendPacket(PacketSendEvent packetSendEvent) {
-        if (packetSendEvent.isCancelled() || !this.blinking) {
-            return;
-        }
-        for (Object o : this.field2468) {
-            if (o != packetSendEvent.getPacket().getClass()) continue;
-            return;
-        }
-        this.heldPackets.add(packetSendEvent.getPacket());
-        packetSendEvent.cancel();
+    public boolean isBlinking() {
+        return this.isBlinking;
     }
 
-    public void method2046() {
-        if (!this.previousHeldPackets.isEmpty()) {
-            var linkedBlockingDeque = this.previousHeldPackets.removeFirst();
-            while (!linkedBlockingDeque.isEmpty()) {
-                AegisClient.packetUtil.sendPacketSilently(linkedBlockingDeque.poll());
+    public void onSendPacket(PacketSendEvent event) {
+        if (event.isCancelled() || !this.isBlinking) return;
+
+        for (Object ignored : this.ignoredPacketTypes) {
+            if (ignored != event.getPacket().getClass()) continue;
+            return;
+        }
+
+        this.heldPackets.add(event.getPacket());
+        event.cancel();
+    }
+
+    public void sendHeldPackets() {
+        if (!this.previousPacketQueues.isEmpty()) {
+            var queue = this.previousPacketQueues.removeFirst();
+            while (!queue.isEmpty()) {
+                AegisClient.packetUtil.sendPacketSilently(queue.poll());
             }
         } else {
             while (!this.heldPackets.isEmpty()) {
@@ -48,52 +52,49 @@ public class BlinkUtil {
         }
     }
 
-    public void method2047() {
-        this.blinking = false;
-        this.method2052();
-        this.method2050();
+    public void stopBlinking() {
+        this.isBlinking = false;
+        this.flushPreviousPackets();
+        this.clearAll();
     }
 
-    public void method2048(Packet<?>... classArray) {
-        this.field2468.addAll(List.of(classArray));
+    public void ignorePackets(Packet<?>... packets) {
+        this.ignoredPacketTypes.addAll(List.of(packets));
     }
 
     public void onTick() {
         if (MinecraftClient.getInstance().getNetworkHandler() == null) {
-            this.blinking = false;
-            this.method2050();
-        }
-        if (!this.blinking) {
+            this.isBlinking = false;
+            this.clearAll();
             return;
         }
-        this.previousHeldPackets.add(this.heldPackets);
-        this.heldPackets = new LinkedBlockingDeque();
+
+        if (!this.isBlinking) return;
+
+        this.previousPacketQueues.add(this.heldPackets);
+        this.heldPackets = new LinkedBlockingDeque<>();
     }
 
-    public void method2050() {
-        this.previousHeldPackets.clear();
+    public void clearAll() {
+        this.previousPacketQueues.clear();
         this.heldPackets.clear();
-        this.field2468.clear();
-        this.blinking = false;
-        this.field2467 = null;
+        this.ignoredPacketTypes.clear();
+        this.isBlinking = false;
+        this.activeModule = null;
     }
 
-    public BlinkUtil() {
-        this.heldPackets = new LinkedBlockingDeque();
-    }
-
-    public void method2051(Module module) {
-        if (!this.blinking) {
-            this.method2050();
-            this.field2467 = module;
+    public void startBlinking(Module module) {
+        if (!this.isBlinking) {
+            this.clearAll();
+            this.activeModule = module;
         }
-        this.blinking = true;
+        this.isBlinking = true;
     }
 
-    public void method2052() {
-        while (!this.previousHeldPackets.isEmpty()) {
-            this.method2046();
+    public void flushPreviousPackets() {
+        while (!this.previousPacketQueues.isEmpty()) {
+            this.sendHeldPackets();
         }
-        this.method2046();
+        this.sendHeldPackets();
     }
 }

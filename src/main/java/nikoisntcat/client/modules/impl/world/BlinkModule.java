@@ -7,8 +7,8 @@ import nikoisntcat.client.modules.Module;
 public class BlinkModule extends Module {
     @Override
     public void onDisable() {
-        if (AegisClient.blinkUtil.field2467 == this) {
-            AegisClient.blinkUtil.method2047();
+        if (AegisClient.blinkUtil.activeModule == this) {
+            AegisClient.blinkUtil.stopBlinking();
         }
     }
 
@@ -18,7 +18,7 @@ public class BlinkModule extends Module {
 
     @Override
     public void onEnable() {
-        AegisClient.blinkUtil.method2051(this);
-        AegisClient.blinkUtil.field2467 = this;
+        AegisClient.blinkUtil.startBlinking(this);
+        AegisClient.blinkUtil.activeModule = this;
     }
 }
