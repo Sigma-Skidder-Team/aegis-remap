@@ -1,7 +1,7 @@
 # Aegis client remapping project powered by the Venezuelan immigrant Aegis dick rider named s0ropt
 
-An auth emulator will (hopefully) be released alongside this.
-
+An auth emulator will (hopefully) be released alongside this. 
+Also frens, save your money, buy yourself something nice. If you really want to spend money please spend it in a good place and if you just want a good client (free) go to https://discord.gg/8UrPzjnnwb
 ## Why?
 
 Just look at the quality of this client...
@@ -16,6 +16,7 @@ Native obfuscations should be used only in sensitive parts like auth — but no,
 There's no "bypasses" in a KillAura, it's simply just getting the right settings (CPS, Range, movement correction, etc.).
 KillAura implementations are generic by design:
 if you **don't make it generic** and have many options, you probably won't be able to bypass as many ACs as you could!
+(update, turns out their SuperKnockBack is also natived, even events are.)
 
 ### Lying about their price
 
