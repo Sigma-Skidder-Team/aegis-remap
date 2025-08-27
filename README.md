@@ -1,6 +1,7 @@
 # Aegis client remapping project powered by the Venezuelan immigrant Aegis dick rider named s0ropt
 
 An auth emulator will (hopefully) be released alongside this. 
+
 Also frens, save your money, buy yourself something nice. If you really want to spend money please spend it in a good place and if you just want a good client (free) go to https://discord.gg/8UrPzjnnwb
 ## Why?
 
