@@ -2,7 +2,7 @@
 
 An auth emulator will (hopefully) be released alongside this. 
 
-Also frens, save your money, buy yourself something nice. If you really want to spend money please spend it in a good place and if you just want a good client (free) go to https://discord.gg/8UrPzjnnwb
+Also frens, save your money, buy yourself something nice. If you really want to spend money please spend it in a good place and if you just want a good client (free) go to https://wonderlandcentral.github.io/discord.html
 ## Why?
 
 Just look at the quality of this client...
