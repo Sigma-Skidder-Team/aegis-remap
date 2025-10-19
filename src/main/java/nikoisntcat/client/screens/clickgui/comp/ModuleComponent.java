@@ -17,25 +17,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleComponent {
-    int field2258;
+    int y;
     private final Class288 field2259;
-    int field2260;
+    int x;
     private final Class288 field2261;
     private boolean field2262 = false;
     private boolean field2263 = true;
-    public Module field2264;
+    public Module mod;
     private final Class288 field2265;
-    int field2266;
-    public List<SettingComponent> field2267 = new ArrayList();
+    int width;
+    public List<SettingComponent> settingComponents = new ArrayList();
     private final Class288 field2268;
     public boolean field2269 = false;
 
-    public void mouseClicked(double d, double d2, int n) {
-        if (BoundaryUtils.inBoundary(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && (n == 1 || n == 0)) {
+    public void mouseClicked(double mouseX, double mouseY, int button) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.x + 1, this.y + 1, this.x + this.width - 1, this.y + 16) && (button == 1 || button == 0)) {
             this.field2262 = true;
         }
         if (this.field2269) {
-            this.field2267.forEach(settingComponent -> settingComponent.method1668(d, d2, n));
+            this.settingComponents.forEach(settingComponent -> settingComponent.method1668(mouseX, mouseY, button));
         }
     }
 
@@ -44,12 +44,12 @@ public class ModuleComponent {
         this.field2261 = new Class288(18.0f, 0.0f);
         this.field2259 = new Class288(20.0f, 0.0f);
         this.field2268 = new Class288(10.0f, 0.0f);
-        this.field2264 = module;
+        this.mod = module;
     }
 
-    public int method1855() {
-        int n = MinecraftClient.getInstance().textRenderer.getWidth(this.field2264.name) + 20;
-        for (SettingComponent settingComponent : this.field2267) {
+    public int getHeight() {
+        int n = MinecraftClient.getInstance().textRenderer.getWidth(this.mod.name) + 20;
+        for (SettingComponent settingComponent : this.settingComponents) {
             n = Math.max(n, settingComponent.method1673());
         }
         return n;
@@ -57,7 +57,7 @@ public class ModuleComponent {
 
     public void mouseDragged(double d, double d2, int n, double d3, double d4) {
         if (this.field2269) {
-            this.field2267.forEach(settingComponent -> settingComponent.mouseDragged(d, d2, n, d3, d4));
+            this.settingComponents.forEach(settingComponent -> settingComponent.mouseDragged(d, d2, n, d3, d4));
         }
     }
 
@@ -66,30 +66,30 @@ public class ModuleComponent {
     }
 
     public void method1859() {
-        for (Setting setting : this.field2264.getSettings()) {
+        for (Setting setting : this.mod.getSettings()) {
             SettingComponent settingComponent;
             if (setting instanceof BooleanSetting) {
                 settingComponent = new BooleanSettingComponent(setting);
-                this.field2267.add(settingComponent);
+                this.settingComponents.add(settingComponent);
                 settingComponent.method1674();
                 continue;
             }
             if (setting instanceof ModeSetting) {
                 settingComponent = new ModeSettingComponent(setting);
-                this.field2267.add(settingComponent);
+                this.settingComponents.add(settingComponent);
                 settingComponent.method1674();
                 continue;
             }
             if (!(setting instanceof NumberSetting)) continue;
             settingComponent = new NumberSettingComponent(setting);
-            this.field2267.add(settingComponent);
+            this.settingComponents.add(settingComponent);
             settingComponent.method1674();
         }
     }
 
     public void mouseScrolled(double d, double d2, double d3, double d4) {
         if (this.field2269) {
-            this.field2267.forEach(settingComponent -> settingComponent.mouseScrolled(d, d2, d3, d4));
+            this.settingComponents.forEach(settingComponent -> settingComponent.mouseScrolled(d, d2, d3, d4));
         }
     }
 
@@ -101,15 +101,15 @@ public class ModuleComponent {
     public void init() {
         this.field2265.method1844(0.0f);
         this.field2268.method1844(0.0f);
-        this.field2267.forEach(SettingComponent::init);
+        this.settingComponents.forEach(SettingComponent::init);
     }
 
-    public int render(DrawContext ctx, int n, int n2, int n3, int n4, int n5) {
-        this.field2260 = n;
-        this.field2258 = n2;
-        this.field2266 = n3;
+    public int render(DrawContext ctx, int x, int y, int width, int mX, int mY) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
         TextRenderer fr = MinecraftClient.getInstance().textRenderer;
-        boolean bl = BoundaryUtils.inBoundary(n4, n5, n, n2, n + n3, n2 + 16);
+        boolean bl = BoundaryUtils.inBoundary(mX, mY, x, y, x + width, y + 16);
         this.field2261.method1847(bl ? 1.0f : 0.0f);
         this.field2259.method1847(this.field2262 ? 1.0f : 0.0f);
         this.field2268.method1847(this.field2263 ? 1.0f : 0.0f);
@@ -120,33 +120,33 @@ public class ModuleComponent {
         matrix.push();
         float f4 = 1.0f - 0.03f * f2;
         float f5 = 1.0f - 0.06f * f2;
-        matrix.translate((float) n + (float) n3 / 2.0f, (float) n2 + 8.0f, 0.0f);
+        matrix.translate((float) x + (float) width / 2.0f, (float) y + 8.0f, 0.0f);
         matrix.scale(f4, f5, 1.0f);
-        matrix.translate(-((float) n + (float) n3 / 2.0f), -((float) n2 + 8.0f), 0.0f);
-        int n6 = this.field2264.isEnabled() ? -865163265 : 0x6644464A;
+        matrix.translate(-((float) x + (float) width / 2.0f), -((float) y + 8.0f), 0.0f);
+        int n6 = this.mod.isEnabled() ? -865163265 : 0x6644464A;
         int n7 = ModuleComponent.method1861(0xFFFFFF, (int) (34.0f * f));
-        ctx.fill(n + 1, n2 + 1, n + n3 - 1, n2 + 1 + 16 - 2, n6);
+        ctx.fill(x + 1, y + 1, x + width - 1, y + 1 + 16 - 2, n6);
         if (f > 0.001f) {
-            ctx.fill(n + 1, n2 + 1, n + n3 - 1, n2 + 1 + 16 - 2, n7);
+            ctx.fill(x + 1, y + 1, x + width - 1, y + 1 + 16 - 2, n7);
         }
-        ctx.drawCenteredTextWithShadow(fr, this.field2264.name, n + n3 / 2, n2 + 5, -1);
+        ctx.drawCenteredTextWithShadow(fr, this.mod.name, x + width / 2, y + 5, -1);
         matrix.pop();
         int n8 = 16;
         if (this.field2269) {
             int n9 = 0;
-            for (SettingComponent settingComponent : this.field2267) {
+            for (SettingComponent settingComponent : this.settingComponents) {
                 if (!settingComponent.method1670()) continue;
-                n9 += settingComponent.method1671(ctx, n + 2, n2 + 16 + n9 + 1, n3 - 4, n4, n5);
+                n9 += settingComponent.method1671(ctx, x + 2, y + 16 + n9 + 1, width - 4, mX, mY);
             }
-            this.field2265.method1847(n9 += 5);
+            this.field2265.method1847(n9 + 5);
             int n10 = (int) this.field2265.method1845();
             if (n10 > 0) {
                 int n11 = (int) (51.0f * f3);
                 int n12 = (int) (17.0f * f3);
                 int n13 = (int) ((1.0f - f3) * 6.0f);
-                ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + n10, ModuleComponent.method1861(0x222222, n11));
+                ctx.fill(x + 1, y + 16 + n13, x + width - 1, y + 16 + n13 + n10, ModuleComponent.method1861(0x222222, n11));
                 if (n12 > 0) {
-                    ctx.fill(n + 1, n2 + 16 + n13, n + n3 - 1, n2 + 16 + n13 + 1, ModuleComponent.method1861(0xFFFFFF, n12));
+                    ctx.fill(x + 1, y + 16 + n13, x + width - 1, y + 16 + n13 + 1, ModuleComponent.method1861(0xFFFFFF, n12));
                 }
             }
             n8 = 16 + n10;
@@ -157,17 +157,17 @@ public class ModuleComponent {
     }
 
     public void mouseReleased(double d, double d2, int n) {
-        if (BoundaryUtils.inBoundary(d, d2, this.field2260 + 1, this.field2258 + 1, this.field2260 + this.field2266 - 1, this.field2258 + 16) && this.field2262) {
+        if (BoundaryUtils.inBoundary(d, d2, this.x + 1, this.y + 1, this.x + this.width - 1, this.y + 16) && this.field2262) {
             if (n == 1) {
-                boolean bl = this.field2269 = !this.field2269;
+                this.field2269 = !this.field2269;
             }
             if (n == 0) {
-                this.field2264.setState(!this.field2264.isEnabled());
+                this.mod.setState(!this.mod.isEnabled());
             }
         }
         this.field2262 = false;
         if (this.field2269) {
-            this.field2267.forEach(settingComponent -> settingComponent.method1672(d, d2, n));
+            this.settingComponents.forEach(settingComponent -> settingComponent.method1672(d, d2, n));
         }
     }
 

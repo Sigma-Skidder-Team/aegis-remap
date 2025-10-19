@@ -19,7 +19,7 @@ public class CategoryComponent {
     private int lastLeftClickY = 0;
     private boolean pressedRightClick = false;
     public int x;
-    public int width;
+    public int size;
     private final Class288 field2335 = new Class288(4.0f, 0.0f);
     private int lastLeftClickX = 0;
     public Category category;
@@ -27,7 +27,7 @@ public class CategoryComponent {
     private boolean dragging = false;
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.x, this.y, this.x + this.width, this.y + 20)) {
+        if (BoundaryUtils.inBoundary(mouseX, mouseY, this.x, this.y, this.x + this.size, this.y + 20)) {
             if (button == 1) {
                 this.pressedRightClick = true;
             }
@@ -44,7 +44,7 @@ public class CategoryComponent {
         final var inBox = BoundaryUtils.inBoundary(
                 mouseX, mouseY,
                 this.x, this.y,
-                this.x + this.width, this.y + 20
+                this.x + this.size, this.y + 20
         );
         if (inBox && button == 1 && this.pressedRightClick) {
             this.expanded = !this.expanded;
@@ -54,10 +54,10 @@ public class CategoryComponent {
         this.moduleComponents.forEach(moduleComponent -> moduleComponent.mouseReleased(mouseX, mouseY, button));
     }
 
-    public int method1919() {
-        int n = this.width;
+    public int calcHeight() {
+        int n = this.size;
         for (ModuleComponent moduleComponent : this.moduleComponents) {
-            n = Math.max(n, moduleComponent.method1855());
+            n = Math.max(n, moduleComponent.getHeight());
         }
         return n;
     }
@@ -68,7 +68,7 @@ public class CategoryComponent {
         this.y = n2;
     }
 
-    public int method1920() {
+    public int calcWidth() {
         int n = 120;
         for (Module m : ModuleManager.findInCategory(this.category)) {
             ModuleComponent moduleComponent = new ModuleComponent(m);
@@ -76,7 +76,7 @@ public class CategoryComponent {
             moduleComponent.method1859();
             n = Math.max(n, MinecraftClient.getInstance().textRenderer.getWidth(m.name) + 20);
         }
-        this.width = n;
+        this.size = n;
         return n;
     }
 
@@ -92,20 +92,20 @@ public class CategoryComponent {
     }
 
     public void render(DrawContext ctx, int n, int n2) {
-        this.width = this.method1919();
+        this.size = this.calcHeight();
         TextRenderer fr = MinecraftClient.getInstance().textRenderer;
         int n3 = (int)Math.ceil(this.field2335.method1845());
         int n4 = 22 + n3;
-        RenderUtil.method1578(ctx.getMatrices(), this.x, this.y, this.width, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
-        CategoryComponent.fill(ctx, this.x + 1, this.y + 1, this.width - 2, 21, -1726737127);
-        CategoryComponent.fill(ctx, this.x + 1, this.y + 22, this.width - 2, n4 - 22 - 1, 0x66FFFFFF);
+        RenderUtil.method1578(ctx.getMatrices(), this.x, this.y, this.size, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
+        CategoryComponent.fill(ctx, this.x + 1, this.y + 1, this.size - 2, 21, -1726737127);
+        CategoryComponent.fill(ctx, this.x + 1, this.y + 22, this.size - 2, n4 - 22 - 1, 0x66FFFFFF);
         String string = this.category != null ? this.category.name() : "CATEGORY";
         ctx.drawText(fr, string, this.x + 8, this.y + 7, -1, false);
-        ctx.enableScissor(this.x + 1, this.y + 22, this.x + this.width - 1, this.y + n4 - 1);
+        ctx.enableScissor(this.x + 1, this.y + 22, this.x + this.size - 1, this.y + n4 - 1);
         int offset = 0;
         if (this.expanded) {
             for (ModuleComponent moduleComponent : this.moduleComponents) {
-                offset += moduleComponent.render(ctx, this.x + 1, this.y + 22 + offset, this.width - 2, n, n2);
+                offset += moduleComponent.render(ctx, this.x + 1, this.y + 22 + offset, this.size - 2, n, n2);
             }
             this.field2335.method1847((float)offset + 1.0f);
         } else {

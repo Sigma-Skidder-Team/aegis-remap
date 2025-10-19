@@ -18,7 +18,7 @@ public class ClickGuiScreen extends Screen {
     }
 
     public ClickGuiScreen() {
-        super((Text)Text.empty());
+        super(Text.empty());
     }
 
     protected void renderDarkening(DrawContext class_3322) {
@@ -34,7 +34,7 @@ public class ClickGuiScreen extends Screen {
         for (Category moduleCategory : Category.values()) {
             CategoryComponent categoryComponent = new CategoryComponent(moduleCategory, n, 20);
             this.components.add(categoryComponent);
-            n += categoryComponent.method1920() + 40;
+            n += categoryComponent.calcWidth() + 40;
         }
     }
 
