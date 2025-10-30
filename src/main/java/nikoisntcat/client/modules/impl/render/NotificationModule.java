@@ -52,10 +52,10 @@ extends Module {
             String string2 = "";
             String string3 = "";
             if (this.mode.getValue().equals("A")) {
-                if (notification.field2360) {
-                    string2 = notification.field2362 ? "\uE901" : "\uE900";
-                    string3 = notification.field2370;
-                } else if (notification.field2369) {
+                if (notification.alwaysTrue) {
+                    string2 = notification.mEnabled ? "\uE901" : "\uE900";
+                    string3 = notification.mName;
+                } else if (notification.alwaysFalse) {
                     string2 = "\uE902";
                     string3 = notification.desc;
                 } else {

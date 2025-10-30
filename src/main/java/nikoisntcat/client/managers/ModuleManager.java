@@ -51,7 +51,7 @@ public class ModuleManager extends MinecraftUtil {
     private <T extends Event> void call(BiConsumer<Module, T> biConsumer, T event) {
         for (Module module : this.modules) {
             try {
-                if (!module.method1222()) continue;
+                if (!module.enabledAndActive()) continue;
                 biConsumer.accept(module, event);
             } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
@@ -66,7 +66,7 @@ public class ModuleManager extends MinecraftUtil {
         // :broken_heart:
         for (Module module : this.modules) {
             try {
-                if (!module.method1222()) continue;
+                if (!module.enabledAndActive()) continue;
                 biConsumer.accept(module, callbackInfo);
             } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
@@ -79,7 +79,7 @@ public class ModuleManager extends MinecraftUtil {
     private void call(Consumer<Module> consumer) {
         for (Module module : this.modules) {
             try {
-                if (!module.method1222()) continue;
+                if (!module.enabledAndActive()) continue;
                 consumer.accept(module);
             } catch (Exception exception) {
                 System.out.println("Exception while executing module " + module.name + ": ");
@@ -219,7 +219,7 @@ public class ModuleManager extends MinecraftUtil {
     public void onKey(KeyEvent event) {
         for (Module module : this.modules) {
             try {
-                if (module.method1222()) {
+                if (module.enabledAndActive()) {
                     module.onKey(event);
                 }
                 if (module.key != event.getKey() || PlayerUtil.nullCheck() || mc.currentScreen != null) continue;

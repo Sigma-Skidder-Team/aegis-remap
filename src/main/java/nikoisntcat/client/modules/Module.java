@@ -19,9 +19,9 @@ public abstract class Module extends MinecraftUtil {
     public BooleanSetting hide = new BooleanSetting("Hide", false);
     public String name, describe = "";
     public int key;
-    private Category category;
+    private final Category category;
 
-    public boolean field1594 = true;
+    public boolean active = true;
     private boolean state = false;
 
     public void setKey(int n) {
@@ -34,10 +34,16 @@ public abstract class Module extends MinecraftUtil {
         }
         this.state = enabled;
         if (enabled) {
-            NotificationModule.addNotification(new Notification(this.name, "Toggled", "Enabled " + this.name, true, true, false));
+            NotificationModule.addNotification(new Notification(
+                    this.name, "Toggled", "Enabled " + this.name,
+                    true, true, false
+            ));
             this.onEnable();
         } else {
-            NotificationModule.addNotification(new Notification(this.name, "Toggled", "Disabled " + this.name, false, true, false));
+            NotificationModule.addNotification(new Notification(
+                    this.name, "Toggled", "Disabled " + this.name,
+                    false, true, false
+            ));
             this.onDisable();
         }
         AegisClient.moduleManager.modules.forEach(module -> module.onToggle(this));
@@ -73,8 +79,8 @@ public abstract class Module extends MinecraftUtil {
     public void onDisable() {
     }
 
-    public boolean method1222() {
-        return this.state && this.field1594;
+    public boolean enabledAndActive() {
+        return this.state && this.active;
     }
 
     public void onSendPacket(PacketSendEvent event) {

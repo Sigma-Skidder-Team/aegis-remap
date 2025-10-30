@@ -54,8 +54,8 @@ public class SpeedModule extends Module {
     }
 
     @Override
-    public boolean method1222() {
-        return super.method1222() || this.speedTwoInitFlag;
+    public boolean enabledAndActive() {
+        return super.enabledAndActive() || this.speedTwoInitFlag;
     }
 
     @Override

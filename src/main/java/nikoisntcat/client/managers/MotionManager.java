@@ -50,7 +50,7 @@ public class MotionManager extends MinecraftUtil {
         this.speed = mc.player.speed;
         this.field2020 = true;
         AegisClient.moduleManager.modules.forEach(module -> {
-            module.field1594 = false;
+            module.active = false;
         });
     }
 
@@ -72,7 +72,7 @@ public class MotionManager extends MinecraftUtil {
         mc.player.prevPitch = this.pretRots.y;
         this.field2020 = false;
         AegisClient.moduleManager.modules.forEach(module -> {
-            module.field1594 = true;
+            module.active = true;
         });
     }
 

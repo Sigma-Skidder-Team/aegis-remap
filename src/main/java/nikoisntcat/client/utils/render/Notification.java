@@ -4,17 +4,17 @@ import nikoisntcat.client.utils.math.TimerUtil;
 
 public class Notification {
     public float field2359;
-    public boolean field2360;
+    public boolean alwaysTrue;
     public float field2361;
-    public boolean field2362;
+    public boolean mEnabled;
     public float field2363;
     public float field2364;
-    public NotificationState state;
+    public NotificationState state = NotificationState.INIT;
     public String title;
-    public TimerUtil field2367 = new TimerUtil();
+    public TimerUtil timer = new TimerUtil();
     public String desc;
-    public boolean field2369;
-    public String field2370;
+    public boolean alwaysFalse;
+    public String mName;
 
     public void method1945(float f) {
         this.field2359 = this.field2363 + f;
@@ -53,14 +53,13 @@ public class Notification {
         this.field2363 += f2;
     }
 
-    public Notification(String string, String title, String desc, boolean bl, boolean bl2, boolean bl3) {
-        this.field2370 = string;
-        this.state = NotificationState.INIT;
+    public Notification(String mName, String title, String desc, boolean mEnabled, boolean alwaysTrue, boolean alwaysFalse) {
+        this.mName = mName;
         this.title = title;
         this.desc = desc;
-        this.field2362 = bl;
-        this.field2360 = bl2;
-        this.field2369 = bl3;
+        this.mEnabled = mEnabled;
+        this.alwaysTrue = alwaysTrue;
+        this.alwaysFalse = alwaysFalse;
     }
 
     public float method1952() {
