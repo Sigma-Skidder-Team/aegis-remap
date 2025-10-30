@@ -11,11 +11,11 @@ public class TimerUtil {
         return System.nanoTime() / 1000000L;
     }
 
-    public boolean method1902(double d) {
-        if (d == 0.0) {
+    public boolean passed(double ms) {
+        if (ms == 0.0) {
             return true;
         }
-        return (double)(System.currentTimeMillis() - this.currentMs) >= d;
+        return (double)(System.currentTimeMillis() - this.currentMs) >= ms;
     }
 
     public boolean passed(long ms) {
@@ -33,8 +33,8 @@ public class TimerUtil {
         this.currentMs = System.currentTimeMillis();
     }
 
-    public TimerUtil add(int n) {
-        this.currentMs = this.currentTimeInSeconds() + (long)n;
+    public TimerUtil add(int ms) {
+        this.currentMs = this.currentTimeInSeconds() + (long)ms;
         return this;
     }
 }

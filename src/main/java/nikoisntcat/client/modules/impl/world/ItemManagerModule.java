@@ -138,13 +138,13 @@ public class ItemManagerModule extends Module {
         if (event.getPacket() instanceof ScreenHandlerSlotUpdateS2CPacket
                 || event.getPacket() instanceof EntityEquipmentUpdateS2CPacket
                 || event.getPacket() instanceof InventoryS2CPacket) {
-            if (!this.field1688 && this.field1694.method1902(this.field1687.getValue())) {
+            if (!this.field1688 && this.field1694.passed(this.field1687.getValue())) {
                 while (!this.packets.isEmpty()) {
                     ((Packet) this.packets.poll()).apply(mc.getNetworkHandler());
                 }
             }
 
-            if (!this.field1694.method1902(this.field1687.getValue()) && this.field1692.getValue()) {
+            if (!this.field1694.passed(this.field1687.getValue()) && this.field1692.getValue()) {
                 event.cancel();
                 this.packets.add(event.getPacket());
                 this.field1694.update();
@@ -189,7 +189,7 @@ public class ItemManagerModule extends Module {
             if (mc.currentScreen != null || KillAuraModule.target == null) {
                 if (this.field1688) {
                     this.field1694.update();
-                } else if (this.field1694.method1902(this.field1687.getValue())) {
+                } else if (this.field1694.passed(this.field1687.getValue())) {
                     while (!this.packets.isEmpty()) {
                         ((Packet) this.packets.poll()).apply(mc.getNetworkHandler());
                     }

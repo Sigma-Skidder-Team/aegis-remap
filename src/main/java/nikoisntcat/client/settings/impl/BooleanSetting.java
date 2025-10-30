@@ -8,7 +8,7 @@ public class BooleanSetting
 extends Setting {
     private boolean value;
 
-    public BooleanSetting(String string, boolean bl, Predicate predicate) {
+    public BooleanSetting(String string, boolean bl, Predicate<Setting> predicate) {
         this.name = string;
         this.value = bl;
         this.show = predicate;
