@@ -4,11 +4,11 @@ import nikoisntcat.client.events.impl.Render2DEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.utils.render.RenderUtil;
-import nikoisntcat.client.screens.Class274;
-import nikoisntcat.client.screens.Class276;
+import nikoisntcat.client.screens.EaseOutQuadTween;
+import nikoisntcat.client.screens.EaseInOutCubicTween;
 import nikoisntcat.client.settings.impl.ModeSetting;
 import nikoisntcat.client.settings.impl.NumberSetting;
-import nikoisntcat.client.utils.math.TweenType;
+import nikoisntcat.client.utils.math.TweenState;
 import nikoisntcat.client.utils.math.Tween;
 import nikoisntcat.client.utils.render.Notification;
 import nikoisntcat.client.utils.render.NotificationState;
@@ -76,18 +76,18 @@ extends Module {
                     arrayList2.clear();
                     notification.method1950(f, f2);
                     float f5 = (float)(RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 0.0f) / 95.0);
-                    arrayList2.add(new Class276((int)((float)((int)this.field1769.getValue()) * f5), 1.0));
-                    arrayList2.add(new Class274((int)this.totalMS.getValue(), 1.0));
-                    arrayList2.add(new Class276((int)this.upMS.getValue(), 1.0));
+                    arrayList2.add(new EaseInOutCubicTween((int)((float)((int)this.field1769.getValue()) * f5), 1.0));
+                    arrayList2.add(new EaseOutQuadTween((int)this.totalMS.getValue(), 1.0));
+                    arrayList2.add(new EaseInOutCubicTween((int)this.upMS.getValue(), 1.0));
                     notification.state = NotificationState.APPEAR;
                     break;
                 }
                 case APPEAR: {
                     Tween class2722 = (Tween)arrayList2.get(1);
                     tween = (Tween)arrayList2.get(2);
-                    double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, class2722.method1770().floatValue());
-                    notification.method1950((float)((double)f - d * (double)class2722.method1770().floatValue()), notification.field2363 - tween.method1770().floatValue() * f4);
-                    if (!class2722.method1760(TweenType.field1464)) break;
+                    double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, class2722.get().floatValue());
+                    notification.method1950((float)((double)f - d * (double)class2722.get().floatValue()), notification.field2363 - tween.get().floatValue() * f4);
+                    if (!class2722.method1760(TweenState.FIRST)) break;
                     ((Tween)arrayList2.get(0)).update();
                     notification.state = NotificationState.SHOWING;
                     break;
@@ -95,20 +95,20 @@ extends Module {
                 case DISAPPEAR: {
                     Tween class2722 = (Tween)arrayList2.get(1);
                     tween = (Tween)arrayList2.get(2);
-                    double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).method1770().floatValue());
-                    notification.method1950((float)((double)f - d * (double)class2722.method1770().floatValue()), notification.field2363 - tween.method1770().floatValue() * f4);
-                    if (!class2722.method1760(TweenType.field1465)) break;
+                    double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).get().floatValue());
+                    notification.method1950((float)((double)f - d * (double)class2722.get().floatValue()), notification.field2363 - tween.get().floatValue() * f4);
+                    if (!class2722.method1760(TweenState.SECOND)) break;
                     arrayList.add(notification);
                     break;
                 }
                 case SHOWING: {
                     Tween class2722 = (Tween)arrayList2.get(1);
                     tween = (Tween)arrayList2.get(2);
-                    notification.method1950(notification.field2364, (int)((float)((int)notification.field2363) - tween.method1770().floatValue() * f4));
-                    RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).method1770().floatValue());
-                    if (!((Tween)arrayList2.get(0)).method1760(TweenType.field1464)) break;
+                    notification.method1950(notification.field2364, (int)((float)((int)notification.field2363) - tween.get().floatValue() * f4));
+                    RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).get().floatValue());
+                    if (!((Tween)arrayList2.get(0)).method1760(TweenState.FIRST)) break;
                     notification.state = NotificationState.DISAPPEAR;
-                    class2722.method1769(TweenType.field1465);
+                    class2722.setType(TweenState.SECOND);
                 }
             }
         }

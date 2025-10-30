@@ -13,11 +13,11 @@ import nikoisntcat.client.events.impl.Render3DEvent;
 import nikoisntcat.client.modules.Category;
 import nikoisntcat.client.modules.Module;
 import nikoisntcat.client.modules.impl.combat.KillAuraModule;
-import nikoisntcat.client.screens.Class276;
+import nikoisntcat.client.screens.EaseInOutCubicTween;
 import nikoisntcat.client.utils.PlayerUtil;
 import nikoisntcat.client.utils.RotationUtil;
 import nikoisntcat.client.utils.math.Tween;
-import nikoisntcat.client.utils.math.TweenType;
+import nikoisntcat.client.utils.math.TweenState;
 import nikoisntcat.client.utils.render.RenderUtil;
 import org.joml.Vector2f;
 
@@ -49,9 +49,9 @@ public class NameTagsModule extends Module {
                 Vec3d renderPos;
 
                 if (entity == mainTarget) {
-                    Tween tween = entityTweens.computeIfAbsent(entity, e -> new Class276(1500, 1.0));
-                    if (tween.method1760(TweenType.field1465)) tween.method1769(TweenType.field1464);
-                    alpha = tween.method1770().floatValue();
+                    Tween tween = entityTweens.computeIfAbsent(entity, e -> new EaseInOutCubicTween(1500, 1.0));
+                    if (tween.method1760(TweenState.SECOND)) tween.setType(TweenState.FIRST);
+                    alpha = tween.get().floatValue();
 
                     if (secondaryTarget != null && secondaryTarget != entity) {
                         tween.timer.setCurrentMs(0L);
@@ -70,7 +70,7 @@ public class NameTagsModule extends Module {
                     Vec3d targetPos = playerPrevInterpolated.add(offset.multiply(3.0 / fovMultiplier));
 
                     Vec3d previousPos = entityRenderPositions.getOrDefault(entity, targetPos);
-                    renderPos = RenderUtil.method1569(previousPos, targetPos, tween.method1770());
+                    renderPos = RenderUtil.method1569(previousPos, targetPos, tween.get());
                     entityRenderPositions.put(entity, renderPos);
 
                     if (entity instanceof AbstractClientPlayerEntity playerEntity) {
@@ -82,16 +82,16 @@ public class NameTagsModule extends Module {
                     Tween tween = entityTweens.get(entity);
 
                     if (tween != null) {
-                        if (tween.method1767() == TweenType.field1464) {
-                            tween.method1769(TweenType.field1465);
+                        if (tween.getTweenType() == TweenState.FIRST) {
+                            tween.setType(TweenState.SECOND);
                             tween.update();
                         }
-                        fadeFactor = 1.0F - tween.method1770().floatValue();
+                        fadeFactor = 1.0F - tween.get().floatValue();
                     } else if (mainTarget == null) {
-                        Class276 newTween = new Class276(1000, 1.0);
-                        newTween.method1769(TweenType.field1465);
+                        EaseInOutCubicTween newTween = new EaseInOutCubicTween(1000, 1.0);
+                        newTween.setType(TweenState.SECOND);
                         entityTweens.put(entity, newTween);
-                        fadeFactor = 1.0F - newTween.method1770().floatValue();
+                        fadeFactor = 1.0F - newTween.get().floatValue();
                     }
 
                     Vec3d entityPrevInterpolated = RenderUtil.method1569(
