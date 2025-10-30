@@ -2,12 +2,12 @@ package nikoisntcat.client.utils.math;
 
 public abstract class Tween {
     protected int duration;
-    private static int field2164;
+    private static int delta;
     protected TweenState tweenState;
     public TimerUtil timer = new TimerUtil();
     public double endPoint;
 
-    public void method1755(double endPoint) {
+    public void setEndPoint(double endPoint) {
         this.endPoint = endPoint;
     }
 
@@ -27,7 +27,7 @@ public abstract class Tween {
         return false;
     }
 
-    public boolean method1760(TweenState state) {
+    public boolean endAndMatchingState(TweenState state) {
         return this.shouldEnd() && this.tweenState.equals(state);
     }
 
@@ -36,7 +36,7 @@ public abstract class Tween {
     }
 
     public static void setDelta(int delta) {
-        field2164 = delta;
+        Tween.delta = delta;
     }
 
     public static float method1763(float current, float end, float smoothSpeed, float minSpeed) {
@@ -79,7 +79,7 @@ public abstract class Tween {
     }
 
     public static int method1765() {
-        return field2164;
+        return delta;
     }
 
     public boolean shouldEnd() {

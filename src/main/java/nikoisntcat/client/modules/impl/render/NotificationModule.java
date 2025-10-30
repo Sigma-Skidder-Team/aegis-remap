@@ -87,7 +87,7 @@ extends Module {
                     tween = (Tween)arrayList2.get(2);
                     double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, class2722.get().floatValue());
                     notification.method1950((float)((double)f - d * (double)class2722.get().floatValue()), notification.field2363 - tween.get().floatValue() * f4);
-                    if (!class2722.method1760(TweenState.FIRST)) break;
+                    if (!class2722.endAndMatchingState(TweenState.FIRST)) break;
                     ((Tween)arrayList2.get(0)).update();
                     notification.state = NotificationState.SHOWING;
                     break;
@@ -97,7 +97,7 @@ extends Module {
                     tween = (Tween)arrayList2.get(2);
                     double d = RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).get().floatValue());
                     notification.method1950((float)((double)f - d * (double)class2722.get().floatValue()), notification.field2363 - tween.get().floatValue() * f4);
-                    if (!class2722.method1760(TweenState.SECOND)) break;
+                    if (!class2722.endAndMatchingState(TweenState.SECOND)) break;
                     arrayList.add(notification);
                     break;
                 }
@@ -106,7 +106,7 @@ extends Module {
                     tween = (Tween)arrayList2.get(2);
                     notification.method1950(notification.field2364, (int)((float)((int)notification.field2363) - tween.get().floatValue() * f4));
                     RenderUtil.method1564(event.getDrawContext(), (int)notification.field2364, (int)notification.field2363, string3, string, string2, 1.0f - ((Tween)arrayList2.get(0)).get().floatValue());
-                    if (!((Tween)arrayList2.get(0)).method1760(TweenState.FIRST)) break;
+                    if (!((Tween)arrayList2.get(0)).endAndMatchingState(TweenState.FIRST)) break;
                     notification.state = NotificationState.DISAPPEAR;
                     class2722.setType(TweenState.SECOND);
                 }

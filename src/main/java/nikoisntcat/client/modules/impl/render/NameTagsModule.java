@@ -50,7 +50,7 @@ public class NameTagsModule extends Module {
 
                 if (entity == mainTarget) {
                     Tween tween = entityTweens.computeIfAbsent(entity, e -> new EaseInOutCubicTween(1500, 1.0));
-                    if (tween.method1760(TweenState.SECOND)) tween.setType(TweenState.FIRST);
+                    if (tween.endAndMatchingState(TweenState.SECOND)) tween.setType(TweenState.FIRST);
                     alpha = tween.get().floatValue();
 
                     if (secondaryTarget != null && secondaryTarget != entity) {
