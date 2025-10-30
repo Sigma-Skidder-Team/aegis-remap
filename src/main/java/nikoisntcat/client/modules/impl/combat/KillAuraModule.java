@@ -105,10 +105,12 @@ public class KillAuraModule extends Module {
 
     private boolean isValidTarget(LivingEntity entity) {
         if (entity == mc.player || entity.isDead() || entity.getHealth() <= 0) return false;
-        if (entity instanceof PlayerEntity) return TargetsModule.targetPlayers.getValue();
-        if (entity instanceof VillagerEntity) return TargetsModule.targetVillagers.getValue();
-        if (entity instanceof AnimalEntity) return TargetsModule.targetAnimals.getValue();
-        return TargetsModule.targetMobs.getValue();
+        return switch (entity) {
+            case PlayerEntity ignored -> TargetsModule.targetPlayers.getValue();
+            case VillagerEntity ignored -> TargetsModule.targetVillagers.getValue();
+            case AnimalEntity ignored -> TargetsModule.targetAnimals.getValue();
+            default -> TargetsModule.targetMobs.getValue();
+        };
     }
 
     @Override
