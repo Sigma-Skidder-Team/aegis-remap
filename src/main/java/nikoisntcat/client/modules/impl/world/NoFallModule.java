@@ -61,7 +61,7 @@ public class NoFallModule extends Module {
                      mc.player
                         .networkHandler
                         .sendPacket(
-                           new PositionAndOnGround(motionEvent.method1401() + 1000.0, motionEvent.method1403(), motionEvent.getEntityZ(), false, false)
+                           new PositionAndOnGround(motionEvent.getEntityX() + 1000.0, motionEvent.getEntityY(), motionEvent.getEntityZ(), false, false)
                         );
                      this.field1816 = true;
                   }

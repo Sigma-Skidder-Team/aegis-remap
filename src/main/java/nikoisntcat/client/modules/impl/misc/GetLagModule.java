@@ -10,6 +10,6 @@ public class GetLagModule extends Module {
 
     @Override
     public void onMotion(MotionEvent motionEvent) {
-        motionEvent.setEntityX(motionEvent.method1401() + 1000.0);
+        motionEvent.setEntityX(motionEvent.getEntityX() + 1000.0);
     }
 }

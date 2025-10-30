@@ -74,7 +74,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
         this.motionEvent = new MotionEvent(clientPlayerEntity.getX(), clientPlayerEntity.getY(), clientPlayerEntity.getZ(), clientPlayerEntity.isOnGround(), clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch(), MotionEvent.Timing.PRE);
         AegisClient.rotationUtil.method1519(this.motionEvent);
         AegisClient.eventManager.onMotion(this.motionEvent);
-        this.motionEvent.method1405(clientPlayerEntity);
+        this.motionEvent.updatePlayerToPrev(clientPlayerEntity);
     }
 
     @Redirect(method = {"tickMovement"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"))
@@ -101,7 +101,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
         ClientPlayerEntity clientPlayerEntity = (ClientPlayerEntity) (Object) this;
         this.motionEvent.setTiming(MotionEvent.Timing.PRE);
         AegisClient.eventManager.onMotion(this.motionEvent);
-        this.motionEvent.method1402(clientPlayerEntity);
+        this.motionEvent.updatePlayer(clientPlayerEntity);
         AegisClient.rotationUtil.method1519(this.motionEvent);
     }
 

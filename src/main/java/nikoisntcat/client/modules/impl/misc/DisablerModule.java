@@ -113,12 +113,12 @@ public class DisablerModule extends Module {
 
         if (acaAim.getValue()) {
             if (Math.abs(RotationUtil.wrap(currentYaw, event.getEntityYaw())) < 1.0E-4f) {
-                event.method1400(RotationUtil.wrap(currentYaw, event.getEntityYaw()) > 0.0f
+                event.setEntityYaw(RotationUtil.wrap(currentYaw, event.getEntityYaw()) > 0.0f
                         ? currentYaw + 1.0E-4f
                         : currentYaw - 1.0E-4f);
             }
             if (Math.abs(currentPitch - event.getEntityPitch()) < 1.0E-4f) {
-                event.method1404(currentPitch + 1.0E-4f < 90.0f
+                event.setEntityPitch(currentPitch + 1.0E-4f < 90.0f
                         ? currentPitch + 1.0E-4f
                         : currentPitch - 1.0E-4f);
             }
@@ -126,7 +126,7 @@ public class DisablerModule extends Module {
 
         if (duplicateRotationPlace.getValue()) {
             int randomYaw = 360 * Random.create().nextBetween(1, 100);
-            event.method1400(event.getEntityYaw() + (float) randomYaw);
+            event.setEntityYaw(event.getEntityYaw() + (float) randomYaw);
         }
     }
 

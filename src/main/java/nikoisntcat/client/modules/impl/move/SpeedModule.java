@@ -195,7 +195,7 @@ public class SpeedModule extends Module {
     @Override
     public void onMotion(MotionEvent event) {
         if (mc.player.onGround && this.mode.getValue().equals("SpeedTwo")) {
-            event.setEntityY(event.method1403() + 1.0E-14);
+            event.setEntityY(event.getEntityY() + 1.0E-14);
         }
     }
 

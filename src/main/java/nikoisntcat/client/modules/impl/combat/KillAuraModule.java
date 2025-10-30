@@ -89,8 +89,8 @@ public class KillAuraModule extends Module {
 
         RotationUtil.rotate(rotation, (int) rotationKeepTicks.getValue(), Priority.field1513);
 
-        event.method1400(rotation.x);
-        event.method1404(rotation.y);
+        event.setEntityYaw(rotation.x);
+        event.setEntityPitch(rotation.y);
     }
 
     private void attack(LivingEntity entity) {

@@ -3,6 +3,7 @@ package nikoisntcat.client.events.impl;
 import net.minecraft.client.network.ClientPlayerEntity;
 import nikoisntcat.client.events.CancellableEvent;
 
+// TODO: the `e(Yaw,Pitch,X,Y,Z)` variables are probably just the previous values lol
 public class MotionEvent extends CancellableEvent {
     private Timing timing;
     private boolean onGround;
@@ -22,40 +23,41 @@ public class MotionEvent extends CancellableEvent {
         return this.timing;
     }
 
-    public void method1400(float f) {
-        this.eYaw = f;
+    public void setEntityYaw(float yaw) {
+        this.eYaw = yaw;
     }
 
-    public MotionEvent(double d, double d2, double d3, boolean bl, float f, float f2, Timing timing) {
-        this.eX = d;
-        this.eY = d2;
-        this.eZ = d3;
-        this.ePitch = f2;
-        this.eYaw = f;
-        this.eOnGround = bl;
+    public MotionEvent(double eX, double eY, double eZ, boolean eOnGround, float eYaw, float ePitch, Timing timing) {
+        this.eX = eX;
+        this.eY = eY;
+        this.eZ = eZ;
+        this.ePitch = ePitch;
+        this.eYaw = eYaw;
+        this.eOnGround = eOnGround;
         this.timing = timing;
     }
 
-    public double method1401() {
+    public double getEntityX() {
         return this.eX;
     }
 
-    public void method1402(ClientPlayerEntity ent) {
+    /** updates this player to have all the values from this event. **/
+    public void updatePlayer(ClientPlayerEntity ent) {
         ent.setPos(this.x, this.y, this.z);
         ent.setOnGround(this.onGround);
         ent.setYaw(this.yaw);
         ent.setPitch(this.pitch);
     }
 
-    public double method1403() {
+    public double getEntityY() {
         return this.eY;
     }
 
-    public void method1404(float f) {
-        this.ePitch = f;
+    public void setEntityPitch(float pitch) {
+        this.ePitch = pitch;
     }
 
-    public void method1405(ClientPlayerEntity ent) {
+    public void updatePlayerToPrev(ClientPlayerEntity ent) {
         this.x = ent.getX();
         this.y = ent.getY();
         this.z = ent.getZ();

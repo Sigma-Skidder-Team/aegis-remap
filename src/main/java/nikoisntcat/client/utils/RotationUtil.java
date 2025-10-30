@@ -260,9 +260,9 @@ public class RotationUtil extends MinecraftUtil {
     public void method1519(MotionEvent motionEvent) {
         if (motionEvent.getTiming() == MotionEvent.Timing.PRE) {
             if (currentTargetRotation != null) {
-                motionEvent.method1400(RotationUtil.mc.player.lastYaw + RotationUtil.wrap(RotationUtil.currentTargetRotation.x, RotationUtil.mc.player.lastYaw));
+                motionEvent.setEntityYaw(RotationUtil.mc.player.lastYaw + RotationUtil.wrap(RotationUtil.currentTargetRotation.x, RotationUtil.mc.player.lastYaw));
                 RotationUtil.currentTargetRotation.x = motionEvent.getEntityYaw();
-                motionEvent.method1404(RotationUtil.currentTargetRotation.y);
+                motionEvent.setEntityPitch(RotationUtil.currentTargetRotation.y);
                 --currentRotationTicks;
             }
         } else {
