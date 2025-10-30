@@ -136,11 +136,11 @@ public abstract class Module extends MinecraftUtil {
         try {
             for (Field field : this.getClass().getFields()) {
                 field.setAccessible(true);
-                Object object2 = field.get(this);
-                if (object2 instanceof Setting set) {
+                Object value = field.get(this);
+                if (value instanceof Setting set) {
                     settings.add(set);
                 }
-                if (!(field.get(this) instanceof ColorSetting clr)) continue;
+                if (!(value instanceof ColorSetting clr)) continue;
                 settings.addAll(List.of(clr.r, clr.g, clr.b, clr.a));
             }
             settings.sort(Comparator.comparing(Setting::getName));
