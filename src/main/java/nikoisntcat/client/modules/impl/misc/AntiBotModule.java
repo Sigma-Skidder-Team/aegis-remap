@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AntiBotModule extends Module {
-    public BooleanSetting field1918 = new BooleanSetting("CheckOnGround", false);
+    public BooleanSetting checkOnGround = new BooleanSetting("CheckOnGround", false);
     private final List field1919 = new ArrayList<>();
-    private final List field1920 = new ArrayList<>();
+    private final List<Integer> nonBotIDs = new ArrayList<>();
     public static AntiBotModule instance;
-    public BooleanSetting field1922 = new BooleanSetting("CheckID", false);
+    public BooleanSetting checkName = new BooleanSetting("CheckID", false);
 
     private AntiBotModule() {
         super("AntiBot", 0, false, Category.MISC);
@@ -23,20 +23,25 @@ public class AntiBotModule extends Module {
         instance = new AntiBotModule();
     }
 
-    public boolean method1380(LivingEntity entity) {
+    public boolean isBot(LivingEntity entity) {
         if (!this.isEnabled()) {
             return false;
         }
-        if (this.field1918.getValue() && !this.field1920.contains(entity.getId())) {
+        // :wilted_rose::wilted_rose::wilted_rose:
+        if (this.checkOnGround.getValue() && !this.nonBotIDs.contains(entity.getId())) {
             return true;
         }
-        String string = entity.getName().getString();
-        return this.field1922.getValue() && (string.contains("[") || string.contains("/") || string.contains("|") || string.contains(" ") || string.contains("ITEM SHOP") || string.isEmpty());
+        String name = entity.getName().getString();
+        // :wilted_rose:
+        return this.checkName.getValue()
+                && (name.contains("[") || name.contains("/")
+                || name.contains("|") || name.contains(" ") || name.contains("ITEM SHOP")
+                || name.isEmpty());
     }
 
     @Override
     public void onSetWorld() {
-        this.field1920.clear();
+        this.nonBotIDs.clear();
         this.field1919.clear();
     }
 }

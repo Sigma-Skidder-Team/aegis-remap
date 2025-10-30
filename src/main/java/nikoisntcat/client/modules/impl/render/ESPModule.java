@@ -128,7 +128,7 @@ public class ESPModule extends Module {
 
         return esp.ignoreAntiBot.getValue()
                 || AntiBotModule.instance == null
-                || !AntiBotModule.instance.method1380(entity);
+                || !AntiBotModule.instance.isBot(entity);
     }
 
     @Override
