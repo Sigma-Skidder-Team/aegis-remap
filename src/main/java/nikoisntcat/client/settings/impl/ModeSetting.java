@@ -30,6 +30,6 @@ public class ModeSetting
         this.name = string;
         this.values = list;
         this.value = string2;
-        this.pred = predicate;
+        this.show = predicate;
     }
 }

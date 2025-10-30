@@ -74,8 +74,8 @@ public class SpeedModule extends Module {
     }
 
     @Override
-    public void setState(boolean state) {
-        super.setState(state);
+    public void setState(boolean enabled) {
+        super.setState(enabled);
     }
 
     /**

@@ -74,6 +74,6 @@ public class BlockESPModule extends Module {
             this.field1654.addAll(this.field1655);
         }
 
-        this.field1654.forEach(e -> render3DEvent.method1425(Vec3d.of(e), this.field1653.method1908()));
+        this.field1654.forEach(e -> render3DEvent.method1425(Vec3d.of(e), this.field1653.getColor()));
     }
 }

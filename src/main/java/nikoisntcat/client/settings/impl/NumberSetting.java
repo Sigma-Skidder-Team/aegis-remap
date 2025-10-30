@@ -26,13 +26,13 @@ extends Setting {
         return this.value;
     }
 
-    public NumberSetting(String name, double normalValue, double maxValue, double minValue, double minPerc, Predicate pred) {
+    public NumberSetting(String name, double normalValue, double maxValue, double minValue, double minPerc, Predicate show) {
         this.value = normalValue;
         this.name = name;
         this.min = minValue;
         this.max = maxValue;
         this.minPerc = minPerc;
-        this.pred = pred;
+        this.show = show;
     }
 
     public double getMax() {

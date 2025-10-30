@@ -46,8 +46,8 @@ public class ArrayListModule extends Module {
                .sorted(
                   Comparator.comparingDouble(
                         e -> var2
-                              ? (double)mc.textRenderer.getWidth(((Module)e).method1215() + ((Module)e).name)
-                              : (double)var3.getWidth(((Module)e).method1215() + ((Module)e).name, (float)((int)this.field1842.getValue()))
+                              ? (double)mc.textRenderer.getWidth(((Module)e).getTag() + ((Module)e).name)
+                              : (double)var3.getWidth(((Module)e).getTag() + ((Module)e).name, (float)((int)this.field1842.getValue()))
                      )
                      .reversed()
                )
@@ -80,12 +80,12 @@ public class ArrayListModule extends Module {
 
       for (Module var9 : this.field1838) {
          var3 %= 2.0;
-         Color var10 = ColorUtil.method2008(this.field1836.method1908(), this.field1837.method1908(), var3, this.field1837.method1908().getAlpha());
+         Color var10 = ColorUtil.method2008(this.field1836.getColor(), this.field1837.getColor(), var3, this.field1837.getColor().getAlpha());
          String var11 = var9.name;
          if (var5) {
             if (this.field1841.getValue()) {
                Builder.blur()
-                  .color(new QuadColorState(this.field1844.method1907()))
+                  .color(new QuadColorState(this.field1844.getRGB()))
                   .size(new SizeState((float)(mc.textRenderer.getWidth(var11) + 2), 12.0F))
                   .blurRadius(24.0F)
                   .smoothness(1.0F)
@@ -97,7 +97,7 @@ public class ArrayListModule extends Module {
                   );
             } else {
                Builder.rectangle()
-                  .color(new QuadColorState(this.field1844.method1907()))
+                  .color(new QuadColorState(this.field1844.getRGB()))
                   .size(new SizeState((float)(mc.textRenderer.getWidth(var11) + 2), 12.0F))
                   .build()
                   .render(
@@ -112,7 +112,7 @@ public class ArrayListModule extends Module {
          } else {
             if (this.field1841.getValue()) {
                Builder.blur()
-                  .color(new QuadColorState(this.field1844.method1907()))
+                  .color(new QuadColorState(this.field1844.getRGB()))
                   .size(new SizeState(font.getWidth(var11, (float)((int)this.field1842.getValue())) + 6.0F, (float)(this.method1337() + 3)))
                   .blurRadius(24.0F)
                   .smoothness(1.0F)
@@ -124,7 +124,7 @@ public class ArrayListModule extends Module {
                   );
             } else {
                Builder.rectangle()
-                  .color(new QuadColorState(this.field1844.method1907()))
+                  .color(new QuadColorState(this.field1844.getRGB()))
                   .size(new SizeState(font.getWidth(var11, (float)((int)this.field1842.getValue())) + 6.0F, (float)(this.method1337() + 3)))
                   .build()
                   .render(

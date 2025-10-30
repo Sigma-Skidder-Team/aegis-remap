@@ -3,15 +3,15 @@ package nikoisntcat.client.settings;
 import java.util.function.Predicate;
 
 public class Setting {
-    protected Predicate pred;
+    protected Predicate<Setting> show;
     protected String name;
 
-    public Predicate method1700() {
-        return this.pred;
+    public Predicate<Setting> getShow() {
+        return this.show;
     }
 
-    public boolean method1701() {
-        return this.method1700() == null || this.method1700().test(this);
+    public boolean shouldShow() {
+        return this.getShow() == null || this.getShow().test(this);
     }
 
     public String getName() {

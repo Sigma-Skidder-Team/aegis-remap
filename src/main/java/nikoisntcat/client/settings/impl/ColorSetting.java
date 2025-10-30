@@ -1,54 +1,76 @@
 package nikoisntcat.client.settings.impl;
 
+import nikoisntcat.client.settings.Setting;
+
 import java.awt.Color;
 import java.util.function.Predicate;
 
 public class ColorSetting {
-    public final NumberSetting field2324;
-    public final boolean field2325;
-    public final NumberSetting field2326;
-    public final NumberSetting field2327;
-    public final NumberSetting field2328;
+    public final NumberSetting g;
+    public final boolean bl;
+    public final NumberSetting a;
+    public final NumberSetting r;
+    public final NumberSetting b;
 
-    public int method1907() {
-        return new Color((int)this.field2327.getValue(), (int)this.field2324.getValue(), (int)this.field2328.getValue(), (int)this.field2326.getValue()).getRGB();
+    public int getRGB() {
+        return new Color((int)this.r.getValue(), (int)this.g.getValue(), (int)this.b.getValue(), (int)this.a.getValue()).getRGB();
     }
 
-    public Color method1908() {
-        return new Color((int)this.field2327.getValue(), (int)this.field2324.getValue(), (int)this.field2328.getValue(), (int)this.field2326.getValue());
+    public Color getColor() {
+        return new Color((int)this.r.getValue(), (int)this.g.getValue(), (int)this.b.getValue(), (int)this.a.getValue());
     }
 
-    public void method1909(float f, float f2, float f3, float f4) {
-        this.field2327.setValue(f);
-        this.field2324.setValue(f2);
-        this.field2328.setValue(f3);
-        this.field2326.setValue(f4);
+    public void setColor(float r, float g, float b, float a) {
+        this.r.setValue(r);
+        this.g.setValue(g);
+        this.b.setValue(b);
+        this.a.setValue(a);
     }
 
-    public void method1910(float f) {
-        this.field2326.setValue(f);
+    public void setAlpha(float a) {
+        this.a.setValue(a);
     }
 
-    public void method1912(Color color) {
-        this.field2327.setValue(color.getRed());
-        this.field2324.setValue(color.getGreen());
-        this.field2328.setValue(color.getBlue());
-        this.field2326.setValue(color.getAlpha());
+    public void setColor(Color color) {
+        this.r.setValue(color.getRed());
+        this.g.setValue(color.getGreen());
+        this.b.setValue(color.getBlue());
+        this.a.setValue(color.getAlpha());
     }
 
-    public ColorSetting(String string, boolean bl, Predicate predicate) {
-        this.field2327 = new NumberSetting(string + "_R", 0.0, 255.0, 0.0, 1.0, predicate);
-        this.field2324 = new NumberSetting(string + "_G", 0.0, 255.0, 0.0, 1.0, predicate);
-        this.field2328 = new NumberSetting(string + "_B", 0.0, 255.0, 0.0, 1.0, predicate);
-        this.field2326 = bl ? new NumberSetting(string + "_Alpha", 0.0, 255.0, 0.0, 1.0, predicate) : new NumberSetting(string + "_Alpha", 255.0, 255.0, 0.0, 1.0, setting -> false);
-        this.field2325 = bl;
+    public ColorSetting(String string, boolean bl, Predicate<Setting> show) {
+        this.r = new NumberSetting(
+                string + "_R", 0.0,
+                255.0, 0.0,
+                1.0, show
+        );
+        this.g = new NumberSetting(
+                string + "_G", 0.0,
+                255.0, 0.0,
+                1.0, show
+        );
+        this.b = new NumberSetting(
+                string + "_B", 0.0,
+                255.0, 0.0,
+                1.0, show
+        );
+        this.a = bl ? new NumberSetting(
+                string + "_Alpha", 0.0,
+                255.0, 0.0,
+                1.0, show
+        ) : new NumberSetting(
+                string + "_Alpha", 255.0,
+                255.0, 0.0,
+                1.0, setting -> false
+        );
+        this.bl = bl;
     }
 
     public ColorSetting(String string, boolean bl) {
-        this.field2327 = new NumberSetting(string + "_R", 0.0, 255.0, 0.0, 1.0);
-        this.field2324 = new NumberSetting(string + "_G", 0.0, 255.0, 0.0, 1.0);
-        this.field2328 = new NumberSetting(string + "_B", 0.0, 255.0, 0.0, 1.0);
-        this.field2325 = bl;
-        this.field2326 = new NumberSetting(string + "_Alpha", 0.0, 255.0, 0.0, 1.0, setting -> bl);
+        this.r = new NumberSetting(string + "_R", 0.0, 255.0, 0.0, 1.0);
+        this.g = new NumberSetting(string + "_G", 0.0, 255.0, 0.0, 1.0);
+        this.b = new NumberSetting(string + "_B", 0.0, 255.0, 0.0, 1.0);
+        this.bl = bl;
+        this.a = new NumberSetting(string + "_Alpha", 0.0, 255.0, 0.0, 1.0, setting -> bl);
     }
 }

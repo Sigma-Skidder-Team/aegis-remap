@@ -48,7 +48,7 @@ extends Module {
             ArrayList<Tween> arrayList2 = field1767.get(notification);
             float f = mc.getWindow().getScaledWidth();
             float f2 = mc.getWindow().getScaledHeight();
-            String string = notification.field2366;
+            String string = notification.title;
             String string2 = "";
             String string3 = "";
             if (this.mode.getValue().equals("A")) {
@@ -57,10 +57,10 @@ extends Module {
                     string3 = notification.field2370;
                 } else if (notification.field2369) {
                     string2 = "\uE902";
-                    string3 = notification.field2368;
+                    string3 = notification.desc;
                 } else {
                     string2 = "\uE903";
-                    string3 = notification.field2368;
+                    string3 = notification.desc;
                 }
             }
             float f3 = (int)this.space.getValue() * notifications.indexOf(notification);

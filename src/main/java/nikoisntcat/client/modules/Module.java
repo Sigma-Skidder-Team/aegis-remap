@@ -28,12 +28,12 @@ public abstract class Module extends MinecraftUtil {
         this.key = n;
     }
 
-    public void setState(boolean bl) {
-        if (this.state == bl) {
+    public void setState(boolean enabled) {
+        if (this.state == enabled) {
             return;
         }
-        this.state = bl;
-        if (bl) {
+        this.state = enabled;
+        if (enabled) {
             NotificationModule.addNotification(new Notification(this.name, "Toggled", "Enabled " + this.name, true, true, false));
             this.onEnable();
         } else {
@@ -47,24 +47,24 @@ public abstract class Module extends MinecraftUtil {
         return category;
     }
 
-    protected Module(String string, int n, boolean bl, Category moduleCategory) {
+    protected Module(String string, int key, boolean enabled, Category category) {
         this.name = string;
-        this.key = n;
-        this.state = bl;
-        this.category = moduleCategory;
+        this.key = key;
+        this.state = enabled;
+        this.category = category;
     }
 
-    public Module(String string, String string2, int n, Category moduleCategory) {
-        this.name = string;
-        this.key = n;
-        this.category = moduleCategory;
-        this.describe = string2;
+    public Module(String name, String desc, int key, Category category) {
+        this.name = name;
+        this.key = key;
+        this.category = category;
+        this.describe = desc;
     }
 
-    public Module(String string, int n, Category moduleCategory) {
+    public Module(String string, int key, Category category) {
         this.name = string;
-        this.key = n;
-        this.category = moduleCategory;
+        this.key = key;
+        this.category = category;
     }
 
     public void onEnable() {
@@ -132,33 +132,31 @@ public abstract class Module extends MinecraftUtil {
     }
 
     public List<Setting> getSettings() {
-        List<Setting> arrayList = new ArrayList<Setting>();
+        List<Setting> settings = new ArrayList<>();
         try {
             for (Field field : this.getClass().getFields()) {
-                Object object;
                 field.setAccessible(true);
                 Object object2 = field.get(this);
-                if (object2 instanceof Setting) {
-                    object = (Setting)object2;
-                    arrayList.add((Setting)object);
+                if (object2 instanceof Setting set) {
+                    settings.add(set);
                 }
-                if (!((object2 = field.get(this)) instanceof ColorSetting)) continue;
-                object = (ColorSetting)object2;
-                arrayList.addAll(List.of(((ColorSetting)object).field2327, ((ColorSetting)object).field2324, ((ColorSetting)object).field2328, ((ColorSetting)object).field2326));
+                if (!(field.get(this) instanceof ColorSetting clr)) continue;
+                settings.addAll(List.of(clr.r, clr.g, clr.b, clr.a));
             }
-            arrayList.sort(Comparator.comparing(Setting::getName));
+            settings.sort(Comparator.comparing(Setting::getName));
         }
         catch (Exception exception) {
             exception.printStackTrace();
         }
-        return arrayList;
+        return settings;
     }
 
     public int getDisplayLength() {
-        return this.method1215() != null ? this.name.length() + this.method1215().length() : this.name.length();
+        String tag = this.getTag();
+        return tag != null ? this.name.length() + tag.length() : this.name.length();
     }
 
-    public String method1215() {
+    public String getTag() {
         return "";
     }
 }

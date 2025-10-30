@@ -20,11 +20,11 @@ public class SettingComponent {
     }
 
     public boolean method1670() {
-        return this.setting.method1701();
+        return this.setting.shouldShow();
     }
 
     public int method1671(DrawContext context, int x, int y, int width, int mouseX, int mouseY) {
-        return this.setting.method1700() != null && !this.setting.method1700().test(this.setting) ? 0 : 10;
+        return this.setting.getShow() != null && !this.setting.getShow().test(this.setting) ? 0 : 10;
     }
 
     public void method1672(double mouseX, double mouseY, int button) {
