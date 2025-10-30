@@ -82,10 +82,10 @@ public class DisablerModule extends Module {
                 return;
             }
 
-            if (!lowHopActive && event.getState() == MotionEvent.State.PRE) {
+            if (!lowHopActive && event.getTiming() == MotionEvent.Timing.PRE) {
                 if (lowHopTicks < 24) {
                     if (airTicks >= 9 && airTicks % 2 == 0) {
-                        event.method1413(event.method1407() -
+                        event.setEntityZ(event.getEntityZ() -
                                 (double) MathHelper.nextBetween((Random) Random.create(), 0.09f, 0.12f));
                     }
                     if (airTicks >= 9) {
@@ -107,17 +107,17 @@ public class DisablerModule extends Module {
         float currentYaw = mc.player.lastYaw;
         float currentPitch = mc.player.lastPitch;
 
-        if (currentYaw == event.method1410() && currentPitch == event.method1414() || mc.currentScreen != null) {
+        if (currentYaw == event.getEntityYaw() && currentPitch == event.getEntityPitch() || mc.currentScreen != null) {
             return;
         }
 
         if (acaAim.getValue()) {
-            if (Math.abs(RotationUtil.wrap(currentYaw, event.method1410())) < 1.0E-4f) {
-                event.method1400(RotationUtil.wrap(currentYaw, event.method1410()) > 0.0f
+            if (Math.abs(RotationUtil.wrap(currentYaw, event.getEntityYaw())) < 1.0E-4f) {
+                event.method1400(RotationUtil.wrap(currentYaw, event.getEntityYaw()) > 0.0f
                         ? currentYaw + 1.0E-4f
                         : currentYaw - 1.0E-4f);
             }
-            if (Math.abs(currentPitch - event.method1414()) < 1.0E-4f) {
+            if (Math.abs(currentPitch - event.getEntityPitch()) < 1.0E-4f) {
                 event.method1404(currentPitch + 1.0E-4f < 90.0f
                         ? currentPitch + 1.0E-4f
                         : currentPitch - 1.0E-4f);
@@ -126,7 +126,7 @@ public class DisablerModule extends Module {
 
         if (duplicateRotationPlace.getValue()) {
             int randomYaw = 360 * Random.create().nextBetween(1, 100);
-            event.method1400(event.method1410() + (float) randomYaw);
+            event.method1400(event.getEntityYaw() + (float) randomYaw);
         }
     }
 

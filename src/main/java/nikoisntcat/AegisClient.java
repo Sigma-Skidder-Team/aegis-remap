@@ -27,7 +27,7 @@ public class AegisClient implements ModInitializer {
     public static List<Alt> alts = new ArrayList<>();
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
-    public static Random field2320 = Random.create();
+    public static Random unusedRandom = Random.create();
     public static PacketUtil packetUtil;
 
 	@Override
@@ -54,7 +54,7 @@ public class AegisClient implements ModInitializer {
         motionManager = new MotionManager();
         clickGui = new ClickGuiScreen();
         shaders = new Shader();
-        shaders.method1789();
+        shaders.init();
         clickGui.method2055();
         licenseCheck = false;
     }

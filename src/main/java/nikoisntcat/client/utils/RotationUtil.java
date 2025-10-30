@@ -258,10 +258,10 @@ public class RotationUtil extends MinecraftUtil {
     }
 
     public void method1519(MotionEvent motionEvent) {
-        if (motionEvent.getState() == MotionEvent.State.PRE) {
+        if (motionEvent.getTiming() == MotionEvent.Timing.PRE) {
             if (currentTargetRotation != null) {
                 motionEvent.method1400(RotationUtil.mc.player.lastYaw + RotationUtil.wrap(RotationUtil.currentTargetRotation.x, RotationUtil.mc.player.lastYaw));
-                RotationUtil.currentTargetRotation.x = motionEvent.method1410();
+                RotationUtil.currentTargetRotation.x = motionEvent.getEntityYaw();
                 motionEvent.method1404(RotationUtil.currentTargetRotation.y);
                 --currentRotationTicks;
             }
@@ -272,7 +272,7 @@ public class RotationUtil extends MinecraftUtil {
             RotationUtil.mc.player.renderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.renderYaw, RotationUtil.mc.player.getYaw());
             RotationUtil.mc.player.prevYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.prevYaw, RotationUtil.mc.player.getYaw());
             RotationUtil.mc.player.lastRenderYaw = RotationUtil.mc.player.getYaw() + RotationUtil.wrap(RotationUtil.mc.player.lastRenderYaw, RotationUtil.mc.player.getYaw());
-            currentPlayerRots = new Vector2f(motionEvent.method1410(), motionEvent.method1414());
+            currentPlayerRots = new Vector2f(motionEvent.getEntityYaw(), motionEvent.getEntityPitch());
             Vec3d vec3d = RotationUtil.mc.player.getCameraPosVec(1.0f);
             Vec3d vec3d2 = RotationUtil.method1526(currentPlayerRots);
             field2034 = vec3d.add(vec3d2.x * 5.0, vec3d2.y * 5.0, vec3d2.z * 5.0);

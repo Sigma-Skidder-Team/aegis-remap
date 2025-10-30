@@ -21,12 +21,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Shader {
-    private static boolean field2195;
+    private static boolean initialized;
     private final Map<ShaderProgram, VertexFormat> vertexes;
     private static final Logger logger = LoggerFactory.getLogger(Shader.class);
-    private final Map<String, ShaderProgram> fragments = new HashMap<>();
+    private final Map<String, ShaderProgram> nameToFragment = new HashMap<>();
 
-    private CompiledShader method1784(String path, CompiledShader.Type type) {
+    private CompiledShader compile(String path, CompiledShader.Type type) {
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Shader.class.getResourceAsStream(path))))) {
             stringBuilder.append(bufferedReader.lines().collect(Collectors.joining("\n")));
@@ -34,7 +34,6 @@ public class Shader {
             logger.error("Failed to read shader file: {}", path, exception);
             return null;
         }
-        //System.out.println(stringBuilder.toString());
         try {
             return CompiledShader.compile(Identifier.of("", path), type, stringBuilder.toString());
         } catch (Exception exception) {
@@ -47,7 +46,7 @@ public class Shader {
         RenderSystem.clearShader();
     }
 
-    public void method1786(String name, Matrix4f value) {
+    public void setShaderUniform(String name, Matrix4f value) {
         if (RenderSystem.getShader() == null) {
             return;
         }
@@ -62,17 +61,17 @@ public class Shader {
 
     private ShaderProgram create(String vertexPath, String fragmentPath, VertexFormat vertexFormat) {
         try {
-            return ShaderProgram.create(Objects.requireNonNull(this.method1784(vertexPath, CompiledShader.Type.VERTEX)), Objects.requireNonNull(this.method1784(fragmentPath, CompiledShader.Type.FRAGMENT)), vertexFormat);
+            return ShaderProgram.create(Objects.requireNonNull(this.compile(vertexPath, CompiledShader.Type.VERTEX)), Objects.requireNonNull(this.compile(fragmentPath, CompiledShader.Type.FRAGMENT)), vertexFormat);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void method1789() {
+    public void init() {
         if (!ClientSettingsModule.noShader.getValue()) {
-            if (!field2195) {
-                field2195 = true;
+            if (!initialized) {
+                initialized = true;
                 this.put("rounded", "/assets/aegis/shaders/rounded_rect.vsh", "/assets/aegis/shaders/rounded_rect.fsh", VertexFormats.POSITION_TEXTURE_COLOR);
                 this.put("blur", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/blur.fsh", VertexFormats.POSITION_TEXTURE);
                 this.put("composite", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/composite.fsh", VertexFormats.POSITION_TEXTURE);
@@ -81,7 +80,7 @@ public class Shader {
                 );
                 this.put("blur_kawase_up", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/blur_kawase_up.fsh", VertexFormats.POSITION_TEXTURE);
                 this.put("pass", "/assets/aegis/shaders/vertex.vsh", "/assets/aegis/shaders/pass.fsh", VertexFormats.POSITION_TEXTURE);
-                logger.info("ShaderManager initialized. Loaded {} shaders.", this.fragments.size());
+                logger.info("ShaderManager initialized. Loaded {} shaders.", this.nameToFragment.size());
             }
         }
     }
@@ -89,7 +88,7 @@ public class Shader {
     private void put(String name, String vertexPath, String fragmentPath, VertexFormat vertexFormat) {
         try {
             ShaderProgram shaderProgram = this.create(vertexPath, fragmentPath, vertexFormat);
-            this.fragments.put(name, shaderProgram);
+            this.nameToFragment.put(name, shaderProgram);
             this.vertexes.put(shaderProgram, vertexFormat);
         } catch (Exception exception) {
             logger.error("Failed to load shader: {}", name);
@@ -114,7 +113,7 @@ public class Shader {
         Objects.requireNonNull(RenderSystem.getShader()).bind();
     }
 
-    public VertexFormat method1793(ShaderProgram shaderProgram) {
+    public VertexFormat getVertexShaderProgram(ShaderProgram shaderProgram) {
         return this.vertexes.get(shaderProgram);
     }
 
@@ -160,7 +159,7 @@ public class Shader {
     }
 
     public void set(String name) {
-        RenderSystem.setShader(this.get(name));
+        RenderSystem.setShader(this.getFrag(name));
     }
 
     public void setUniformsInts(String name, int... values) {
@@ -193,15 +192,15 @@ public class Shader {
         }
     }
 
-    public void method1798() {
-        field2195 = false;
-        this.fragments.clear();
+    public void reInit() {
+        initialized = false;
+        this.nameToFragment.clear();
         this.vertexes.clear();
-        this.method1789();
+        this.init();
     }
 
-    public ShaderProgram get(String name) {
-        return this.fragments.getOrDefault(name, null);
+    public ShaderProgram getFrag(String name) {
+        return this.nameToFragment.getOrDefault(name, null);
     }
 
     public Shader() {
@@ -243,7 +242,7 @@ public class Shader {
             return;
         }
 
-        this.method1786("ModelViewMat", RenderSystem.getModelViewMatrix());
-        this.method1786("ProjMat", RenderSystem.getProjectionMatrix());
+        this.setShaderUniform("ModelViewMat", RenderSystem.getModelViewMatrix());
+        this.setShaderUniform("ProjMat", RenderSystem.getProjectionMatrix());
     }
 }

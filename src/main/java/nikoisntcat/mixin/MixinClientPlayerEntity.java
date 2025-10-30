@@ -71,7 +71,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
             return;
         }
         ClientPlayerEntity clientPlayerEntity = (ClientPlayerEntity) (Object) this;
-        this.motionEvent = new MotionEvent(clientPlayerEntity.getX(), clientPlayerEntity.getY(), clientPlayerEntity.getZ(), clientPlayerEntity.isOnGround(), clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch(), MotionEvent.State.PRE);
+        this.motionEvent = new MotionEvent(clientPlayerEntity.getX(), clientPlayerEntity.getY(), clientPlayerEntity.getZ(), clientPlayerEntity.isOnGround(), clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch(), MotionEvent.Timing.PRE);
         AegisClient.rotationUtil.method1519(this.motionEvent);
         AegisClient.eventManager.onMotion(this.motionEvent);
         this.motionEvent.method1405(clientPlayerEntity);
@@ -99,7 +99,7 @@ public abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity
             return;
         }
         ClientPlayerEntity clientPlayerEntity = (ClientPlayerEntity) (Object) this;
-        this.motionEvent.setState(MotionEvent.State.PRE);
+        this.motionEvent.setTiming(MotionEvent.Timing.PRE);
         AegisClient.eventManager.onMotion(this.motionEvent);
         this.motionEvent.method1402(clientPlayerEntity);
         AegisClient.rotationUtil.method1519(this.motionEvent);

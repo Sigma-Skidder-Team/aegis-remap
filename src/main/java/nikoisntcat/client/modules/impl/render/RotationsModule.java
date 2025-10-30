@@ -31,9 +31,9 @@ public class RotationsModule extends Module {
 
     @Override
     public void onMotion(MotionEvent motionEvent) {
-        if (motionEvent.getState() == MotionEvent.State.PRE) {
+        if (motionEvent.getTiming() == MotionEvent.Timing.PRE) {
             this.field1601 = this.field1600;
-            this.field1600 = new Vector2f(motionEvent.method1410(), motionEvent.method1414());
+            this.field1600 = new Vector2f(motionEvent.getEntityYaw(), motionEvent.getEntityPitch());
         }
     }
 }

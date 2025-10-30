@@ -28,24 +28,24 @@ public class NoFallModule extends Module {
 
    @Override
    public void onMotion(MotionEvent motionEvent) {
-      if (motionEvent.getState() == MotionEvent.State.PRE) {
+      if (motionEvent.getTiming() == MotionEvent.Timing.PRE) {
          String var2 = this.field1819.getValue();
          switch (var2) {
             case "GroundSpoof":
-               motionEvent.method1406(true);
+               motionEvent.setEOnGround(true);
                break;
             case "NoGround":
-               motionEvent.method1406(false);
+               motionEvent.setEOnGround(false);
                break;
             case "SemiGround":
                this.field1815 = this.field1815 + ((double)mc.player.fallDistance - this.field1821);
-               if (this.field1815 > this.field1818.getValue() && !motionEvent.method1412()) {
+               if (this.field1815 > this.field1818.getValue() && !motionEvent.getEntityOnGround()) {
                   this.field1815 = (double)mc.player.fallDistance - this.field1821;
                   mc.getNetworkHandler().sendPacket(new OnGroundOnly(true, mc.player.horizontalCollision));
                }
                break;
             case "Grim":
-               if (!this.field1814 && (double)mc.player.fallDistance > this.field1818.getValue() && !motionEvent.method1412()) {
+               if (!this.field1814 && (double)mc.player.fallDistance > this.field1818.getValue() && !motionEvent.getEntityOnGround()) {
                   this.field1814 = true;
                   this.field1817 = false;
                   this.field1816 = false;
@@ -54,14 +54,14 @@ public class NoFallModule extends Module {
                   this.field1820 = false;
                }
 
-               if (this.field1814 && motionEvent.method1412()) {
+               if (this.field1814 && motionEvent.getEntityOnGround()) {
                   mc.options.jumpKey.setPressed(false);
-                  motionEvent.method1406(false);
+                  motionEvent.setEOnGround(false);
                   if (!this.field1816) {
                      mc.player
                         .networkHandler
                         .sendPacket(
-                           new PositionAndOnGround(motionEvent.method1401() + 1000.0, motionEvent.method1403(), motionEvent.method1407(), false, false)
+                           new PositionAndOnGround(motionEvent.method1401() + 1000.0, motionEvent.method1403(), motionEvent.getEntityZ(), false, false)
                         );
                      this.field1816 = true;
                   }

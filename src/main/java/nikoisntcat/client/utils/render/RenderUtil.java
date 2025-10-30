@@ -727,8 +727,8 @@ public class RenderUtil extends MinecraftUtil {
         shader.setUniformFloats("ColorOverride", var9, var10, var11, var12);
         shader.setUniformFloats("BorderWidth", borderWidth);
         shader.setUniformFloats("BorderColor", var13, var14, var15, var16);
-        shader.method1786("ModelViewMat", RenderSystem.getModelViewMatrix());
-        shader.method1786("ProjMat", RenderSystem.getProjectionMatrix());
+        shader.setShaderUniform("ModelViewMat", RenderSystem.getModelViewMatrix());
+        shader.setShaderUniform("ProjMat", RenderSystem.getProjectionMatrix());
         Matrix4f pos = matrixStack.peek().getPositionMatrix();
         BufferBuilder buff = Tessellator.getInstance().begin(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
         buff.vertex(pos, x, y + height, 0.0F).texture(0.0F, 1.0F).color(var9, var10, var11, var12);

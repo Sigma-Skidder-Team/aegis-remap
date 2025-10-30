@@ -4,40 +4,40 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import nikoisntcat.client.events.CancellableEvent;
 
 public class MotionEvent extends CancellableEvent {
-    private State state;
+    private Timing timing;
     private boolean onGround;
-    private float field1959;
+    private float eYaw;
     private float pitch;
     private double y;
-    private float field1962;
-    private double field1963;
+    private float ePitch;
+    private double eY;
     private double x;
-    private double field1965;
-    private double field1966;
-    private boolean field1967;
+    private double eZ;
+    private double eX;
+    private boolean eOnGround;
     private double z;
     private float yaw;
 
-    public State getState() {
-        return this.state;
+    public Timing getTiming() {
+        return this.timing;
     }
 
     public void method1400(float f) {
-        this.field1959 = f;
+        this.eYaw = f;
     }
 
-    public MotionEvent(double d, double d2, double d3, boolean bl, float f, float f2, State state) {
-        this.field1966 = d;
-        this.field1963 = d2;
-        this.field1965 = d3;
-        this.field1962 = f2;
-        this.field1959 = f;
-        this.field1967 = bl;
-        this.state = state;
+    public MotionEvent(double d, double d2, double d3, boolean bl, float f, float f2, Timing timing) {
+        this.eX = d;
+        this.eY = d2;
+        this.eZ = d3;
+        this.ePitch = f2;
+        this.eYaw = f;
+        this.eOnGround = bl;
+        this.timing = timing;
     }
 
     public double method1401() {
-        return this.field1966;
+        return this.eX;
     }
 
     public void method1402(ClientPlayerEntity ent) {
@@ -48,11 +48,11 @@ public class MotionEvent extends CancellableEvent {
     }
 
     public double method1403() {
-        return this.field1963;
+        return this.eY;
     }
 
     public void method1404(float f) {
-        this.field1962 = f;
+        this.ePitch = f;
     }
 
     public void method1405(ClientPlayerEntity ent) {
@@ -62,49 +62,49 @@ public class MotionEvent extends CancellableEvent {
         this.yaw = ent.getYaw();
         this.pitch = ent.getPitch();
         this.onGround = ent.isOnGround();
-        ent.setPos(this.field1966, this.field1963, this.field1965);
-        ent.setOnGround(this.field1967);
-        ent.setYaw(this.field1959);
-        ent.setPitch(this.field1962);
+        ent.setPos(this.eX, this.eY, this.eZ);
+        ent.setOnGround(this.eOnGround);
+        ent.setYaw(this.eYaw);
+        ent.setPitch(this.ePitch);
     }
 
-    public void method1406(boolean bl) {
-        this.field1967 = bl;
+    public void setEOnGround(boolean onGround) {
+        this.eOnGround = onGround;
     }
 
-    public double method1407() {
-        return this.field1965;
+    public double getEntityZ() {
+        return this.eZ;
     }
 
-    public void method1408(double d) {
-        this.field1966 = d;
+    public void setEntityX(double x) {
+        this.eX = x;
     }
 
-    public void method1409(double d) {
-        this.field1963 = d;
+    public void setEntityY(double y) {
+        this.eY = y;
     }
 
-    public float method1410() {
-        return this.field1959;
+    public float getEntityYaw() {
+        return this.eYaw;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setTiming(Timing timing) {
+        this.timing = timing;
     }
 
-    public boolean method1412() {
-        return this.field1967;
+    public boolean getEntityOnGround() {
+        return this.eOnGround;
     }
 
-    public void method1413(double d) {
-        this.field1965 = d;
+    public void setEntityZ(double z) {
+        this.eZ = z;
     }
 
-    public float method1414() {
-        return this.field1962;
+    public float getEntityPitch() {
+        return this.ePitch;
     }
 
-    public static enum State {
+    public enum Timing {
         PRE, POST
     }
 }

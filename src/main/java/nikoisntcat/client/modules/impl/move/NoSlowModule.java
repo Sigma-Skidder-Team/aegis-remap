@@ -158,7 +158,7 @@ public class NoSlowModule extends Module {
 
     @Override
     public void onMotion(MotionEvent event) {
-        if (event.getState() == MotionEvent.State.PRE) {
+        if (event.getTiming() == MotionEvent.Timing.PRE) {
             if (isBlinkingFood && !AegisClient.blinkUtil.isBlinking()) {
                 AegisClient.blinkUtil.startBlinking(this);
                 mc.getNetworkHandler().sendPacket(new PlayerActionC2SPacket(Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, Direction.DOWN));
