@@ -6,11 +6,11 @@ import java.awt.Color;
 import java.util.function.Predicate;
 
 public class ColorSetting {
-    public final NumberSetting g;
-    public final boolean bl;
-    public final NumberSetting a;
+    public final boolean hasAlpha;
     public final NumberSetting r;
+    public final NumberSetting g;
     public final NumberSetting b;
+    public final NumberSetting a;
 
     public int getRGB() {
         return new Color((int)this.r.getValue(), (int)this.g.getValue(), (int)this.b.getValue(), (int)this.a.getValue()).getRGB();
@@ -38,7 +38,7 @@ public class ColorSetting {
         this.a.setValue(color.getAlpha());
     }
 
-    public ColorSetting(String string, boolean bl, Predicate<Setting> show) {
+    public ColorSetting(String string, boolean hasAlpha, Predicate<Setting> show) {
         this.r = new NumberSetting(
                 string + "_R", 0.0,
                 255.0, 0.0,
@@ -54,7 +54,7 @@ public class ColorSetting {
                 255.0, 0.0,
                 1.0, show
         );
-        this.a = bl ? new NumberSetting(
+        this.a = hasAlpha ? new NumberSetting(
                 string + "_Alpha", 0.0,
                 255.0, 0.0,
                 1.0, show
@@ -63,14 +63,14 @@ public class ColorSetting {
                 255.0, 0.0,
                 1.0, setting -> false
         );
-        this.bl = bl;
+        this.hasAlpha = hasAlpha;
     }
 
-    public ColorSetting(String string, boolean bl) {
+    public ColorSetting(String string, boolean hasAlpha) {
         this.r = new NumberSetting(string + "_R", 0.0, 255.0, 0.0, 1.0);
         this.g = new NumberSetting(string + "_G", 0.0, 255.0, 0.0, 1.0);
         this.b = new NumberSetting(string + "_B", 0.0, 255.0, 0.0, 1.0);
-        this.bl = bl;
-        this.a = new NumberSetting(string + "_Alpha", 0.0, 255.0, 0.0, 1.0, setting -> bl);
+        this.hasAlpha = hasAlpha;
+        this.a = new NumberSetting(string + "_Alpha", 0.0, 255.0, 0.0, 1.0, setting -> hasAlpha);
     }
 }
