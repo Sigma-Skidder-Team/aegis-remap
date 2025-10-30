@@ -12,7 +12,6 @@ import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.Closeable;
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -22,10 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.IvParameterSpec;
+
 import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
@@ -38,9 +34,6 @@ import net.minecraft.client.render.VertexFormat.DrawMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import nikoisntcat.client.utils.MinecraftUtil;
-import nikoisntcat.client.utils.font.Class1;
-import nikoisntcat.client.utils.font.Class2;
-import nikoisntcat.client.utils.font.Class332;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +41,8 @@ import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
-public class Class160 extends MinecraftUtil implements Closeable {
+// you don't need a custom font renderer in 1.13+... just give it a ttf font and it'll be fine :wilted_rose:
+public class FontRenderer extends MinecraftUtil implements Closeable {
     private final int field1574;
     private final Char2ObjectArrayMap field1575;
     private Font field1576;
@@ -59,7 +53,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
     private final ObjectList field1581;
     private static final ExecutorService field1582;
     private final Object2ObjectMap field1583 = new Object2ObjectOpenHashMap();
-    private boolean field1584;
+    private boolean initialized;
     private static final Char2IntArrayMap field1585;
     private int field1586;
     private int field1587;
@@ -120,15 +114,15 @@ public class Class160 extends MinecraftUtil implements Closeable {
                         var17 = 0.0F;
                         var20 = var22 + 1;
                     } else {
-                        Class2 var48 = this.method1179(var23);
+                        CharToBeRendered var48 = this.method1179(var23);
                         if (var48 != null) {
-                            if (var48.method12() != ' ') {
-                                Identifier var25 = var48.method11().field2485;
+                            if (var48.value() != ' ') {
+                                Identifier var25 = var48.owner().identifier;
                                 Class1 var51 = new Class1(var17, var18, var12, var13, var14, var48);
                                 ((ObjectList)this.field1583.computeIfAbsent(var25, integer -> new ObjectArrayList())).add(var51);
                             }
 
-                            var17 += (float)var48.method10();
+                            var17 += (float)var48.width();
                         }
                     }
                 }
@@ -148,14 +142,14 @@ public class Class160 extends MinecraftUtil implements Closeable {
                     float var30 = var27.field1;
                     float var31 = var27.field2;
                     float var32 = var27.field3;
-                    Class2 var33 = var27.field5;
-                    Class332 var34 = var33.method11();
-                    float var35 = (float)var33.method10();
-                    float var36 = (float)var33.method8();
-                    float var37 = (float)var33.method9() / (float)var34.field2483;
-                    float var38 = (float)var33.method7() / (float)var34.field2490;
-                    float var39 = (float)(var33.method9() + var33.method10()) / (float)var34.field2483;
-                    float var40 = (float)(var33.method7() + var33.method8()) / (float)var34.field2490;
+                    CharToBeRendered var33 = var27.field5;
+                    CharRenderer var34 = var33.owner();
+                    float var35 = (float)var33.width();
+                    float var36 = (float)var33.height();
+                    float var37 = (float)var33.u() / (float)var34.width;
+                    float var38 = (float)var33.v() / (float)var34.height;
+                    float var39 = (float)(var33.u() + var33.width()) / (float)var34.width;
+                    float var40 = (float)(var33.v() + var33.height()) / (float)var34.height;
                     var50.vertex(var15, var28 + 0.0F, var29 + var36, 0.0F).texture(var37, var40).color(var30, var31, var32, a);
                     var50.vertex(var15, var28 + var35, var29 + var36, 0.0F).texture(var39, var40).color(var30, var31, var32, a);
                     var50.vertex(var15, var28 + var35, var29 + 0.0F, 0.0F).texture(var39, var38).color(var30, var31, var32, a);
@@ -172,7 +166,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
     private void method1165() {
         if ((int)mc.getWindow().getScaleFactor() != this.field1587) {
             this.close();
-            this.method1170(this.field1576, this.field1579);
+            this.init(this.field1576, this.field1579);
         }
     }
 
@@ -185,7 +179,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
         return Identifier.of("client", "temp/" + method1194());
     }
 
-    public void method1167(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a, boolean gradient, int offset) {
+    public void draw(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a, boolean gradient, int offset) {
         if (this.field1580 != null && !this.field1580.isDone()) {
             try {
                 this.field1580.get();
@@ -253,15 +247,15 @@ public class Class160 extends MinecraftUtil implements Closeable {
                         var20 = 0.0F;
                         var23 = var25 + 1;
                     } else {
-                        Class2 var51 = this.method1179(var26);
+                        CharToBeRendered var51 = this.method1179(var26);
                         if (var51 != null) {
-                            if (var51.method12() != ' ') {
-                                Identifier var28 = var51.method11().field2485;
+                            if (var51.value() != ' ') {
+                                Identifier var28 = var51.owner().identifier;
                                 Class1 var54 = new Class1(var20, var21, var15, var16, var17, var51);
                                 ((ObjectList)this.field1583.computeIfAbsent(var28, integer -> new ObjectArrayList())).add(var54);
                             }
 
-                            var20 += (float)var51.method10();
+                            var20 += (float)var51.width();
                         }
                     }
                 }
@@ -281,14 +275,14 @@ public class Class160 extends MinecraftUtil implements Closeable {
                     float var33 = var55.field1;
                     float var34 = var55.field2;
                     float var35 = var55.field3;
-                    Class2 var36 = var55.field5;
-                    Class332 var37 = var36.method11();
-                    float var38 = (float)var36.method10();
-                    float var39 = (float)var36.method8();
-                    float var40 = (float)var36.method9() / (float)var37.field2483;
-                    float var41 = (float)var36.method7() / (float)var37.field2490;
-                    float var42 = (float)(var36.method9() + var36.method10()) / (float)var37.field2483;
-                    float var43 = (float)(var36.method7() + var36.method8()) / (float)var37.field2490;
+                    CharToBeRendered var36 = var55.field5;
+                    CharRenderer var37 = var36.owner();
+                    float var38 = (float)var36.width();
+                    float var39 = (float)var36.height();
+                    float var40 = (float)var36.u() / (float)var37.width;
+                    float var41 = (float)var36.v() / (float)var37.height;
+                    float var42 = (float)(var36.u() + var36.width()) / (float)var37.width;
+                    float var43 = (float)(var36.v() + var36.height()) / (float)var37.height;
                     var30.vertex(var18, var31 + 0.0F, var32 + var39, 0.0F).texture(var40, var43).color(var33, var34, var35, a);
                     var30.vertex(var18, var31 + var38, var32 + var39, 0.0F).texture(var42, var43).color(var33, var34, var35, a);
                     var30.vertex(var18, var31 + var38, var32 + 0.0F, 0.0F).texture(var42, var41).color(var33, var34, var35, a);
@@ -310,12 +304,12 @@ public class Class160 extends MinecraftUtil implements Closeable {
         RenderSystem.enableCull();
     }
 
-    public void method1168(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
-        this.method1190(stack, s, x - this.method1186(s) / 2.0F, y, r, g, b, a);
+    public void draw2(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
+        this.draw(stack, s, x - this.method1186(s) / 2.0F, y, r, g, b, a);
     }
 
-    public void method1169(MatrixStack stack, String s, double x, double y, Color color) {
-        this.method1190(
+    public void draw2(MatrixStack stack, String s, double x, double y, Color color) {
+        this.draw(
                 stack,
                 s,
                 (float)(x - (double)(this.method1186(s) / 2.0F)),
@@ -327,7 +321,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
         );
     }
 
-    public Class160(Font font, float sizePx, int charactersPerPage, int paddingBetweenCharacters, @Nullable String prebakeCharacters) {
+    public FontRenderer(Font font, float sizePx, int charactersPerPage, int paddingBetweenCharacters, @Nullable String prebakeCharacters) {
         this.field1581 = new ObjectArrayList();
         this.field1575 = new Char2ObjectArrayMap();
         this.field1586 = 0;
@@ -336,14 +330,14 @@ public class Class160 extends MinecraftUtil implements Closeable {
         this.field1577 = charactersPerPage;
         this.field1574 = paddingBetweenCharacters;
         this.field1578 = prebakeCharacters;
-        this.method1170(font, sizePx);
+        this.init(font, sizePx);
     }
 
-    private void method1170(Font font, float sizePx) {
-        if (this.field1584) {
+    private void init(Font font, float sizePx) {
+        if (this.initialized) {
             throw new IllegalStateException("Double call to init()");
         } else {
-            this.field1584 = true;
+            this.initialized = true;
             this.field1587 = (int)mc.getWindow().getScaleFactor();
             this.field1586 = this.field1587;
             this.field1576 = font.deriveFont(sizePx * (float)this.field1586);
@@ -374,7 +368,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
         float var9 = (float)(color >> 8 & 0xFF) / 255.0F;
         float var10 = (float)(color & 0xFF) / 255.0F;
         float var11 = (float)(color >> 24 & 0xFF) / 255.0F;
-        this.method1190(stack, s, (float)(x - (double)(this.method1186(s) / 2.0F)), (float)y, var8, var9, var10, var11);
+        this.draw(stack, s, (float)(x - (double)(this.method1186(s) / 2.0F)), (float)y, var8, var9, var10, var11);
     }
 
     public void method1175(DrawContext context, String s, double x, double y, int color) {
@@ -400,7 +394,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
     }
 
     static {
-        field1585 = new Class312();
+        field1585 = new HexValueMap();
         field1582 = Executors.newCachedThreadPool();
     }
 
@@ -413,8 +407,8 @@ public class Class160 extends MinecraftUtil implements Closeable {
         }
     }
 
-    private Class332 method1178(char from, char to) {
-        Class332 var3 = new Class332(from, to, this.field1576, method1166(), this.field1574);
+    private CharRenderer method1178(char from, char to) {
+        CharRenderer var3 = new CharRenderer(from, to, this.field1576, method1166(), this.field1574);
         this.field1581.add(var3);
         return var3;
     }
@@ -430,23 +424,23 @@ public class Class160 extends MinecraftUtil implements Closeable {
             ObjectListIterator var1 = this.field1581.iterator();
 
             while (var1.hasNext()) {
-                ((Class332)var1.next()).method2075();
+                ((CharRenderer)var1.next()).method2075();
             }
 
             this.field1581.clear();
             this.field1575.clear();
-            this.field1584 = false;
+            this.initialized = false;
         } catch (Exception var2) {
         }
     }
 
-    public Class160(Font font, float sizePx) {
+    public FontRenderer(Font font, float sizePx) {
         this(font, sizePx, 256, 5, null);
     }
 
     @Nullable
-    private Class2 method1179(char glyph) {
-        return (Class2)this.field1575.computeIfAbsent(glyph, this::method1187);
+    private CharToBeRendered method1179(char glyph) {
+        return (CharToBeRendered)this.field1575.computeIfAbsent(glyph, this::method1187);
     }
 
     public void method1180(DrawContext context, String s, double x, double y, Color color) {
@@ -462,8 +456,8 @@ public class Class160 extends MinecraftUtil implements Closeable {
         );
     }
 
-    public void method1181(MatrixStack stack, String s, double x, double y, Color color) {
-        this.method1190(
+    public void draw(MatrixStack stack, String s, double x, double y, Color color) {
+        this.draw(
                 stack,
                 s,
                 (float)x,
@@ -509,26 +503,26 @@ public class Class160 extends MinecraftUtil implements Closeable {
                 var4 = Math.max(var3, var4);
                 var3 = 0.0F;
             } else {
-                Class2 var9 = this.method1179(var8);
-                var3 += var9 == null ? 0.0F : (float)var9.method10() / (float)this.field1586;
+                CharToBeRendered var9 = this.method1179(var8);
+                var3 += var9 == null ? 0.0F : (float)var9.width() / (float)this.field1586;
             }
         }
 
         return Math.max(var3, var4);
     }
 
-    private Class2 method1187(char glyph) {
+    private CharToBeRendered method1187(char glyph) {
         ObjectListIterator var2 = this.field1581.iterator();
 
         while (var2.hasNext()) {
-            Class332 var3 = (Class332)var2.next();
-            if (var3.method2074(glyph)) {
-                return var3.method2077(glyph);
+            CharRenderer var3 = (CharRenderer)var2.next();
+            if (var3.inRange(glyph)) {
+                return var3.get(glyph);
             }
         }
 
         int var4 = method1185(glyph, this.field1577);
-        return this.method1178((char)var4, (char)(var4 + this.field1577)).method2077(glyph);
+        return this.method1178((char)var4, (char)(var4 + this.field1577)).get(glyph);
     }
 
     public float method1188(String str) {
@@ -536,11 +530,11 @@ public class Class160 extends MinecraftUtil implements Closeable {
     }
 
     public void method1189(MatrixStack stack, String s, float x, float y, int offset) {
-        this.method1167(stack, s, x, y, 255.0F, 255.0F, 255.0F, 255.0F, true, offset);
+        this.draw(stack, s, x, y, 255.0F, 255.0F, 255.0F, 255.0F, true, offset);
     }
 
-    public void method1190(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
-        this.method1167(stack, s, x, y, r, g, b, a, false, 0);
+    public void draw(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
+        this.draw(stack, s, x, y, r, g, b, a, false, 0);
     }
 
     public float method1191(String text) {
@@ -555,14 +549,14 @@ public class Class160 extends MinecraftUtil implements Closeable {
         for (char var8 : var2) {
             if (var8 == '\n') {
                 if (var3 == 0.0F) {
-                    var3 = this.method1179(' ') == null ? 0.0F : (float)((Class2)Objects.requireNonNull(this.method1179(' '))).method8() / (float)this.field1586;
+                    var3 = this.method1179(' ') == null ? 0.0F : (float)((CharToBeRendered)Objects.requireNonNull(this.method1179(' '))).height() / (float)this.field1586;
                 }
 
                 var4 += var3;
                 var3 = 0.0F;
             } else {
-                Class2 var9 = this.method1179(var8);
-                var3 = Math.max(var9 == null ? 0.0F : (float)var9.method8() / (float)this.field1586, var3);
+                CharToBeRendered var9 = this.method1179(var8);
+                var3 = Math.max(var9 == null ? 0.0F : (float)var9.height() / (float)this.field1586, var3);
             }
         }
 
@@ -574,7 +568,7 @@ public class Class160 extends MinecraftUtil implements Closeable {
         float var9 = (float)(color >> 8 & 0xFF) / 255.0F;
         float var10 = (float)(color & 0xFF) / 255.0F;
         float var11 = (float)(color >> 24 & 0xFF) / 255.0F;
-        this.method1190(stack, s, (float)x, (float)y, var8, var9, var10, var11);
+        this.draw(stack, s, (float)x, (float)y, var8, var9, var10, var11);
     }
 
     private static String method1194() {

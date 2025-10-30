@@ -96,7 +96,7 @@ public class CategoryComponent {
         TextRenderer fr = MinecraftClient.getInstance().textRenderer;
         int n3 = (int)Math.ceil(this.field2335.method1845());
         int n4 = 22 + n3;
-        RenderUtil.method1578(ctx.getMatrices(), this.x, this.y, this.size, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
+        RenderUtil.drawCircle(ctx.getMatrices(), this.x, this.y, this.size, n4, 12.0f, 0, 1.0f, 0x55FFFFFF);
         CategoryComponent.fill(ctx, this.x + 1, this.y + 1, this.size - 2, 21, -1726737127);
         CategoryComponent.fill(ctx, this.x + 1, this.y + 22, this.size - 2, n4 - 22 - 1, 0x66FFFFFF);
         String string = this.category != null ? this.category.name() : "CATEGORY";

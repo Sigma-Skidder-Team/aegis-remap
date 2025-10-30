@@ -2,8 +2,9 @@ package nikoisntcat.client.utils.font;
 
 import it.unimi.dsi.fastutil.chars.Char2IntArrayMap;
 
-class Class312 extends Char2IntArrayMap {
-    Class312() {
+// why...
+class HexValueMap extends Char2IntArrayMap {
+    HexValueMap() {
         this.put('0', 0);
         this.put('1', 170);
         this.put('2', 43520);

@@ -41,14 +41,14 @@ public class LogoModule extends Module {
                + " | "
                + Formatting.WHITE
                + var4;
-            this.field1730 = this.method1281(FontManager.field2423.method1186(var5) + 10.0F, this.field1730, 0.1F);
+            this.field1730 = this.method1281(FontManager.medium16.method1186(var5) + 10.0F, this.field1730, 0.1F);
             ShaderUtil.blur(
                event.getDrawContext().getMatrices(),
-               matrixStack -> RenderUtil.method1578(
+               matrixStack -> RenderUtil.drawCircle(
                      matrixStack,
                      4.0F,
                      5.0F,
-                     4.0F + this.field1730 + FontManager.field2411.method1186("Aegis"),
+                     4.0F + this.field1730 + FontManager.medium20.method1186("Aegis"),
                      17.0F,
                      1.0F,
                      new Color(10, 10, 10, 255).getRGB(),
@@ -59,21 +59,21 @@ public class LogoModule extends Module {
                new Color(10, 10, 10, 255).getRGB(),
                1.0F
             );
-            RenderUtil.method1578(
+            RenderUtil.drawCircle(
                event.getDrawContext().getMatrices(),
                6.0F,
                6.0F,
-               this.field1730 + FontManager.field2411.method1186("Aegis"),
+               this.field1730 + FontManager.medium20.method1186("Aegis"),
                1.0F,
                1.0F,
                new Color(255, 0, 0, 150).getRGB(),
                0.0F,
                0
             );
-            FontManager.field2423
-               .method1192(event.getDrawContext().getMatrices(), var5, (double)(11.0F + FontManager.field2411.method1186("Aegis")), 10.0, Color.WHITE.getRGB());
-            FontManager.field2411.method1192(event.getDrawContext().getMatrices(), "Aegis", 8.5, 8.0, new Color(31, 135, 204).getRGB());
-            FontManager.field2411.method1192(event.getDrawContext().getMatrices(), "Aegis", 9.0, 8.5, Color.WHITE.getRGB());
+            FontManager.medium16
+               .method1192(event.getDrawContext().getMatrices(), var5, (double)(11.0F + FontManager.medium20.method1186("Aegis")), 10.0, Color.WHITE.getRGB());
+            FontManager.medium20.method1192(event.getDrawContext().getMatrices(), "Aegis", 8.5, 8.0, new Color(31, 135, 204).getRGB());
+            FontManager.medium20.method1192(event.getDrawContext().getMatrices(), "Aegis", 9.0, 8.5, Color.WHITE.getRGB());
             break;
          case "B":
             BuiltText var8 = Builder.text().font(MsdfFontManager.nourd).text("Aegis").color(Color.WHITE).size(30.0F).build();

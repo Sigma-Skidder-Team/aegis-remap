@@ -38,23 +38,23 @@ public abstract class MixinMinecraftClient {
         try {
             FontManager.icon48 = FontManager.createFont(48.0f, "icon");
             FontManager.thin18 = FontManager.createFont(18.0f, "thin");
-            FontManager.field2414 = FontManager.createFont(20.0f, "thin");
-            FontManager.field2415 = FontManager.createFont(30.0f, "thin");
-            FontManager.field2426 = FontManager.createFont(22.0f, "thin");
-            FontManager.field2412 = FontManager.createFont(24.0f, "thin");
-            FontManager.field2408 = FontManager.createFont(26.0f, "thin");
-            FontManager.field2413 = FontManager.createFont(28.0f, "thin");
-            FontManager.field2424 = FontManager.createFont(18.0f, "light");
-            FontManager.field2409 = FontManager.createFont(20.0f, "light");
-            FontManager.field2406 = FontManager.createFont(22.0f, "light");
-            FontManager.field2420 = FontManager.createFont(24.0f, "light");
-            FontManager.field2417 = FontManager.createFont(26.0f, "light");
-            FontManager.field2407 = FontManager.createFont(28.0f, "light");
-            FontManager.field2421 = FontManager.createFont(30.0f, "light");
-            FontManager.field2410 = FontManager.createFont(14.0f, "jelloLight");
-            FontManager.field2419 = FontManager.createFont(25.0f, "jelloLight");
-            FontManager.field2423 = FontManager.createFont(16.0f, "medium");
-            FontManager.field2411 = FontManager.createFont(20.0f, "medium");
+            FontManager.thin20 = FontManager.createFont(20.0f, "thin");
+            FontManager.thin30 = FontManager.createFont(30.0f, "thin");
+            FontManager.thin22 = FontManager.createFont(22.0f, "thin");
+            FontManager.thin24 = FontManager.createFont(24.0f, "thin");
+            FontManager.thin26 = FontManager.createFont(26.0f, "thin");
+            FontManager.thin28 = FontManager.createFont(28.0f, "thin");
+            FontManager.light18 = FontManager.createFont(18.0f, "light");
+            FontManager.light20 = FontManager.createFont(20.0f, "light");
+            FontManager.light22 = FontManager.createFont(22.0f, "light");
+            FontManager.light24 = FontManager.createFont(24.0f, "light");
+            FontManager.light26 = FontManager.createFont(26.0f, "light");
+            FontManager.light28 = FontManager.createFont(28.0f, "light");
+            FontManager.light30 = FontManager.createFont(30.0f, "light");
+            FontManager.jelloLight14 = FontManager.createFont(14.0f, "jelloLight");
+            FontManager.jelloLight25 = FontManager.createFont(25.0f, "jelloLight");
+            FontManager.medium16 = FontManager.createFont(16.0f, "medium");
+            FontManager.medium20 = FontManager.createFont(20.0f, "medium");
         }
         catch (Exception e) {
             e.printStackTrace();

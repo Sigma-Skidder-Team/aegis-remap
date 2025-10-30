@@ -13,41 +13,41 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FontManager {
-    public static Class160 field2406;
-    public static Class160 field2407;
-    public static Class160 field2408;
-    public static Class160 field2409;
-    public static Class160 field2410;
-    public static Class160 field2411;
-    public static Class160 field2412;
-    public static Class160 field2413;
-    public static Class160 field2414;
-    public static Class160 field2415;
-    private static Map field2416;
-    public static Class160 field2417;
+    public static FontRenderer light22;
+    public static FontRenderer light28;
+    public static FontRenderer thin26;
+    public static FontRenderer light20;
+    public static FontRenderer jelloLight14;
+    public static FontRenderer medium20;
+    public static FontRenderer thin24;
+    public static FontRenderer thin28;
+    public static FontRenderer thin20;
+    public static FontRenderer thin30;
+    private static final Map<Integer, FontRenderer> frMaps;
+    public static FontRenderer light26;
     private static final Logger logger;
-    public static Class160 field2419;
-    public static Class160 field2420;
-    public static Class160 field2421;
-    public static Class160 thin18;
-    public static Class160 field2423;
-    public static Class160 field2424;
-    public static Class160 icon48;
-    public static Class160 field2426;
+    public static FontRenderer jelloLight25;
+    public static FontRenderer light24;
+    public static FontRenderer light30;
+    public static FontRenderer thin18;
+    public static FontRenderer medium16;
+    public static FontRenderer light18;
+    public static FontRenderer icon48;
+    public static FontRenderer thin22;
 
     static {
         logger = LoggerFactory.getLogger(FontManager.class);
-        field2416 = new HashMap();
+        frMaps = new HashMap<>();
     }
 
-    public static Class160 method1987(int size) {
-        if (field2416.containsKey(size)) {
-            return (Class160)field2416.get(size);
+    public static FontRenderer cachedCreate(int size) {
+        if (frMaps.containsKey(size)) {
+            return frMaps.get(size);
         }
         try {
-            Class160 class160 = FontManager.createFont(size, "icon");
-            field2416.put(size, class160);
-            return class160;
+            FontRenderer fontRenderer = FontManager.createFont(size, "icon");
+            frMaps.put(size, fontRenderer);
+            return fontRenderer;
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -56,7 +56,8 @@ public class FontManager {
     }
 
     @NotNull
-    public static Class160 createFont(float size, String name) throws IOException, FontFormatException {
-        return new Class160(Font.createFont(0, Objects.requireNonNull(AegisClient.class.getClassLoader().getResourceAsStream("assets/fonts/" + name + ".ttf"))).deriveFont(0, size / 2.0f), size / 2.0f);
+    public static FontRenderer createFont(float size, String name) throws IOException, FontFormatException {
+        var ttf = Objects.requireNonNull(AegisClient.class.getClassLoader().getResourceAsStream("assets/fonts/" + name + ".ttf"));
+        return new FontRenderer(Font.createFont(Font.TRUETYPE_FONT, ttf).deriveFont(Font.PLAIN, size / 2.0f), size / 2.0f);
     }
 }

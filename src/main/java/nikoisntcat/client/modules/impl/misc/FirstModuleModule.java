@@ -122,8 +122,8 @@ public class FirstModuleModule extends Module {
     @Override
     public void onRender2D(Render2DEvent event) {
         ShaderUtil.blur(event.getDrawContext().getMatrices(), matrixStack -> {
-            FontManager.field2419.method1181(event.getDrawContext().getMatrices(), "Oh Geez", 1.0, 1.0, Color.WHITE);
-            RenderUtil.method1578(event.getDrawContext().getMatrices(), 4.0f, 4.0f, 50.0f, 50.0f, 5.0f, new Color(200, 0, 0, 200).getRGB(), 0.0f, Color.WHITE.getRGB());
+            FontManager.jelloLight25.draw(event.getDrawContext().getMatrices(), "Oh Geez", 1.0, 1.0, Color.WHITE);
+            RenderUtil.drawCircle(event.getDrawContext().getMatrices(), 4.0f, 4.0f, 50.0f, 50.0f, 5.0f, new Color(200, 0, 0, 200).getRGB(), 0.0f, Color.WHITE.getRGB());
         }, 1.0f, Color.WHITE.getRGB(), 1.0f);
     }
 }

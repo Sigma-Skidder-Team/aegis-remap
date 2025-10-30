@@ -37,7 +37,7 @@ import net.minecraft.util.math.Vec3d;
 import nikoisntcat.AegisClient;
 import nikoisntcat.client.modules.impl.combat.KillAuraModule;
 import nikoisntcat.client.utils.MinecraftUtil;
-import nikoisntcat.client.utils.font.Class160;
+import nikoisntcat.client.utils.font.FontRenderer;
 import nikoisntcat.client.utils.font.FontManager;
 import nikoisntcat.client.utils.math.Shader;
 import org.joml.Matrix4f;
@@ -105,7 +105,7 @@ public class RenderUtil extends MinecraftUtil {
     public static void method1562(
             MatrixStack matrixStack, double entityX, double entityY, double entityZ, LivingEntity entity, float scale, String customName, float output
     ) {
-        Class160 var11 = FontManager.field2406;
+        FontRenderer var11 = FontManager.light22;
         String var12 = customName == null ? entity.getName().getString().replaceAll("§.", "") : customName;
         RenderSystem.depthMask(false);
         RenderSystem.disableCull();
@@ -164,13 +164,13 @@ public class RenderUtil extends MinecraftUtil {
             }
 
             var11.method1192(matrixStack, var12, 0.0, -20.0, var17.getRGB());
-            int var29 = (int) FontManager.field2410.method1186("Health: 20.0");
+            int var29 = (int) FontManager.jelloLight14.method1186("Health: 20.0");
             String var25 = "Health: ";
             if (var29 > var20) {
                 var25 = "H: ";
             }
 
-            FontManager.field2410.method1192(matrixStack, var25 + var18, 0.0, 2.0, -3355444);
+            FontManager.jelloLight14.method1192(matrixStack, var25 + var18, 0.0, 2.0, -3355444);
             matrixStack.pop();
             matrixStack.pop();
             RenderSystem.disableBlend();
@@ -188,8 +188,8 @@ public class RenderUtil extends MinecraftUtil {
 
     //TODO: Fix notifications not rendering fonts
     public static double method1564(DrawContext drawContext, int x, int y, String text, String title, String iconCode, float percent) {
-        Class160 iconFont = FontManager.icon48;
-        Class160 var8 = FontManager.field2426;
+        FontRenderer iconFont = FontManager.icon48;
+        FontRenderer var8 = FontManager.thin22;
         int var9 = (int) iconFont.method1191(iconCode) + 5;
         int var10 = (int) iconFont.method1186(iconCode);
         int var12 = (int) var8.method1186(title) + 8;
@@ -507,7 +507,7 @@ public class RenderUtil extends MinecraftUtil {
     }
 
     public static void method1575(MatrixStack matrixStack, double entityX, double entityY, double entityZ, LivingEntity entity, float scale, String customName, float output) {
-        Class160 var11 = FontManager.field2419;
+        FontRenderer var11 = FontManager.jelloLight25;
         String var12 = customName == null ? entity.getName().getString().replaceAll("§.", "") : customName;
         RenderSystem.depthMask(false);
         RenderSystem.disableCull();
@@ -552,13 +552,13 @@ public class RenderUtil extends MinecraftUtil {
 
             matrixStack.push();
             matrixStack.translate((double) (-var11.method1186(var12) / 2.0F), 0.0, 0.0);
-            int var26 = (int) FontManager.field2410.method1186("Health: 20.0");
+            int var26 = (int) FontManager.jelloLight14.method1186("Health: 20.0");
             String var25 = "Health: ";
             if (var26 > var20) {
                 var25 = "H: ";
             }
 
-            FontManager.field2410.method1192(matrixStack, var25 + var16, 0.0, 2.0, -65794);
+            FontManager.jelloLight14.method1192(matrixStack, var25 + var16, 0.0, 2.0, -65794);
             var11.method1192(matrixStack, var12, 0.0, -20.0, -65794);
             matrixStack.pop();
             matrixStack.pop();
@@ -709,17 +709,17 @@ public class RenderUtil extends MinecraftUtil {
         matrixStack.pop();
     }
 
-    public static void method1578(MatrixStack matrixStack, float x, float y, float width, float height, float radius, int color, float borderWidth, int borderColor) {
+    public static void drawCircle(MatrixStack matrixStack, float x, float y, float width, float height, float radius, int clr, float borderWidth, int bClr) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        float var9 = (float) (color >> 16 & 0xFF) / 255.0F;
-        float var10 = (float) (color >> 8 & 0xFF) / 255.0F;
-        float var11 = (float) (color & 0xFF) / 255.0F;
-        float var12 = (float) (color >> 24 & 0xFF) / 255.0F;
-        float var13 = (float) (borderColor >> 16 & 0xFF) / 255.0F;
-        float var14 = (float) (borderColor >> 8 & 0xFF) / 255.0F;
-        float var15 = (float) (borderColor & 0xFF) / 255.0F;
-        float var16 = (float) (borderColor >> 24 & 0xFF) / 255.0F;
+        float var9 = (float) (clr >> 16 & 0xFF) / 255.0F;
+        float var10 = (float) (clr >> 8 & 0xFF) / 255.0F;
+        float var11 = (float) (clr & 0xFF) / 255.0F;
+        float var12 = (float) (clr >> 24 & 0xFF) / 255.0F;
+        float var13 = (float) (bClr >> 16 & 0xFF) / 255.0F;
+        float var14 = (float) (bClr >> 8 & 0xFF) / 255.0F;
+        float var15 = (float) (bClr & 0xFF) / 255.0F;
+        float var16 = (float) (bClr >> 24 & 0xFF) / 255.0F;
         Shader shader = AegisClient.shaders;
         shader.set("rounded");
         shader.setUniformFloats("Size", width, height);
