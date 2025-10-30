@@ -44,7 +44,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class RenderUtil extends MinecraftUtil {
-    private static final MultiPhase field2050;
+    private static final MultiPhase phase;
     private static final Function field2051;
     static Object field2052;
 
@@ -54,7 +54,7 @@ public class RenderUtil extends MinecraftUtil {
         float var10 = (float) (color >> 16 & 0xFF) / 255.0F;
         float var11 = (float) (color >> 8 & 0xFF) / 255.0F;
         float var12 = (float) (color & 0xFF) / 255.0F;
-        VertexConsumer var13 = context.vertexConsumers.getBuffer(field2050);
+        VertexConsumer var13 = context.vertexConsumers.getBuffer(phase);
         float var14 = radius;
         float var15 = Math.max(0.0F, radius - thickness);
         float var16 = x;
@@ -249,7 +249,7 @@ public class RenderUtil extends MinecraftUtil {
                                 .build(false)
                 )
         );
-        field2050 = RenderLayer.of(
+        phase = RenderLayer.of(
                 "debug_triangle_strip",
                 VertexFormats.POSITION_COLOR,
                 DrawMode.TRIANGLE_STRIP,
