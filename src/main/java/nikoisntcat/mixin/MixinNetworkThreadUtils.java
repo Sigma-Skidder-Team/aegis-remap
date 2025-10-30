@@ -14,6 +14,10 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin({NetworkThreadUtils.class})
 public class MixinNetworkThreadUtils {
+    /**
+     * @author idk
+     * @reason black monkeys :wilted_rose:
+     */
     @Overwrite
     public static <T extends PacketListener> void forceMainThread(Packet<T> packet, T listener, ThreadExecutor<?> engine) throws OffThreadException {
         if (!engine.isOnThread()) {
@@ -27,12 +31,12 @@ public class MixinNetworkThreadUtils {
                         }
 
                         packet.apply(listener);
-                    } catch (Exception var41) {
-                        if (var41 instanceof CrashException crashException && crashException.getCause() instanceof OutOfMemoryError) {
-                            throw NetworkThreadUtils.createCrashException(var41, packet, listener);
+                    } catch (Exception e) {
+                        if (e instanceof CrashException crashException && crashException.getCause() instanceof OutOfMemoryError) {
+                            throw NetworkThreadUtils.createCrashException(e, packet, listener);
                         }
 
-                        listener.onPacketException(packet, var41);
+                        listener.onPacketException(packet, e);
                     }
                 } else {
                     LogUtils.getLogger().debug("Ignoring packet due to disconnection: {}", packet);
